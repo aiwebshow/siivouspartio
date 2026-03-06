@@ -1100,7 +1100,7 @@ async function handleBooking(){
   if(!phone){alert('Syötä puhelinnumero.');return}
   if(!date){alert('Valitse toivottu päivämäärä.');return}
 
-  const svcLabels  = {pika:'Pikapartio 59€', aikataulu:'Aikataulutettu 45€', paketti:'Kuukausipaketti'}
+  const svcLabels  = {pikapartio:'Pikapartio 59€', aikataulutettu:'Aikataulutettu 45€', kuukausipaketti:'Kuukausipaketti'}
   const sizeLabels = {'2':'alle 35m²','2.5':'35–60m²','3.5':'60–90m²','4.5':'90m²+'}
 
   const btn = document.querySelector('.submit-btn')
@@ -1123,7 +1123,7 @@ async function handleBooking(){
             {name:'katuosoite',          value: address},
             {name:'kaupunki',            value: city},
             {name:'kohteen_koko',        value: sizeLabels[size] || size},
-            {name:'palvelu',             value: svcLabels[svc] || svc},
+            {name:'palvelu',             value: svc},
             {name:'asiakastyyppi',       value: custype},
             {name:'paivamaara',          value: date},
             {name:'toivottu_kellonaika', value: time},
