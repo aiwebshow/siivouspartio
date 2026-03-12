@@ -321,6 +321,35 @@ textarea{resize:vertical;min-height:82px}
 .form-fine{text-align:center;font-size:.73rem;color:rgba(255,255,255,.3);margin-top:12px;line-height:1.5}
 
 /* ── HERO CITIES BOX ── */
+/* ── TEAM NEW LAYOUT ── */
+.team-new-layout{display:grid;grid-template-columns:1fr 340px;gap:40px;align-items:start;margin-top:52px}
+.team-lead-card{display:grid;grid-template-columns:320px 1fr;gap:40px;align-items:start;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:20px;overflow:hidden}
+.team-lead-photo{height:100%;min-height:380px}
+.team-lead-photo img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(100%) brightness(.85);transition:filter .4s}
+.team-lead-card:hover .team-lead-photo img{filter:grayscale(0%) brightness(1)}
+.team-lead-info{padding:36px 36px 36px 0;display:flex;flex-direction:column}
+.team-lead-role{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:10px}
+.team-lead-name{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:#fff;letter-spacing:-.03em;margin-bottom:16px;line-height:1.1}
+.team-lead-desc{font-size:.88rem;color:rgba(255,255,255,.5);line-height:1.72;font-weight:300;margin-bottom:28px}
+.team-lead-contacts{display:flex;flex-direction:column;gap:10px}
+.tlc{display:flex;align-items:center;gap:14px;padding:13px 16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:10px;text-decoration:none;transition:all .2s;cursor:pointer}
+.tlc:hover{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.16)}
+.tlc-cta{background:rgba(244,97,30,.12);border-color:rgba(244,97,30,.25)}
+.tlc-cta:hover{background:rgba(244,97,30,.2);border-color:rgba(244,97,30,.4)}
+.tlc-icon{font-size:1.1rem;flex-shrink:0;width:32px;text-align:center}
+.tlc-label{font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:2px}
+.tlc-val{font-size:.88rem;font-weight:600;color:#fff}
+.tlc-cta .tlc-val{color:var(--orange2)}
+.team-sub-row{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:28px}
+.team-sub-label{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:18px}
+.team-sub-cards{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+.team-sub-card{position:relative;border-radius:10px;overflow:hidden}
+.team-sub-card img{width:100%;height:90px;object-fit:cover;object-position:top;display:block;filter:grayscale(100%) brightness(.7)}
+.team-sub-city{position:absolute;bottom:8px;left:10px;font-size:.72rem;font-weight:700;color:rgba(255,255,255,.75);background:rgba(0,0,0,.4);backdrop-filter:blur(4px);padding:3px 9px;border-radius:100px;letter-spacing:.04em}
+.team-sub-note{font-size:.76rem;color:rgba(255,255,255,.28);font-weight:300;line-height:1.5;font-style:italic}
+@media(max-width:1100px){.team-new-layout{grid-template-columns:1fr}.team-sub-cards{flex-direction:row}}
+@media(max-width:768px){.team-lead-card{grid-template-columns:1fr}.team-lead-photo{min-height:260px}.team-lead-info{padding:24px}}
+  
 /* ── CANCEL BANNER ── */
 .cancel-banner{background:var(--orange-pale);border-top:3px solid var(--orange);padding:18px 5%;display:flex;align-items:flex-start;gap:14px;font-size:.86rem;color:#7c3a1a}
 .cancel-banner strong{font-weight:700}
@@ -955,8 +984,8 @@ footer{background:var(--navy);padding:56px 5% 36px;color:rgba(255,255,255,.45)}
   </div>
 </section>
 
-<!-- TEAM -->
-<section class="team-section reveal">
+!-- TEAM (piilotettu — alkuperäinen versio) -->
+<section class="team-section reveal" style="display:none">
   <div class="section-label">Tiimi</div>
   <h2 class="section-title">Partiojohtajat ja avainhenkilöt</h2>
   <p class="section-sub">Siivouspartion takana on kokenut tiimi, joka varmistaa että jokainen käynti menee nappiin — ajoissa, ammattitaidolla.</p>
@@ -1012,6 +1041,62 @@ footer{background:var(--navy);padding:56px 5% 36px;color:rgba(255,255,255,.45)}
         <div class="team-desc">Vantaan alueen nopeasti reagoivan yksikön johtaja. Erikoistunut pienkohteiden monipuolisiin tarpeisiin.</div>
         <span class="team-badge">📍 Vantaa</span>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM — uusi versio -->
+<section class="team-section" id="tiimi">
+  <div class="section-label">Tiimi</div>
+  <h2 class="section-title">Ota yhteyttä suoraan</h2>
+  <p class="section-sub">Kaikki varaukset, tarjouspyynnöt ja reklamaatiot hoitaa Rasmus — vastaus alle 30 minuutissa arkisin.</p>
+
+  <div class="team-new-layout reveal">
+    <!-- Rasmus — päähenkilö -->
+    <div class="team-lead-card">
+      <div class="team-lead-photo">
+        <img src="Rasmus.avif" alt="Rasmus Rautavirta">
+      </div>
+      <div class="team-lead-info">
+        <div class="team-lead-role">Asiakaspalvelu · Myynti · Operaatiot</div>
+        <div class="team-lead-name">Rasmus Rautavirta</div>
+        <p class="team-lead-desc">Rasmus on ensimmäinen kontaktisi — hoitaa varaukset, tarjoukset ja reklamaatiot. Vastaa kaikkiin viesteihin alle 30 minuutissa arkisin klo 7–20.</p>
+        <div class="team-lead-contacts">
+          <a href="tel:+358401234567" class="tlc">
+            <div class="tlc-icon">📞</div>
+            <div><div class="tlc-label">Puhelin</div><div class="tlc-val">040 123 4567</div></div>
+          </a>
+          <a href="mailto:rasmus@siivouspartio.fi" class="tlc">
+            <div class="tlc-icon">✉️</div>
+            <div><div class="tlc-label">Sähköposti</div><div class="tlc-val">rasmus@siivouspartio.fi</div></div>
+          </a>
+          <a href="#varaus" class="tlc tlc-cta">
+            <div class="tlc-icon">⚡</div>
+            <div><div class="tlc-label">Nopein tapa</div><div class="tlc-val">Täytä varauslomake →</div></div>
+          </a>
+        </div>
+        <span class="team-badge" style="margin-top:20px">📍 Kaikki alueet</span>
+      </div>
+    </div>
+
+    <!-- Partiojohtajat — tukihenkilöt -->
+    <div class="team-sub-row">
+      <div class="team-sub-label">Partiojohtajat kentällä</div>
+      <div class="team-sub-cards">
+        <div class="team-sub-card">
+          <img src="Oona.avif" alt="Oona Pennanen">
+          <div class="team-sub-city">📍 Helsinki</div>
+        </div>
+        <div class="team-sub-card">
+          <img src="Henry.avif" alt="Henry Forssell">
+          <div class="team-sub-city">📍 Espoo</div>
+        </div>
+        <div class="team-sub-card">
+          <img src="Sagar.avif" alt="Sagar Bhandari">
+          <div class="team-sub-city">📍 Vantaa</div>
+        </div>
+      </div>
+      <p class="team-sub-note">Partiojohtajien yhteystiedot saat tarvittaessa Rasmukselta.</p>
     </div>
   </div>
 </section>
