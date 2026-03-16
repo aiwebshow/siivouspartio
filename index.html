@@ -73,7 +73,7 @@ nav ul a:hover{color:#fff}
 /* Right — image card + patrol widget layered on top */
 .hero-right{position:relative;animation:fadeUp .5s .3s ease both;padding-bottom:90px}
 .hero-stat-badges{display:flex;gap:12px;margin-top:16px}
-.hero-stat-badge{display:flex;flex-direction:column;align-items:flex-start;padding:14px 18px;background:#0a1628;border:1px solid rgba(255,255,255,.13);border-radius:14px;backdrop-filter:blur(16px);box-shadow:0 8px 32px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.07)}
+.hero-stat-badge{display:flex;flex-direction:column;align-items:flex-start;padding:14px 18px;background:#0a1628;border:1px solid rgba(255,255,255,.13);border-radius:14px;backdrop-filter:blur(16px);box-shadow:0 8px 32px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.07)}
 .hero-stat-badge-num{font-family:'Syne',sans-serif;font-size:1.35rem;font-weight:800;color:#fff;letter-spacing:-.03em;line-height:1}
 .hero-stat-badge-num span{color:var(--orange)}
 .hero-stat-badge-label{font-size:.68rem;font-weight:500;color:rgba(255,255,255,.42);text-transform:uppercase;letter-spacing:.06em;margin-top:3px}
@@ -140,7 +140,6 @@ nav ul a:hover{color:#fff}
 .varaus-contact-photo{height:260px;overflow:hidden;position:relative;cursor:default}
 .varaus-contact-photo img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;filter:grayscale(100%) brightness(.88);transition:filter .45s ease}
 .varaus-contact-card:hover .varaus-contact-photo img{filter:grayscale(0%) brightness(1)}
-.varaus-contact-photo-overlay{position:absolute;bottom:0;left:0;right:0;height:90px;background:linear-gradient(transparent,rgba(255,255,255,.95))}
 .varaus-contact-body{padding:20px 22px 24px}
 .varaus-contact-role{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:7px}
 .varaus-contact-name{font-family:'Syne',sans-serif;font-size:1.35rem;font-weight:800;color:var(--navy);letter-spacing:-.03em;margin-bottom:10px;line-height:1.1}
@@ -805,13 +804,13 @@ footer{background:var(--navy);padding:56px 5% 36px;color:rgba(255,255,255,.45)}
         <div class="cmp-metric">
           <span class="cmp-big">4</span><span class="cmp-big-unit">h</span>
         </div>
-        <div class="cmp-label">Siivouspartio — pikapartio saatavuus</div>
+        <div class="cmp-label">Pikapartio - Suomen nopein siivouspalvelu</div>
         <div class="cmp-bar-track"><div class="cmp-bar-fill" data-w="10%"></div></div>
       </div>
 
       <div class="cmp-block cmp-fade">
         <div class="cmp-metric">
-          <span class="cmp-big">7–14</span><span class="cmp-big-unit">pv</span>
+          <span class="cmp-big">3–7</span><span class="cmp-big-unit">pv</span>
         </div>
         <div class="cmp-label">Perinteinen siivousfirma — odotusaika</div>
         <div class="cmp-bar-track"><div class="cmp-bar-fill them" data-w="100%"></div></div>
@@ -997,7 +996,7 @@ footer{background:var(--navy);padding:56px 5% 36px;color:rgba(255,255,255,.45)}
       <div class="step-body">
         <div class="step-num">03</div>
         <div class="step-title">Partio saapuu</div>
-        <div class="step-desc">Ammattilaiset saapuvat sovittuna aikana varusteineen. Työ tehdään aina kunnolla.</div>
+        <div class="step-desc">Ammattilaiset saapuvat sovittuna aikana varusteineen. Työ tehdään aina kunnolla ja sovitussa ajassa.</div>
         <div class="step-badge">🧹 100% takuu</div>
       </div>
     </div>
@@ -1319,7 +1318,6 @@ footer{background:var(--navy);padding:56px 5% 36px;color:rgba(255,255,255,.45)}
       <div class="varaus-contact-card reveal">
         <div class="varaus-contact-photo">
           <img src="Rasmus.avif" alt="Rasmus Rautavirta">
-          <div class="varaus-contact-photo-overlay"></div>
         </div>
         <div class="varaus-contact-body">
           <div class="varaus-contact-role">Asiakaspalvelu · Myynti · Operaatiot</div>
