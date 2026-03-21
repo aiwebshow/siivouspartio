@@ -1978,7 +1978,7 @@ async function handleBooking(){
         {name:'service_date',       value: date},
         {name:'service_time',       value: time},
         {name:'lisatiedot',          value: notes}
-        // arvioitu_hinta — lisää kun kenttä on luotu HubSpotissa ja lisätty lomakkeelle
+        {name:'arvioitu_hinta',      value: arvioidutHinta}
       ],
       context: {pageUri: window.location.href, pageName: 'Siivouspartio — Varauslomake', hutk: getHutk()},
       legalConsentOptions: {
