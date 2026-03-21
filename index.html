@@ -1949,6 +1949,12 @@ async function handleBooking(){
   const palvelutoiveet = [...document.querySelectorAll('input[name="palvelutyyppi"]:checked')]
                           .map(i => i.value).join(';')
 
+  const priceDisplay = document.getElementById('priceDisplay')
+  const priceText = priceDisplay ? priceDisplay.innerText.replace(/\s+/g, ' ').trim() : ''
+  const exvatEl = document.getElementById('ps-exvat')
+  const exvatText = (exvatEl && exvatEl.style.display !== 'none') ? ' · ' + exvatEl.textContent.trim() : ''
+  const arvioidutHinta = priceText + exvatText
+
   const svcLabels  = {pikapartio:'Pikapartio 59€', aikataulutettu:'Aikataulutettu 45€', kuukausipaketti:'Kuukausipaketti'}
   const sizeLabels = {'2':'alle 35m²','2.5':'35–60m²','3.5':'60–90m²','4.5':'90m²+'}
 
