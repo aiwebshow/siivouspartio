@@ -1,0 +1,2356 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Siivouspartio — Suomen nopein siivouspalvelu</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+<!-- HubSpot tracking — required for hutk cookie & spam prevention -->
+<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/147825068.js"></script>
+<style>
+:root {
+  --navy: #0a1628;
+  --navy2: #112040;
+  --orange: #f4611e;
+  --orange2: #ff7535;
+  --orange-pale: #fff2eb;
+  --white: #ffffff;
+  --offwhite: #f6f4f1;
+  --gray: #8898aa;
+  --graylight: #e5e8ec;
+  --text: #111827;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;color:var(--text);background:var(--offwhite);overflow-x:hidden}
+h1,h2,h3,h4,.logo-text,.stat-num,.price-amount,.form-title,.step-title,.step-num{font-family:'Syne',sans-serif}
+
+/* ── TOP BAR ── */
+.topbar{background:var(--orange);padding:9px 5%;display:flex;justify-content:center;align-items:center;gap:10px;font-size:.8rem;font-weight:600;color:var(--white);letter-spacing:.03em;position:relative;z-index:101}
+.topbar span{opacity:.8}
+.topbar strong{font-weight:800}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:100;padding:0 5%;height:66px;display:flex;align-items:center;justify-content:space-between;background:rgba(10,22,40,.97);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.06)}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-icon{width:34px;height:34px;background:var(--orange);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:17px}
+.logo-text{font-size:1.12rem;font-weight:700;color:#fff;letter-spacing:-.02em}
+.logo-text span{color:var(--orange)}
+nav ul{display:flex;gap:32px;list-style:none}
+nav ul a{color:rgba(255,255,255,.65);text-decoration:none;font-size:.87rem;font-weight:500;transition:color .2s}
+nav ul a:hover{color:#fff}
+.nav-cta{background:var(--orange)!important;color:#fff!important;padding:8px 20px;border-radius:6px;font-weight:600!important}
+.nav-cta:hover{background:var(--orange2)!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:24px;height:2px;background:#fff;border-radius:2px}
+.mobile-nav{display:none;position:fixed;top:66px;left:0;right:0;background:var(--navy);padding:20px 5%;z-index:99;border-bottom:1px solid rgba(255,255,255,.07)}
+.mobile-nav.open{display:block}
+.mobile-nav ul{list-style:none}
+.mobile-nav ul li{margin-bottom:4px}
+.mobile-nav ul li a{color:rgba(255,255,255,.8);text-decoration:none;font-size:.95rem;display:block;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+
+/* ── HERO ── */
+/* ── HERO ── */
+.hero{min-height:92vh;background:var(--navy);position:relative;overflow:hidden;display:flex;align-items:center;padding:72px 5% 80px}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.4)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+.hero-glow{position:absolute;top:-10%;right:10%;width:600px;height:600px;background:radial-gradient(circle,rgba(244,97,30,.11) 0%,transparent 65%);pointer-events:none}
+.hero-glow2{position:absolute;bottom:-20%;left:0;width:400px;height:400px;background:radial-gradient(circle,rgba(244,97,30,.06) 0%,transparent 60%);pointer-events:none}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:56px 56px}
+.hero-inner{position:relative;z-index:2;width:100%;display:grid;grid-template-columns:2fr 3fr;gap:48px;align-items:center}
+
+/* Left — text */
+.hero-left{display:flex;flex-direction:column;justify-content:center}
+.hero-speed-tag{display:inline-flex;align-items:center;gap:10px;background:rgba(244,97,30,.18);border:1px solid rgba(244,97,30,.35);color:var(--orange2);padding:7px 16px;border-radius:100px;font-size:.78rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;margin-bottom:28px;animation:fadeUp .5s ease both;align-self:flex-start}
+.hero-speed-tag::before{content:'';width:7px;height:7px;background:var(--orange);border-radius:50%;animation:blink 1.8s infinite;flex-shrink:0}
+.hero h1{font-size:clamp(2.6rem,3.8vw,4.2rem);font-weight:800;line-height:1.05;letter-spacing:-.04em;color:#fff;margin-bottom:22px;animation:fadeUp .5s .08s ease both}
+.hero h1 em{font-style:normal;color:var(--orange);display:block}
+.hero-sub{font-size:1.05rem;color:rgba(255,255,255,.52);line-height:1.72;margin-bottom:38px;font-weight:300;animation:fadeUp .5s .16s ease both}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;animation:fadeUp .5s .22s ease both}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--orange);color:#fff;padding:14px 26px;border-radius:8px;font-weight:600;font-size:.93rem;text-decoration:none;border:none;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif}
+.btn-primary:hover{background:var(--orange2);transform:translateY(-2px);box-shadow:0 10px 28px rgba(244,97,30,.38)}
+.btn-secondary{display:inline-flex;align-items:center;gap:8px;background:transparent;color:rgba(255,255,255,.72);padding:14px 24px;border-radius:8px;font-weight:500;font-size:.93rem;text-decoration:none;border:1px solid rgba(255,255,255,.18);transition:all .2s;cursor:pointer}
+.btn-secondary:hover{border-color:rgba(255,255,255,.45);color:#fff;background:rgba(255,255,255,.05)}
+
+/* Right — image card + patrol widget layered on top */
+.hero-right{position:relative;animation:fadeUp .5s .3s ease both;padding-bottom:90px}
+.hero-stat-badges{display:flex;gap:12px;margin-top:16px}
+.hero-stat-badge{display:flex;flex-direction:column;align-items:flex-start;padding:14px 18px;background:#0a1628;border:1px solid rgba(255,255,255,.13);border-radius:14px;backdrop-filter:blur(16px);box-shadow:0 8px 32px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.07)}
+.hero-stat-badge-num{font-family:'Syne',sans-serif;font-size:1.35rem;font-weight:800;color:#fff;letter-spacing:-.03em;line-height:1}
+.hero-stat-badge-num span{color:var(--orange)}
+.hero-stat-badge-label{font-size:.68rem;font-weight:500;color:rgba(255,255,255,.42);text-transform:uppercase;letter-spacing:.06em;margin-top:3px}
+/* Image card — contained box */
+.hero-img-card{border-radius:22px;overflow:hidden;position:relative;will-change:transform;transition:transform .08s linear}
+.hero-img-card img{width:100%;height:480px;object-fit:cover;display:block;transition:filter .45s}
+.hero-img-card:hover img{filter:brightness(1.00)}
+.hpc-img-overlay{position:absolute;inset:0;background:linear-gradient(160deg,transparent 40%,rgba(8,18,40,.7) 100%)}
+.hpc-img-badge{position:absolute;top:18px;left:18px;display:flex;align-items:center;gap:8px;background:rgba(10,22,40,.75);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.13);border-radius:100px;padding:6px 14px}
+.hpc-dot{width:9px;height:9px;background:var(--orange);border-radius:50%;box-shadow:0 0 0 3px rgba(244,97,30,.25);animation:blink 2s infinite;flex-shrink:0}
+.hpc-label{font-size:.75rem;font-weight:600;color:rgba(255,255,255,.65);letter-spacing:.07em;text-transform:uppercase}
+.hpc-img-counter{position:absolute;bottom:20px;left:20px}
+.hpc-img-big{font-family:'Syne',sans-serif;font-size:2.8rem;font-weight:800;color:#fff;letter-spacing:-.04em;line-height:1}
+.hpc-img-big span{color:var(--orange)}
+.hpc-img-sub{font-size:.77rem;color:rgba(255,255,255,.52);font-weight:300;margin-top:3px}
+
+/* Patrol widget — floats outside the image card, layered in front */
+.hero-patrol-widget{
+  position:absolute;
+  bottom:0;
+  right:-18px;
+  width:300px;
+  z-index:10;
+  background:rgba(6,12,28,.97);
+  border-radius:18px;
+  border:1px solid var(--orange);
+  backdrop-filter:blur(22px);
+  overflow:hidden;
+  box-shadow:
+    0 8px 24px rgba(0,0,0,.28),
+    0 2px 8px rgba(0,0,0,.15),
+    inset 0 1px 0 rgba(255,255,255,.08),
+    0 0 0 4px rgba(244,97,30,.08)
+  ;
+  will-change:transform;
+  transition:transform .08s linear
+}
+.hero-patrol-widget .patrol-map-header{display:flex;align-items:center;gap:9px;padding:13px 15px 7px}
+.hero-patrol-widget .patrol-map-wrap{width:100%;height:290px;position:relative;overflow:hidden}
+.hero-patrol-widget .patrol-svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hero-patrol-widget .patrol-map-count{position:absolute;bottom:9px;left:11px;z-index:2;background:rgba(8,18,40,.92);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:6px 11px}
+.hero-patrol-widget .patrol-areas{padding:9px 11px 13px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
+.hero-patrol-widget .patrol-area{border-radius:8px;padding:9px 7px;text-align:center;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07)}
+.hero-patrol-widget .pa-name{font-family:'Syne',sans-serif;font-size:.72rem;font-weight:700;color:#fff;margin-bottom:3px}
+.hero-patrol-widget .pa-count{font-size:.64rem;color:rgba(255,255,255,.38)}
+
+@media(max-width:1060px){
+  .hero-inner{grid-template-columns:1fr}
+  .hero{padding-bottom:60px}
+  .hero-right{padding-bottom:0}
+  .hero-stat-badges{display:none}
+  .hero-img-card{border-radius:22px 22px 0 0}
+  .hero-patrol-widget{position:static;width:100%;right:0;border-radius:0 0 18px 18px;border:none;border-top:0px solid var(--orange);box-shadow:none;backdrop-filter:blur(8px)}
+  .hero-patrol-widget .patrol-map-wrap{height:220px}
+}
+@media(max-width:768px){
+  .hero{padding:44px 5% 44px}
+  .hero h1{font-size:clamp(2.2rem,8vw,3rem)}
+  .hero-img-card img{height:300px}
+  .hero-patrol-widget .patrol-map-wrap{height:260px}
+}
+
+/* ── VARAUS OUTER LAYOUT ── */
+.varaus-outer{display:grid;grid-template-columns:1fr 360px;gap:52px;align-items:stretch;margin-top:0}
+.varaus-left .booking-form-wrap{max-width:none;margin:28px 0 0}
+.varaus-contact-card{background:var(--white);border-radius:20px;overflow:hidden;border:1.5px solid var(--graylight);box-shadow:0 4px 24px rgba(10,22,40,.07)}
+.varaus-contact-photo{height:260px;overflow:hidden;position:relative;cursor:default}
+.varaus-contact-photo img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;filter:grayscale(100%) brightness(.88);transition:filter .45s ease}
+.varaus-contact-card:hover .varaus-contact-photo img{filter:grayscale(0%) brightness(1)}
+.varaus-contact-body{padding:20px 22px 24px}
+.varaus-contact-role{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:7px}
+.varaus-contact-name{font-family:'Syne',sans-serif;font-size:1.35rem;font-weight:800;color:var(--navy);letter-spacing:-.03em;margin-bottom:10px;line-height:1.1}
+.varaus-contact-desc{font-size:.83rem;color:#5a6475;line-height:1.65;font-weight:300;margin-bottom:18px}
+.varaus-contact-links{display:flex;flex-direction:column;gap:8px}
+.vcl{display:flex;align-items:center;gap:12px;padding:11px 14px;background:var(--offwhite);border:1.5px solid var(--graylight);border-radius:10px;text-decoration:none;transition:all .2s;cursor:pointer}
+.vcl:hover{background:var(--graylight);border-color:#d1d5db}
+.vcl-icon{font-size:1rem;flex-shrink:0;width:28px;text-align:center}
+.vcl-label{font-size:.65rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#9ca3af;margin-bottom:1px}
+.vcl-val{font-size:.84rem;font-weight:600;color:var(--navy)}
+.vcl-cta{background:rgba(244,97,30,.07);border-color:rgba(244,97,30,.2)}
+.vcl-cta:hover{background:rgba(244,97,30,.13);border-color:rgba(244,97,30,.35)}
+.vcl-cta .vcl-val{color:var(--orange)}
+.varaus-right{display:flex;flex-direction:column;justify-content:flex-end}
+@media(max-width:1060px){.varaus-outer{grid-template-columns:1fr;gap:32px}}
+
+/* ── TRUST BAR ── */
+.trust-bar{background:var(--navy2);padding:14px 0;border-bottom:1px solid rgba(255,255,255,.06);overflow:hidden}
+.trust-marquee-wrap{overflow:hidden;width:100%}
+.trust-marquee{display:flex;align-items:center;white-space:nowrap;animation:marquee 28s linear infinite}
+.trust-marquee:hover{animation-play-state:paused}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.trust-item{display:inline-flex;align-items:center;gap:10px;color:rgba(255,255,255,.65);font-size:.84rem;font-weight:500;padding:0 36px;flex-shrink:0}
+.trust-item .ti-icon{font-size:1.15rem;opacity:.9}
+.trust-sep{width:1px;height:16px;background:rgba(255,255,255,.12);flex-shrink:0}
+@media(max-width:768px){.trust-item{padding:0 22px}.trust-marquee{animation-duration:9.33s}}
+
+/* ── SECTION COMMONS ── */
+section{padding:96px 5%}
+.section-label{display:inline-flex;align-items:center;gap:8px;font-size:.73rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:14px}
+.section-label::before{content:'';display:block;width:22px;height:2px;background:var(--orange)}
+.section-title{font-size:clamp(1.8rem,3.5vw,2.7rem);font-weight:800;letter-spacing:-.03em;line-height:1.1;margin-bottom:14px;color:var(--navy)}
+.section-sub{font-size:1rem;color:#5a6475;line-height:1.72;max-width:520px;font-weight:300}
+
+/* ── SPEED SECTION ── */
+.speed-section{background:var(--white);overflow:hidden;position:relative}
+.speed-section::after{content:'NOPEIN';position:absolute;right:-2%;top:50%;transform:translateY(-50%);font-family:'Syne',sans-serif;font-size:clamp(80px,14vw,160px);font-weight:800;color:rgba(10,22,40,.04);pointer-events:none;white-space:nowrap;letter-spacing:-.04em}
+.speed-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.speed-claims{display:flex;flex-direction:column;gap:20px;margin-top:36px}
+.speed-claim{display:flex;align-items:flex-start;gap:0;padding:20px;background:var(--offwhite);border-radius:12px;border-left:3px solid var(--orange)}
+.sc-icon{font-size:1.6rem;flex-shrink:0}
+.sc-title{font-family:'Syne',sans-serif;font-size:.95rem;font-weight:700;color:var(--navy);margin-bottom:4px}
+.sc-desc{font-size:.84rem;color:#6b7280;line-height:1.55}
+.speed-right-card{background:var(--navy);border-radius:20px;padding:44px 40px;color:#fff}
+.src-label{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:28px}
+
+/* Comparison card — bold metric style */
+.cmp-block{margin-bottom:6px}
+.cmp-metric{display:flex;align-items:baseline;line-height:1;margin-bottom:5px}
+.cmp-big{font-family:'Syne',sans-serif;font-size:3.6rem;font-weight:800;letter-spacing:-.04em;color:#fff;line-height:1}
+.cmp-big-unit{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:rgba(244,97,30,1);letter-spacing:-.03em;margin-left:3px;align-self:flex-end;padding-bottom:4px}
+.cmp-fade .cmp-big,.cmp-fade .cmp-big-unit{color:rgba(255,255,255,.2)}
+.cmp-label{font-size:.82rem;color:rgba(255,255,255,.42);font-weight:300;margin-bottom:10px;line-height:1.4}
+.cmp-bar-track{height:3px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;margin-bottom:24px}
+.cmp-bar-fill{height:100%;border-radius:2px;background:var(--orange);width:0;transition:width 1s ease}
+.cmp-bar-fill.them{background:rgba(255,255,255,.12)}
+.cmp-divider-line{height:1px;background:rgba(255,255,255,.07);margin:18px 0}
+.cmp-chips{display:flex;flex-direction:column;gap:7px}
+.cmp-chip{display:flex;align-items:center;justify-content:space-between;padding:9px 13px;background:rgba(255,255,255,.04);border-radius:8px;border:1px solid rgba(255,255,255,.06)}
+.cmp-chip-label{font-size:.77rem;color:rgba(255,255,255,.38)}
+.cmp-chip-vals{display:flex;align-items:center;gap:9px}
+.cmp-chip-us{font-size:.8rem;font-weight:700;color:var(--orange2)}
+.cmp-chip-sep{font-size:.68rem;color:rgba(255,255,255,.14)}
+.cmp-chip-them{font-size:.76rem;color:rgba(255,255,255,.2)}
+
+/* ── CUSTOMERS ── */
+.customers-section{background:var(--offwhite)}
+.customer-tabs{display:flex;gap:8px;margin:36px 0 48px}
+.ctab{padding:10px 22px;border-radius:100px;border:1.5px solid var(--graylight);background:var(--white);font-size:.88rem;font-weight:600;color:#6b7280;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif}
+.ctab.active{background:var(--navy);border-color:var(--navy);color:#fff}
+.ctab:hover:not(.active){border-color:var(--navy);color:var(--navy)}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.service-card{background:var(--white);border-radius:14px;padding:28px;border:1.5px solid var(--graylight);transition:all .25s;cursor:default}
+.service-card:hover{border-color:var(--orange);box-shadow:0 6px 28px rgba(244,97,30,.1);transform:translateY(-3px)}
+.service-card.b2c-card{display:none}
+.service-card.b2b-card{display:block}
+.sc2-icon{font-size:2.2rem;margin-bottom:16px}
+.sc2-title{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:8px}
+.sc2-desc{font-size:.84rem;color:#6b7280;line-height:1.6}
+.sc2-tag{display:inline-block;margin-top:14px;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--orange);background:var(--orange-pale);padding:3px 10px;border-radius:100px}
+
+/* ── HOW IT WORKS ── */
+.how-section{background:var(--white)}
+.how-header{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:60px}
+.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;border-radius:16px;overflow:hidden}
+.step-card{background:var(--offwhite);overflow:hidden;position:relative;border:none;border-radius:0;cursor:default}
+.step-img{width:100%;height:180px;object-fit:cover;display:block;filter:grayscale(100%) brightness(.9);transition:filter .4s ease}
+.step-card:hover .step-img{filter:grayscale(0%) brightness(1)}
+.step-img-overlay{position:relative}
+
+.step-body{padding:22px 22px 26px;position:relative;z-index:2}
+.step-num{font-size:2.8rem;font-weight:800;color:var(--graylight);line-height:1;margin-bottom:10px}
+.step-title{font-size:.95rem;font-weight:700;color:var(--navy);margin-bottom:8px}
+.step-desc{font-size:.83rem;color:#6b7280;line-height:1.6}
+.step-badge{display:inline-flex;align-items:center;gap:5px;margin-top:12px;font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--orange);background:var(--orange-pale);padding:3px 10px;border-radius:100px}
+
+/* ── PRICING ── */
+.pricing-section{background:var(--navy);position:relative;overflow:hidden}
+.pricing-section::before{content:'';position:absolute;top:-200px;right:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(244,97,30,.09) 0%,transparent 60%)}
+.pricing-section .section-title{color:#fff}
+.pricing-section .section-sub{color:rgba(255,255,255,.45)}
+.pricing-header{margin-bottom:52px}
+.pricing-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;align-items:start}
+.price-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:34px 30px;transition:all .25s;position:relative}
+.price-card:hover{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.16);transform:translateY(-4px)}
+.price-card.featured{background:var(--orange);border-color:var(--orange)}
+.price-card.featured:hover{background:var(--orange2);border-color:var(--orange2)}
+.price-badge{position:absolute;top:-12px;left:30px;background:#fff;color:var(--orange);font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px;border-radius:100px}
+.price-icon{font-size:1.8rem;margin-bottom:16px}
+.price-name{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:5px}
+.price-tagline{font-size:.8rem;color:rgba(255,255,255,.45);margin-bottom:24px;line-height:1.5}
+.price-card.featured .price-tagline{color:rgba(255,255,255,.72)}
+.price-main{margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid rgba(255,255,255,.1)}
+.price-card.featured .price-main{border-bottom-color:rgba(255,255,255,.22)}
+.price-amount{font-size:2.7rem;font-weight:800;color:#fff;letter-spacing:-.03em;line-height:1}
+.price-amount sup{font-size:1.1rem;font-weight:600;vertical-align:super;margin-right:2px}
+.price-amount sub{font-size:.82rem;font-weight:400;color:rgba(255,255,255,.45)}
+.price-card.featured .price-amount sub{color:rgba(255,255,255,.68)}
+.price-note{font-size:.77rem;color:rgba(255,255,255,.4);margin-top:7px}
+.price-card.featured .price-note{color:rgba(255,255,255,.62)}
+.price-features{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+.price-features li{display:flex;align-items:flex-start;gap:9px;font-size:.85rem;color:rgba(255,255,255,.6);line-height:1.4}
+.price-card.featured .price-features li{color:rgba(255,255,255,.88)}
+.price-features li::before{content:'✓';color:var(--orange2);font-weight:700;font-size:.78rem;flex-shrink:0;margin-top:1px}
+.price-card.featured .price-features li::before{color:#fff}
+.btn-book{display:block;text-align:center;padding:12px 22px;border-radius:8px;font-weight:600;font-size:.88rem;text-decoration:none;cursor:pointer;transition:all .2s;border:none;font-family:'DM Sans',sans-serif}
+.btn-outline{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.25)}
+.btn-outline:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.5)}
+.btn-solid{background:#fff;color:var(--orange)}
+.btn-solid:hover{background:var(--offwhite);transform:translateY(-1px)}
+
+.chip-pricing-info{display:none}
+
+/* ── CPI MODAL ── */
+.cpi-modal-overlay{display:none;position:fixed;inset:0;background:rgba(5,12,28,.75);backdrop-filter:blur(6px);z-index:9000;align-items:center;justify-content:center;padding:20px}
+.cpi-modal-overlay.open{display:flex}
+.cpi-modal{background:#fff;border-radius:20px;padding:40px 38px;max-width:580px;width:100%;max-height:88vh;overflow-y:auto;position:relative;box-shadow:0 24px 80px rgba(0,0,0,.22)}
+.cpi-modal-close{position:absolute;top:16px;right:18px;background:none;border:none;font-size:1.1rem;color:#9ca3af;cursor:pointer;line-height:1;padding:4px 8px;border-radius:6px;transition:all .15s}
+.cpi-modal-close:hover{background:#f3f4f6;color:var(--navy)}
+.cpi-modal-header{margin-bottom:28px}
+.cpi-modal-icon{font-size:2rem;margin-bottom:10px}
+.cpi-modal-header h3{font-family:'Syne',sans-serif;font-size:1.25rem;font-weight:800;color:var(--navy);margin-bottom:8px;letter-spacing:-.02em}
+.cpi-modal-header p{font-size:.86rem;color:#5a6475;line-height:1.65}
+.cpi-modal-section{margin-bottom:24px}
+.cpi-modal-label{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#9ca3af;margin-bottom:12px}
+.cpi-modal-rows{display:flex;flex-direction:column;gap:0;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
+.cpi-modal-row{display:grid;grid-template-columns:auto auto 1fr;align-items:center;gap:12px;padding:11px 16px;border-bottom:1px solid #f3f4f6}
+.cpi-modal-row:last-child{border-bottom:none}
+.cpi-modal-chip{font-size:.82rem;font-weight:600;color:var(--navy);white-space:nowrap}
+.cpi-modal-tag{font-size:.73rem;font-weight:700;padding:3px 9px;border-radius:100px;white-space:nowrap}
+.cpi-free{background:#f0fdf4;color:#16a34a}
+.cpi-hours{background:#fff7ed;color:#c2410c}
+.cpi-mult{background:#fef2f2;color:#dc2626}
+.cpi-modal-desc{font-size:.78rem;color:#6b7280;line-height:1.45}
+.cpi-modal-note{background:var(--offwhite);border-radius:10px;padding:14px 16px;font-size:.82rem;color:#5a6475;line-height:1.6;margin-bottom:20px;border-left:3px solid var(--orange)}
+.cpi-modal-cta{display:block;text-align:center;background:var(--orange);color:#fff;padding:14px;border-radius:10px;font-family:'Syne',sans-serif;font-weight:700;font-size:.93rem;text-decoration:none;transition:all .2s}
+.cpi-modal-cta:hover{background:var(--orange2)}
+@media(max-width:600px){.cpi-modal{padding:28px 20px}.cpi-modal-row{grid-template-columns:1fr auto;gap:8px}.cpi-modal-desc{grid-column:1/-1;margin-top:-4px}}
+
+/* ── SIZE TABLE ── */
+.size-section{background:var(--offwhite)}
+.size-layout{display:grid;grid-template-columns:1fr 1.6fr;gap:70px;align-items:start;margin-top:52px}
+.size-table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 18px rgba(0,0,0,.06)}
+.size-table th{background:var(--navy);color:rgba(255,255,255,.65);font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:13px 18px;text-align:left}
+.size-table td{padding:13px 18px;font-size:.86rem;color:var(--text);border-bottom:1px solid var(--graylight)}
+.size-table tr:last-child td{border-bottom:none}
+.size-table tr:hover td{background:rgba(244,97,30,.03)}
+.size-table td.price-col{color:var(--orange);font-weight:700;font-family:'Syne',sans-serif}
+.guarantee-box{background:#fff;border-radius:16px;padding:38px;box-shadow:0 2px 18px rgba(0,0,0,.06)}
+.guarantee-icon{font-size:2.8rem;margin-bottom:18px}
+.guarantee-box h3{font-family:'Syne',sans-serif;font-size:1.45rem;font-weight:800;color:var(--navy);margin-bottom:10px;letter-spacing:-.02em}
+.guarantee-box p{font-size:.9rem;color:#5a6475;line-height:1.7;font-weight:300}
+.guarantee-points{margin-top:22px;display:flex;flex-direction:column;gap:12px}
+.gp{display:flex;align-items:flex-start;gap:12px;font-size:.86rem;color:#4a5568;line-height:1.5}
+.gp-dot{width:20px;height:20px;background:var(--orange-pale);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.68rem;color:var(--orange);font-weight:700;margin-top:1px}
+
+/* ── AREAS ── */
+.areas-section{background:#fff}
+.areas-layout{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:start;margin-top:52px}
+.area-group{margin-bottom:32px}
+.area-city{font-family:'Syne',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.area-city::after{content:'';flex:1;height:1px;background:var(--graylight)}
+.area-tags{display:flex;flex-wrap:wrap;gap:7px}
+.area-tag{background:var(--offwhite);color:var(--text);font-size:.81rem;padding:5px 13px;border-radius:100px;border:1px solid var(--graylight);font-weight:500;transition:all .2s;cursor:default}
+.area-tag:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
+.map-block{background:var(--navy);border-radius:16px;height:460px;position:relative;overflow:hidden}
+/* SVG map container */
+.map-svg-wrap{position:relative;width:100%;height:100%}
+.map-svg-wrap svg.map-bg{width:100%;height:100%;display:block}
+/* Hover rings layer */
+.map-rings-layer{position:absolute;inset:0;pointer-events:none}
+.map-rings-layer svg{width:100%;height:100%}
+/* Pulsing ring animation triggered by hover */
+@keyframes ring-expand{
+  0%  {r:10;opacity:.9;stroke-width:2.5}
+  100%{r:48;opacity:0;stroke-width:.8}
+}
+.hover-ring{fill:none;stroke:rgba(244,97,30,.9);animation:ring-expand 1.2s ease-out forwards}
+.hover-ring-2{fill:none;stroke:rgba(244,97,30,.5);animation:ring-expand 1.2s .22s ease-out forwards}
+.hover-dot{fill:rgba(244,97,30,1);filter:drop-shadow(0 0 7px rgba(244,97,30,.8));transition:opacity .2s}
+.hover-label{fill:#fff;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:.05em;opacity:0;transition:opacity .3s}
+.hover-label.visible{opacity:.85}
+/* Stats overlay */
+.patrol-counter{position:absolute;bottom:18px;left:18px;background:rgba(10,22,40,.85);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:10px 16px;display:flex;gap:18px;z-index:10}
+.pc-item{text-align:center}
+.pc-num{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;color:#fff;line-height:1}
+.pc-num span{color:var(--orange)}
+.pc-label{font-size:.62rem;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.06em;margin-top:2px}
+/* Active area tag highlight */
+.area-tag{background:var(--offwhite);color:var(--text);font-size:.81rem;padding:5px 13px;border-radius:100px;border:1px solid var(--graylight);font-weight:500;transition:all .2s;cursor:pointer}
+.area-tag:hover,.area-tag.map-active{background:var(--orange);color:#fff;border-color:var(--orange);transform:translateY(-1px)}
+
+/* ── TEAM SECTION ── */
+.team-section{background:var(--navy);padding:96px 5%}
+.team-section .section-label{color:rgba(255,255,255,.35)}
+.team-section .section-label::before{background:rgba(255,255,255,.2)}
+.team-section .section-title{color:#fff}
+.team-section .section-sub{color:rgba(255,255,255,.4)}
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:52px;border-radius:16px;overflow:hidden}
+.team-card{background:rgba(255,255,255,.03);border:none;border-radius:0;overflow:hidden;position:relative;cursor:default;transition:background .4s ease}
+.team-card:hover{background:rgba(255,255,255,.09)}
+.team-photo{height:220px;background:rgba(255,255,255,.04);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.team-photo img{filter:grayscale(100%) brightness(.85);transition:filter .4s ease}
+.team-card:hover .team-photo img{filter:grayscale(0%) brightness(1)}
+.team-avatar{width:80px;height:80px;border-radius:50%;background:rgba(244,97,30,.12);border:1.5px solid rgba(244,97,30,.25);display:flex;align-items:center;justify-content:center;font-size:2.2rem;transition:transform .3s,border-color .3s}
+.team-card:hover .team-avatar{transform:scale(1.06);border-color:rgba(244,97,30,.6)}
+.team-photo-overlay{position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(transparent,rgba(10,22,40,.6))}
+.team-number{position:absolute;top:14px;left:16px;font-family:'Syne',sans-serif;font-size:.65rem;font-weight:700;color:rgba(255,255,255,.18);letter-spacing:.1em}
+.team-info{padding:20px 22px 24px}
+.team-name{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:#fff;margin-bottom:4px;letter-spacing:-.01em}
+.team-role{font-size:.72rem;font-weight:600;color:var(--orange);letter-spacing:.06em;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.team-role::before{content:'';width:14px;height:1.5px;background:var(--orange);flex-shrink:0}
+.team-desc{font-size:.8rem;color:rgba(255,255,255,.38);line-height:1.6;font-weight:300}
+.team-badge{display:inline-flex;align-items:center;gap:5px;margin-top:14px;font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--orange2);background:rgba(244,97,30,.15);border:1px solid rgba(244,97,30,.3);padding:5px 12px;border-radius:100px}
+@media(max-width:1060px){.team-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){.team-grid{grid-template-columns:1fr 1fr;gap:2px}}
+.tlc-hours{margin-top:22px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:16px 18px}
+.tlc-hours-title{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:12px}
+.tlc-hours-row{display:flex;justify-content:space-between;align-items:center;font-size:.82rem;color:rgba(255,255,255,.65);padding:5px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.tlc-hours-row:last-child{border-bottom:none}
+.tlc-hours-row span:last-child{font-weight:600;color:#fff}
+
+.alv-toggle{display:flex;gap:0;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:4px;flex-shrink:0;align-self:flex-end;margin-bottom:4px}
+.alv-btn{background:none;border:none;color:rgba(255,255,255,.45);font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:600;padding:7px 16px;border-radius:7px;cursor:pointer;transition:all .2s;white-space:nowrap}
+.alv-btn.active{background:var(--orange);color:#fff}
+.alv-btn:hover:not(.active){color:#fff;background:rgba(255,255,255,.08)}
+
+/* ── BOOKING REBUILD ── */
+.booking-section{background:var(--white);padding:96px 5%}
+.bf-divider{height:1px;background:rgba(255,255,255,.08);margin:20px 0}
+.bf-sub-title{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:14px}
+/* Service chips multiselect */
+.chips-wrap{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:4px}
+.chip-opt{position:relative}
+.chip-opt input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.chip-opt label{display:inline-flex;align-items:center;gap:6px;padding:7px 13px;border:1.5px solid rgba(255,255,255,.12);border-radius:100px;font-size:.8rem;font-weight:500;color:rgba(255,255,255,.5);background:rgba(255,255,255,.05);cursor:pointer;transition:all .2s;white-space:nowrap;text-transform:none;letter-spacing:0;margin-bottom:0}
+.chip-opt label:hover{border-color:rgba(244,97,30,.4);color:rgba(255,255,255,.8);background:rgba(255,255,255,.08)}
+.chip-opt input[type=checkbox]:checked+label{border-color:var(--orange);background:rgba(244,97,30,.18);color:var(--orange2)}
+
+/* ── MULTI-STEP FORM ── */
+.booking-form-wrap{display:block;background:var(--navy);border-radius:24px;overflow:hidden;box-shadow:0 12px 60px rgba(10,22,40,.22);border:1px solid var(--orange);margin-top:28px}
+.msf-steps{display:flex;align-items:center;padding:32px 40px 0}
+.msf-step{display:flex;flex-direction:column;align-items:center;gap:8px;flex:0 0 auto}
+.msf-step-num{width:34px;height:34px;border-radius:50%;border:2px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:.82rem;font-weight:700;color:rgba(255,255,255,.28);transition:all .3s}
+.msf-step.active .msf-step-num{border-color:var(--orange);background:var(--orange);color:#fff;box-shadow:0 0 0 5px rgba(244,97,30,.18)}
+.msf-step.done .msf-step-num{border-color:rgba(255,255,255,.28);background:rgba(255,255,255,.07);color:rgba(255,255,255,.5);font-size:0}
+.msf-step.done .msf-step-num::after{content:'✓';font-size:.82rem}
+.msf-step-label{font-size:.67rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:rgba(255,255,255,.2);transition:color .3s;white-space:nowrap}
+.msf-step.active .msf-step-label{color:var(--orange2)}
+.msf-step.done .msf-step-label{color:rgba(255,255,255,.38)}
+.msf-step-line{flex:1;height:1px;background:rgba(255,255,255,.1);margin:0 12px;margin-bottom:22px;transition:background .4s}
+.msf-step-line.done{background:rgba(255,255,255,.3)}
+.msf-panel{display:none;padding:28px 40px}
+.msf-panel.active{display:block}
+.msf-panel.slide-fwd{animation:msf-fwd .26s ease both}
+.msf-panel.slide-bck{animation:msf-bck .26s ease both}
+@keyframes msf-fwd{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:translateX(0)}}
+@keyframes msf-bck{from{opacity:0;transform:translateX(-18px)}to{opacity:1;transform:translateX(0)}}
+.msf-panel-title{font-size:.7rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:22px}
+.msf-footer{border-top:1px solid rgba(255,255,255,.08);padding:18px 40px;display:flex;align-items:center;justify-content:space-between;gap:16px;background:rgba(0,0,0,.18)}
+.msf-price-label{font-size:.7rem;color:rgba(255,255,255,.35);font-weight:500;margin-bottom:4px}
+.msf-price-label span{opacity:.75}
+#priceDisplay{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;color:#fff;letter-spacing:-.02em;line-height:1.1}
+#priceDisplay span{font-size:.7rem;font-weight:400;color:rgba(255,255,255,.35)}
+#ps-exvat{font-size:.74rem;color:rgba(255,255,255,.32);margin-top:3px}
+.msf-nav{display:flex;gap:10px;flex-shrink:0}
+.msf-btn-back{padding:11px 20px;border-radius:8px;border:1.5px solid rgba(255,255,255,.15);background:transparent;color:rgba(255,255,255,.55);font-size:.85rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+.msf-btn-back:hover{border-color:rgba(255,255,255,.4);color:#fff;background:rgba(255,255,255,.06)}
+.msf-btn-next{padding:11px 26px;border-radius:8px;border:none;background:var(--orange);color:#fff;font-size:.88rem;font-weight:700;cursor:pointer;font-family:'Syne',sans-serif;transition:all .2s;letter-spacing:.02em}
+.msf-btn-next:hover{background:var(--orange2);transform:translateY(-1px);box-shadow:0 6px 18px rgba(244,97,30,.3)}
+#msfResult{padding:0 40px}
+#msfResult:not(:empty){padding:0 40px 24px}
+.msf-success{padding:16px 20px;background:rgba(22,163,74,.13);border:1px solid rgba(22,163,74,.28);border-radius:12px;color:#4ade80;font-size:.9rem;text-align:center;line-height:1.6}
+@media(max-width:860px){.msf-steps{padding:24px 24px 0}.msf-panel{padding:24px 24px}.msf-footer{padding:14px 24px;flex-wrap:wrap}.msf-nav{width:100%;justify-content:space-between}}
+@media(max-width:480px){.msf-step-label{display:none}}
+.ci{display:flex;align-items:center;gap:12px;margin-bottom:14px;font-size:.9rem;color:var(--text)}
+.ci-icon{width:34px;height:34px;background:var(--navy);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.ci a{color:var(--text);text-decoration:none;font-weight:500;transition:color .2s}
+.ci a:hover{color:var(--orange)}
+.pay-box{margin-top:32px;padding:20px 22px;background:var(--offwhite);border-radius:12px;border:1px solid var(--graylight)}
+.pay-label{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#9ca3af;margin-bottom:10px}
+.pay-methods{display:flex;gap:8px;flex-wrap:wrap}
+.pm{background:#fff;border-radius:6px;padding:5px 13px;font-size:.8rem;font-weight:600;color:#374151;border:1px solid var(--graylight)}
+.booking-form-card{background:var(--navy);border-radius:20px;padding:42px 38px;box-shadow:0 8px 48px rgba(10,22,40,.18)}
+.form-title{font-size:1.25rem;font-weight:700;color:#fff;margin-bottom:26px;letter-spacing:-.02em}
+.fg{margin-bottom:18px}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px}
+label{display:block;font-size:.75rem;font-weight:600;color:rgba(255,255,255,.55);letter-spacing:.04em;text-transform:uppercase;margin-bottom:7px}
+input,select,textarea{width:100%;padding:11px 15px;border:1.5px solid rgba(255,255,255,.1);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.88rem;color:#fff;background:rgba(255,255,255,.07);transition:all .2s;outline:none;appearance:none;-webkit-appearance:none}
+input::placeholder,textarea::placeholder{color:rgba(255,255,255,.3)}
+select option{background:var(--navy);color:#fff}
+input:focus,select:focus,textarea:focus{border-color:var(--orange);background:rgba(255,255,255,.12);box-shadow:0 0 0 3px rgba(244,97,30,.2)}
+textarea{resize:vertical;min-height:82px}
+.svc-sel{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-bottom:18px}
+.svc-opt{position:relative}
+.svc-opt input[type=radio]{position:absolute;opacity:0;width:0}
+.svc-opt label{display:block;padding:11px 8px;border:1.5px solid rgba(255,255,255,.12);border-radius:10px;text-align:center;cursor:pointer;transition:all .2s;text-transform:none;letter-spacing:0;font-size:.78rem;font-weight:500;color:rgba(255,255,255,.5);background:rgba(255,255,255,.05);margin-bottom:0}
+.svc-opt label strong{display:block;font-family:'Syne',sans-serif;font-size:.82rem;font-weight:700;color:rgba(255,255,255,.8);margin-bottom:2px}
+.svc-opt input[type=radio]:checked+label{border-color:var(--orange);background:rgba(244,97,30,.18);color:var(--orange2)}
+.svc-opt input[type=radio]:checked+label strong{color:#fff}
+.svc-opt label:hover{border-color:rgba(244,97,30,.4);background:rgba(255,255,255,.08)}
+.price-summary{margin-top:auto;padding-top:20px;border-top:2px dashed rgba(255,255,255,.12)}
+.ps-label{font-size:.78rem;color:rgba(255,255,255,.45);line-height:1.4}
+.ps-value{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;color:#fff;letter-spacing:-.02em;margin-top:4px}
+.ps-value span{font-size:.72rem;font-weight:400;color:rgba(255,255,255,.4)}
+.submit-btn{width:100%;padding:14px;margin-top:28px;background:var(--orange);color:#fff;border:none;border-radius:8px;font-family:'Syne',sans-serif;font-size:.93rem;font-weight:700;cursor:pointer;transition:all .2s;letter-spacing:.02em}
+.submit-btn:hover{background:var(--orange2);transform:translateY(-2px);box-shadow:0 8px 22px rgba(244,97,30,.3)}
+.form-fine{text-align:center;font-size:.73rem;color:rgba(255,255,255,.3);margin-top:12px;line-height:1.5}
+
+/* ── HERO CITIES BOX ── */
+/* ── TEAM NEW LAYOUT ── */
+.team-new-layout{display:grid;grid-template-columns:1fr 340px;gap:40px;align-items:stretch;margin-top:52px}
+.team-lead-card{display:grid;grid-template-columns:320px 1fr;gap:40px;align-items:stretch;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:20px;overflow:hidden;height:100%}
+.team-lead-photo{height:100%;min-height:380px}
+.team-lead-photo img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(100%) brightness(.85);transition:filter .4s}
+.team-lead-card:hover .team-lead-photo img{filter:grayscale(0%) brightness(1)}
+.team-lead-info{padding:36px 36px 36px 0;display:flex;flex-direction:column}
+.team-lead-role{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:10px}
+.team-lead-name{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:#fff;letter-spacing:-.03em;margin-bottom:16px;line-height:1.1}
+.team-lead-desc{font-size:.88rem;color:rgba(255,255,255,.5);line-height:1.72;font-weight:300;margin-bottom:28px}
+.team-lead-contacts{display:flex;flex-direction:column;gap:10px}
+.tlc{display:flex;align-items:center;gap:14px;padding:13px 16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:10px;text-decoration:none;transition:all .2s;cursor:pointer}
+.tlc:hover{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.16)}
+.tlc-cta{background:rgba(244,97,30,.12);border-color:rgba(244,97,30,.25)}
+.tlc-cta:hover{background:rgba(244,97,30,.2);border-color:rgba(244,97,30,.4)}
+.tlc-icon{font-size:1.1rem;flex-shrink:0;width:32px;text-align:center}
+.tlc-label{font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:2px}
+.tlc-val{font-size:.88rem;font-weight:600;color:#fff}
+.tlc-cta .tlc-val{color:var(--orange2)}
+.team-sub-row{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:28px}
+.team-sub-label{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:18px}
+.team-sub-cards{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+.team-sub-card{position:relative;border-radius:10px;overflow:hidden}
+.team-sub-card img{width:100%;height:90px;object-fit:cover;object-position:top;display:block;filter:grayscale(100%) brightness(.7)}
+.team-sub-city{position:absolute;bottom:8px;left:10px;font-size:.72rem;font-weight:700;color:rgba(255,255,255,.75);background:rgba(0,0,0,.4);backdrop-filter:blur(4px);padding:3px 9px;border-radius:100px;letter-spacing:.04em}
+.team-sub-note{font-size:.76rem;color:rgba(255,255,255,.28);font-weight:300;line-height:1.5;font-style:italic}
+/* Patrol map card */
+.patrol-map-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;height:100%}
+.patrol-map-header{position:absolute;top:0;left:0;right:0;z-index:2;display:flex;align-items:center;gap:12px;padding:18px 20px;background:linear-gradient(to bottom,rgba(10,22,40,.85) 0%,transparent 100%)}
+.patrol-live-dot{width:9px;height:9px;background:var(--orange);border-radius:50%;box-shadow:0 0 0 3px rgba(244,97,30,.25);animation:blink 2s infinite;flex-shrink:0}
+.patrol-map-title{font-family:'Syne',sans-serif;font-size:.95rem;font-weight:700;color:#fff;line-height:1.2}
+.patrol-map-title span{font-size:.72rem;font-weight:400;color:rgba(255,255,255,.35);font-family:'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.06em}
+.patrol-map-wrap{position:relative;flex:1;min-height:0;overflow:hidden}
+.patrol-svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+@keyframes pd-pulse{0%{transform:scale(1);opacity:.7}50%{transform:scale(2.8);opacity:0}100%{transform:scale(1);opacity:0}}
+.pd{animation:pd-glow 2.4s ease-in-out infinite}
+@keyframes pd-glow{0%,100%{opacity:1}50%{opacity:.4}}
+.pd-ring{animation:pd-pulse 2.4s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.patrol-map-count{position:absolute;bottom:14px;left:14px;z-index:2;background:rgba(10,22,40,.88);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:9px 14px}
+.pmc-row{display:flex;align-items:center;gap:8px}
+.pmc-dot{width:7px;height:7px;background:var(--orange);border-radius:50%;animation:blink 2s infinite;flex-shrink:0}
+.pmc-num{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;color:#fff}
+.pmc-label{font-size:.72rem;color:rgba(255,255,255,.45);font-weight:400}
+/* Area info below map */
+.patrol-areas{padding:18px 20px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.patrol-area{border-radius:10px;padding:12px 10px;text-align:center;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);cursor:default;transition:all .2s}
+.patrol-area:hover{background:rgba(244,97,30,.1);border-color:rgba(244,97,30,.3)}
+.pa-name{font-family:'Syne',sans-serif;font-size:.82rem;font-weight:700;color:#fff;margin-bottom:4px}
+.pa-count{font-size:.72rem;color:rgba(255,255,255,.4)}
+.pa-dot{display:inline-block;width:6px;height:6px;background:var(--orange);border-radius:50%;margin-right:5px;animation:blink 2s infinite}
+@media(max-width:1100px){.team-new-layout{grid-template-columns:1fr}.team-sub-cards{flex-direction:row}}
+@media(max-width:768px){.team-lead-card{grid-template-columns:1fr}.team-lead-photo{min-height:260px}.team-lead-info{padding:24px}}
+
+/* ── CANCEL BANNER ── */
+.cancel-banner{background:var(--orange-pale);border-top:3px solid var(--orange);padding:18px 5%;display:flex;align-items:flex-start;gap:14px;font-size:.86rem;color:#7c3a1a}
+.cancel-banner strong{font-weight:700}
+
+/* ── FOOTER ── */
+footer{background:var(--navy);padding:56px 5% 36px;color:rgba(255,255,255,.45)}
+.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:56px;margin-bottom:44px}
+.footer-brand p{font-size:.83rem;line-height:1.72;margin-top:14px;font-weight:300}
+.footer-logos{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.footer-logo-divider{width:1px;height:32px;background:rgba(255,255,255,.12)}
+.footer-keramore{display:flex;flex-direction:column;gap:4px}
+.footer-keramore-label{font-size:.62rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.25)}
+.keramore-logo{display:flex;align-items:center;text-decoration:none;transition:opacity .2s}
+.keramore-logo:hover{opacity:.75}
+.keramore-logo-img{height:20px;max-height:20px;width:auto;display:block;opacity:.8}
+.footer-col h4{font-family:'Syne',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:16px}
+.footer-col ul{list-style:none}
+.footer-col ul li{margin-bottom:9px}
+.footer-col ul li a{color:rgba(255,255,255,.55);text-decoration:none;font-size:.86rem;transition:color .2s}
+.footer-col ul li a:hover{color:#fff}
+.footer-bottom{padding-top:26px;border-top:1px solid rgba(255,255,255,.07);display:flex;justify-content:space-between;align-items:center;font-size:.76rem}
+.footer-bottom a{color:rgba(255,255,255,.35);text-decoration:none}
+.footer-bottom a:hover{color:rgba(255,255,255,.65)}
+
+/* ── REVEAL ANIMATION ── */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1060px){
+  .speed-inner{grid-template-columns:1fr}
+  .steps-grid{grid-template-columns:repeat(2,1fr)}
+  .size-layout,.areas-layout,.booking-layout,.how-header{grid-template-columns:1fr;gap:36px}
+  .pricing-grid,.services-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr;gap:32px}
+}
+@media(max-width:768px){
+  nav ul{display:none}.hamburger{display:flex}
+  .svc-sel{grid-template-columns:1fr}
+  .frow{grid-template-columns:1fr}
+  section{padding:70px 5%}
+  .booking-form-card{padding:26px 20px}
+  .footer-bottom{flex-direction:column;gap:10px;text-align:center}
+  .pricing-header[style]{display:flex!important;flex-direction:column;align-items:flex-start;gap:16px}
+  .pricing-header .alv-toggle{align-self:flex-start;margin-top:0}
+  .hero{padding-top:44px;align-items:flex-start}
+  .hero-speed-tag{margin-top:8px}
+  .hpc-counter{font-size:3.2rem}
+}
+
+/* ── SLA MODAL ── */
+.sla-overlay{position:fixed;inset:0;background:rgba(10,22,40,.88);backdrop-filter:blur(6px);z-index:1000;display:none;align-items:center;justify-content:center;padding:20px}
+.sla-overlay.open{display:flex}
+.sla-modal{background:#fff;border-radius:20px;max-width:560px;width:100%;max-height:88vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.3)}
+.sla-header{padding:28px 32px 20px;border-bottom:1px solid #e5e8ec;flex-shrink:0}
+.sla-header h3{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;color:var(--navy);letter-spacing:-.02em;margin-bottom:4px}
+.sla-header p{font-size:.78rem;color:#6b7280}
+.sla-body{padding:24px 32px;overflow-y:auto;flex:1}
+.sla-body h4{font-family:'Syne',sans-serif;font-size:.8rem;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.07em;margin:20px 0 8px}
+.sla-body h4:first-child{margin-top:0}
+.sla-body p,.sla-body li{font-size:.84rem;color:#4a5568;line-height:1.72}
+.sla-body ul{padding-left:18px;margin:4px 0}
+.sla-body li{margin-bottom:4px}
+.sla-accept{padding:20px 32px;border-top:1px solid #e5e8ec;flex-shrink:0;background:#f9fafb}
+.sla-checkbox{display:flex;align-items:flex-start;gap:12px;margin-bottom:16px;cursor:pointer}
+.sla-checkbox input{width:22px;height:22px;flex-shrink:0;margin-top:1px;cursor:pointer;appearance:none;-webkit-appearance:none;border:2.5px solid var(--orange);border-radius:5px;background:#fff;transition:all .2s;position:relative}
+.sla-checkbox input:checked{background:var(--orange);border-color:var(--orange)}
+.sla-checkbox input:checked::after{content:"✓";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;font-size:13px;font-weight:800;line-height:1}
+.sla-checkbox span{font-size:.83rem;color:#374151;line-height:1.5}
+.sla-btns{display:flex;gap:10px}
+.sla-btn-cancel{flex:1;padding:11px;border-radius:8px;border:1.5px solid #e5e8ec;background:#fff;color:#6b7280;font-size:.85rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+.sla-btn-cancel:hover{border-color:#9ca3af;color:#374151}
+.sla-btn-confirm{flex:2;padding:11px;border-radius:8px;border:none;background:var(--orange);color:#fff;font-size:.85rem;font-weight:700;cursor:pointer;font-family:'Syne',sans-serif;transition:all .2s;opacity:.4;pointer-events:none}
+.sla-btn-confirm.active{opacity:1;pointer-events:all}
+.sla-btn-confirm.active:hover{background:var(--orange2)}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <strong>4h Pikapartio</strong>
+  <span>·</span>
+  <span>Soita paikalle: 044 2361914</span>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">
+    <div class="logo-icon"><img src="lightning-tiny.svg" alt="siivouspartio icon"></div>
+    <div class="logo-text">Siivous<span>partio</span></div>
+  </a>
+  <ul>
+    <li><a href="#nopeus">Miksi nopein</a></li>
+    <li><a href="#palvelut">Palvelut</a></li>
+    <li><a href="#hinnat">Hinnat</a></li>
+    <li><a href="#varaus" class="nav-cta">Varaa nyt</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-nav" id="mobileNav">
+  <ul>
+    <li><a href="#nopeus" onclick="toggleNav()">Miksi nopein</a></li>
+    <li><a href="#palvelut" onclick="toggleNav()">Palvelut</a></li>
+    <li><a href="#hinnat" onclick="toggleNav()">Hinnat</a></li>
+    <li><a href="#varaus" onclick="toggleNav()">Varaa nyt →</a></li>
+  </ul>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+
+    <!-- Vasen: teksti -->
+    <div class="hero-left">
+      <div class="hero-speed-tag">⚡ Suomen nopein siivouspalvelu</div>
+      <h1>
+        Likainen tilanne?
+        <em>Partio on jo matkalla.</em>
+      </h1>
+      <p class="hero-sub">Yli 200 ammattilaista valmiina. Koteihin, toimistoihin ja tapahtumiin. Espoo, Helsinki ja Vantaa — jopa 4 tunnissa.</p>
+      <div class="hero-actions">
+        <a href="#varaus" class="btn-primary">⚡ Varaa siivous nyt</a>
+        <a href="#palvelut" class="btn-secondary">Katso palvelut →</a>
+      </div>
+    </div>
+
+    <!-- Oikea: kuvakortti + patrol-widget kerrostettuna -->
+    <div class="hero-right">
+
+      <!-- Kuvakortti — oma suljettu boksi -->
+      <div class="hero-img-card">
+        <img src="hero.avif" alt="Siivouksen ammattilaiset valmiudessa">
+        <div class="hpc-img-overlay"></div>
+        <div class="hpc-img-badge">
+          <div class="hpc-dot"></div>
+          <div class="hpc-label">Valmius tällä hetkellä</div>
+        </div>
+        <div class="hpc-img-counter">
+          <div class="hpc-img-big">200<span>+</span></div>
+          <div class="hpc-img-sub">Ammattisiivoojan verkosto</div>
+        </div>
+      </div>
+
+      <!-- Leijuvat stat-palkit kuvan alla -->
+      <div class="hero-stat-badges">
+        <div class="hero-stat-badge">
+          <div class="hero-stat-badge-num">4<span>h</span></div>
+          <div class="hero-stat-badge-label">Pikapartio</div>
+        </div>
+        <div class="hero-stat-badge">
+          <div class="hero-stat-badge-num">100<span>%</span></div>
+          <div class="hero-stat-badge-label">Takuu</div>
+        </div>
+      </div>
+
+      <!-- Patrol-widget — leijailee kortin ulkopuolella, z-akseli edessä -->
+      <div class="hero-patrol-widget">
+        <div class="patrol-map-header">
+          <div class="patrol-live-dot"></div>
+          <div class="patrol-map-title">Partiot liikenteessä<br><span>juuri nyt</span></div>
+        </div>
+        <div class="patrol-map-wrap">
+            <svg viewBox="400 0 1300 1450" xmlns="http://www.w3.org/2000/svg" class="patrol-svg" preserveAspectRatio="xMidYMid slice">
+            <rect width="2100" height="1450" fill="#101729"/>
+            <path fill="#354367" d="M0,0v1450h274.94l51.42-75.82,9-17.39-9.74-39.58-11.73-50.02-9.98-20.43-17.15,35.65-27.65-24.41-31.09,8.31-107.65,89.88-15.88,7.4,70.09-80.96,53.67-28.25,21.03-49.93,22.69-27.62.17-22.8-13.22-7.15,10.73-34.08-15.12-12.93-29.02-40.83-2.42-16.87,27.7-2.2,35.49,31.42,17.05,49.65,14.93,35.29,25.88,8.14,18.46,6.06,16.67,36.42,20.96,21.24-11.15,36.02,29.88,20.18,28.57-17.18-23.36-15.12,8.87-29.29,27.77-14.73,44.17,18.84,28.14,11.37-40.44,34.72-54.51,29.91,2.25,12.97,11.01,3.23,6.12,1.34h.01l30.49,6.69,21.83,4.78,40.97-8.1h.01l24.29-4.8,4.22-5.68h.01s35.37-47.53,35.37-47.53l-38.91-83.82-47.94,6.56-65.82-36.62,80.09-48.07,67.12,9.58,71.61-40.27,109.59-52.58,32.69-53.16,91.03,45.72,31.94,58.44,51.17,25.38,43.24,3.36-9.02-60.8,20.42-55.12,16.97,23.7,7.26,42.85,11.12,30.8,26.26,21.1,37.36-23.87,37.01-7.35,39.16,6.84,38.77-21.22-43.79-78.39,65.65,26.76,14.57-23.11-12.54-17.52-48.14-.84,7.94-21.84-4.17-24.17,7.55-23.74,11.07,12.22,18.47-22.35,5.2,4.17-10.44,27.44,4.26,15.68,32.12-54.01,13.09-5.54,30.71,11.11,30.53,8.83,6.22,13.53h13.7l2.4-22.5,6.68-22.42-3.86-15.56,12.73-2.83,11.17,25.2,9.43,6.57,31.68,1.9,12.65,12.02-3.4,16.29-63.71-.76-10.67,24.71-11.88,6.03-8.86,22.51,3.98,22.28-1.15,12.99,8.96,37.97,13.59-11.06-5.09-14.73,18.55-7.85,32.98,30.72-11.39-42.93,18.38,17.93,14.89,21.99,27.08,5.93,44.6,4.48,28.74-20.32,18.56,23.29,43.16-17.63-14.03-43.61-27.62-26.9-24.51,4.82-29.61-.83-11.24-39.11-9.08-51.19,18.51-3.9,20.99-30.47-16.45-22.81,53.52-10.2,42.28-45.62,20.12-.46,9.03,11.96-26.5,42.45-19.44,32.42-15.79,26.05,19.53,1.71,32.75-33.81,48.54-4.53,23.91-27.46,8.89,38.63,38.04,38.4,19.26,1.77-20.04-40.76,20.04-20.99-37.63,5.26-24.59-24.73,63-14.79,15.14-3.96,9.85,25.01,20.13,24.93,26.07-8.8,19.66-39.28-26.19-30.52,52.61-26.24-21.53-31.85,5.33-4.78,23.36,28.11,15.77-21.21-29.71-30.88-16.47-32-28.6-25.32,46.94-9.59,82.82-61.19,74.01-23.93,20.86-10.97V0H0ZM13.5,170.31l63.57,77.24,36.09,45.37,54.28,60.79,15.44,66.35-6.46,36.42-10.77,24.25-10.64-60.65-23.25-80.33-46.14-46.83-44.91-71.07-27.21-51.54ZM208.77,1041.66l-45.87-17.67-7.02-17.81-13.93,23.85-29.33-2.2-16.33-24.58-37.48,12.89,12.16-45.16,30.91-39.77,26.15-9.23,4.42,51.61,17.99,4.48,23.06,25.31,29.43-5.63,28.02,25.73-22.18,18.18ZM433.03,400.92l-25,18.49,8.63,21.63,3.33,16.92-2.14,20.17,14.96,25.36-3.12,17.27-30.07,23.81-25.46.72-3.85-17.96-11.05-15.64-3.01-40.53,3.42-70.3-1.08-26.7,17.98-5.23,8.02,15.55,24.01-6.22,31.38-2.82,6.08-.39,1.91,22.1-14.94,3.77ZM479.96,488.92l-14.28,21.88-17.48-3.91-7.08-11.02-.89-34.62,9.95-5.43,16.77,6.89,20.92,11.06-7.91,15.15ZM673.54,424.12l-23.69,43.37-9.79,34.82-9.1,11.52-19.79-8.74-35.09,35.88-32.22,19.73h-12.99l53.08-46.71,6.29-15.99-11.52-4.66,21.46-21.73,28.96-25.49,72.86-67.22-28.46,45.22ZM1036.04,324.89v-12.84l9.48-2.55,8.89,2.55,10.69,9.85-1.07,11.87-.46,9.3-6.56,7.6-4.09,6.87-8,5.67-7.7-6.95-2.2-11.22,2.2-9.96-1.18-10.19ZM835.96,961.02l-10.17,1.93-5.13-3.01-1.59-20.03,15.64-11.51,5.06,4.65,1.8,15.54-5.61,12.43ZM849.12,846.59l-20.28-2.45-9.77-29.22,21.25-20.61,23.06-30.17,25.27-5.99,26.1,13.87,14.79,4.3,42.65,32.07,17,34.85-11.79,13.38-38.87,11.34-42.94,25.92-9.72,10.21-5.01-1.91,6.78-35.55,1.3-31.33-26.95,5-12.87,6.29ZM1104.02,974.15l-11.21,6.13-38.25-.35-30.31,8.16-42.84,12.4-23.63-12.14,1.66-20.71-6.35-5.37-15.33-1.85-.76,34.43-32.87-13.09-28.75-11.43-12.44-7.23v-15.04l8.23-18.47,12.81,3.99,4.34-23.35,9.92-6.36,14.55,14.07,14.73,19.14,11.74,3.76,1.73-9.62,3.24-20.86,3.99-11.32-10.23-8.22,17.79-8.04,41.18-25.61,12.28-22.41,5.35,13.21,21.61,13.72,16.01,15.08,7.43,9.82,14.26-22.58,12.89,15.52,4.79,10.46,11.42,19.38,1.02,16.6-12.08-3.11-11.29,15.29-3.58,11.89,35.6,16.1-8.65,8.01ZM1169.57,918.7l-8.29.28-1.54-23.94,3.27-15.18,5.91-.12,2.43,12.22,6.39,11.69-8.17,15.05ZM1210.36,926.12l-17.01-2.04-7.02-8.25-3.56-9.2,8.12-2.98,8.05-1.57,6.19,5.41-5.57,11.48,11.7,3.87-.9,3.28ZM1230.98,925.22l-9.53-.8-5.65,2.63-.29-4.82,4-5.99,7.79,1.74,7.41.85.28,4.27-4.01,2.12ZM1406.71,791.35l-18.87,4.33-25.82,6.1,19,20.92,22.83,15.32-28.71,3.97-22.99,16.33-24.41,9.69-13.13-7.46-4.62-52.94-15.13-31.97,15.8-27.92-7.58-52.61,23.63,25.69,1.41,26.34,11.47-2.24-.7,26.27,7.77.51,21.02-30.04,7.46-38.02,17.37,4.08-2.94,26.17,14.59-22.45,7.51,14.97-2.18,33.98,7.42,29.61,12.14,23.96-22.34-22.59Z"/>
+            <polygon fill="#354367" points="1356.01 1134.19 1341.96 1138.31 1344.91 1180.13 1349.17 1195.22 1376.15 1181.32 1398.74 1177.76 1418.42 1182.51 1426.62 1172.19 1429.15 1151.68 1407.46 1151.1 1395.06 1156 1378.69 1138.68 1356.01 1134.19"/>
+            <polygon fill="#354367" points="1446.49 1139 1450.03 1116.64 1437.73 1107.62 1455.79 1085.91 1474.86 1066.85 1505.26 1042.66 1524.9 1055.18 1571.76 1074.06 1593.3 1088.09 1603 1106.76 1573.1 1109.99 1530.85 1106.76 1528.8 1133.28 1545.1 1147.16 1541.98 1163.17 1509.05 1163.17 1471.55 1170.87 1450.03 1187.6 1442.22 1163.17 1446.49 1139"/>
+            <polygon fill="#354367" points="1577.54 911.55 1562.84 904.84 1553.6 897.21 1552.44 869.96 1560.87 877.36 1573.15 864.12 1579.01 847.91 1591.13 842.13 1596.99 847.91 1604.67 847.65 1610.18 883.13 1577.54 911.55"/>
+            <polygon fill="#354367" points="1308.4 1153.96 1304.97 1132.28 1294.42 1103.48 1320.06 1085.96 1341.94 1100.69 1328.82 1125.86 1316.28 1151.4 1308.4 1153.96"/>
+            <polyline fill="none" stroke="#4a6280" stroke-miterlimit="10" stroke-width="10" points="848.88 967.73 856.65 941.89 838.93 902.33 797.01 851.72 812.74 770.67 819.82 714.08 849.19 624.96 935.35 594.02 1005.4 583.62 1069.05 577.44 1158.86 538.94 1213.71 528.11 1283.93 538.11 1351.44 540.68 1447.32 544.13 1492.78 577.1 1541.2 620.05 1587.03 635.02 1609.03 699.21 1614.16 718.28"/>
+            <polyline fill="none" stroke="#4a6280" stroke-miterlimit="10" stroke-width="10" points="635.92 982.88 646.88 947.82 634.73 904.96 618.55 847.04 612.81 803.84 626.86 758.85 580.85 772.1 506.04 776.11 432.33 727.91 327 672.27 255.68 651.44 175.24 605.38 140.9 570.66 103.83 528.66 53.35 510.14 0 492"/>
+            <polyline fill="none" stroke="#4a6280" stroke-miterlimit="10" stroke-width="10" points="632.55 757.1 697.12 750.85 744.99 743 805.85 734.12 855.97 737.03 937 760.96 1013.28 769 1027.95 815.87 1068.62 833.99 1101.83 842.16 1145.49 897.92 1160.91 936.16 1190.93 983.97 1222.08 978.87"/>
+            <polyline fill="none" stroke="#4a6280" stroke-miterlimit="10" stroke-width="10" points="0 1156 66.24 1129.9 157.76 1080.8 241.03 1037.94 300.47 1042.18 395.75 1063.78 513.98 1025.39 629.17 990.11 710.39 972.06 805.75 972.73 868.18 969.86 944.02 1005.83 1003.65 1000.18 1069 978 1131.6 997.04 1134.94 1033.61 1117.25 1091.09"/>
+            <polyline fill="none" stroke="#4a6280" stroke-miterlimit="10" stroke-width="10" points="1197.04 982.44 1161.49 1005.83 1129.02 997.89"/>
+            <polyline fill="none" stroke="#4a6280" stroke-miterlimit="10" stroke-width="10" points="1233.97 971.05 1246.97 952.02 1243.37 929.56 1241.42 918.91 1239.95 897.14 1279.12 854.94 1295.97 861.95 1292.86 828.19 1267.81 789.58 1254.81 775.42 1273.48 717.98 1300.96 665.04 1371.52 626.98 1444.1 593.13 1494.66 545.51 1558.24 485.55 1579.51 402.4 1636.3 327.36 1646.85 179.01 1689.97 69.96 1719 0"/>
+            <polyline fill="none" stroke="#4a6280" stroke-miterlimit="10" stroke-width="10" points="828 0 872.77 73.23 902.43 149.26 924.31 214.2 977.65 316.01 992.06 397.8 1016.79 477.35 1059.75 558.2 1085.81 614.94 1094.95 680.19 1073.8 742.16 1070.68 787.97 1092.86 841.88"/>
+            <polyline fill="none" stroke="#4a6280" stroke-miterlimit="10" stroke-width="10" points="1295.97 861.95 1337.11 864.18 1397.72 844.46 1462.06 797.17 1523.33 738.7 1595.86 727.94 1678.21 667.39 1746.33 601.07 1767.88 537.87 1780.99 521.88"/>
+            <polyline fill="none" stroke="#4a6280" stroke-miterlimit="10" stroke-width="10" points="1071.02 725.94 1122.71 737.24 1160.36 735.44 1202.97 737.97 1198.31 789.83 1222.34 827.32 1273.43 863.68"/>
+            <polyline fill="none" stroke="#4a6280" stroke-miterlimit="10" stroke-width="10" points="1146.92 889.99 1195.35 865.31 1222.34 827.32"/>
+            <polyline fill="none" stroke="#4a6280" stroke-miterlimit="10" stroke-width="10" points="1161.49 1005.83 1168.27 1051.07 1190.92 1052.9 1226.95 1021.66 1213.74 981.3"/>
+            <text x="720" y="900" fill="rgba(255,255,255,0.28)" font-family="sans-serif" font-size="42" font-weight="700" letter-spacing="4" text-anchor="middle">ESPOO</text>
+            <text x="1070" y="950" fill="rgba(255,255,255,0.28)" font-family="sans-serif" font-size="42" font-weight="700" letter-spacing="4" text-anchor="middle">HELSINKI</text>
+            <text x="1100" y="450" fill="rgba(255,255,255,0.28)" font-family="sans-serif" font-size="42" font-weight="700" letter-spacing="4" text-anchor="middle">VANTAA</text>
+            <g id="patrolDots"></g>
+          </svg>
+          <div class="patrol-map-count">
+            <div class="pmc-row"><span class="pmc-dot"></span><span class="pmc-num" id="patrolCount">10</span><span class="pmc-label">partiota liikkeellä</span></div>
+          </div>
+        </div>
+        <div class="patrol-areas">
+          <div class="patrol-area">
+            <div class="pa-name"><span class="pa-dot"></span>Espoo</div>
+            <div class="pa-count" id="areaEspoo">3 partiota</div>
+          </div>
+          <div class="patrol-area">
+            <div class="pa-name"><span class="pa-dot" style="animation-delay:.4s"></span>Helsinki</div>
+            <div class="pa-count" id="areaHelsinki">4 partiota</div>
+          </div>
+          <div class="patrol-area">
+            <div class="pa-name"><span class="pa-dot" style="animation-delay:.8s"></span>Vantaa</div>
+            <div class="pa-count" id="areaVantaa">3 partiota</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-marquee-wrap">
+    <div class="trust-marquee">
+      <div class="trust-item"><span class="ti-icon">🛡️</span> Tyytyväisyystakuu</div>
+      <div class="trust-sep"></div>
+      <div class="trust-item"><span class="ti-icon">🔒</span> Turvallinen maksu</div>
+      <div class="trust-sep"></div>
+      <div class="trust-item"><span class="ti-icon">📋</span> Reklamaatio samana päivänä</div>
+      <div class="trust-sep"></div>
+      <div class="trust-item"><span class="ti-icon">✌️</span> Ei pitkiä sopimuksia</div>
+      <div class="trust-sep"></div>
+      <div class="trust-item"><span class="ti-icon">🏢</span> Osa Keramore Oy palveluita</div>
+      <div class="trust-sep"></div>
+      <div class="trust-item"><span class="ti-icon">⏱️</span> Maksat vain kuluneesta ajasta</div>
+      <div class="trust-sep"></div>
+      <!-- duplicate for seamless loop -->
+      <div class="trust-item"><span class="ti-icon">🛡️</span> Tyytyväisyystakuu</div>
+      <div class="trust-sep"></div>
+      <div class="trust-item"><span class="ti-icon">🔒</span> Turvallinen maksu</div>
+      <div class="trust-sep"></div>
+      <div class="trust-item"><span class="ti-icon">📋</span> Reklamaatio samana päivänä</div>
+      <div class="trust-sep"></div>
+      <div class="trust-item"><span class="ti-icon">✌️</span> Ei pitkiä sopimuksia</div>
+      <div class="trust-sep"></div>
+      <div class="trust-item"><span class="ti-icon">🏢</span> Osa Keramore Oy palveluita</div>
+      <div class="trust-sep"></div>
+      <div class="trust-item"><span class="ti-icon">⏱️</span> Maksat vain kuluneesta ajasta</div>
+      <div class="trust-sep"></div>
+    </div>
+  </div>
+</div>
+
+<!-- WHY FASTEST -->
+<section class="speed-section" id="nopeus">
+  <div class="speed-inner">
+    <div class="reveal">
+      <div class="section-label">Miksi nopein</div>
+      <h2 class="section-title">Ei jonottamista.<br>Ei viikkojen odottelua.</h2>
+      <p class="section-sub">Perinteiset siivousfirmat pyytävät varaamaan 1–2 viikkoa etukäteen. Siivouspartio on suunniteltu toisin — iso ammattilaisten verkosto tarkoittaa että sinulle löytyy aina tekijä, nopeasti.</p>
+      <div class="speed-claims">
+        <div class="speed-claim">
+          <div>
+            <div class="sc-title">Pikapartio — 4 tunnin sisällä</div>
+            <div class="sc-desc">Tilaat tänään aamulla, partio on ovellasi päivällä tai viimeistään illalla. Soveltuu kiireellisiin tarpeisiin niin kotiin kuin toimistoon.</div>
+          </div>
+        </div>
+        <div class="speed-claim">
+          <div>
+            <div class="sc-title">Aikataulutettu — 3 päivän sisällä</div>
+            <div class="sc-desc">Valitset ajan suoraan verkkokalenterista. Ei soittelua, ei neuvottelua — valitse ajankohta ja me hoidamme tekijän paikalle.</div>
+          </div>
+        </div>
+        <div class="speed-claim">
+          <div>
+            <div class="sc-title">200+ ammattilaista — aina joku vapaa</div>
+            <div class="sc-desc">Verkostomme koostuu Keramore Oy:n koulutetusta henkilökunnasta. Yhden tiimin sairastuminen ei kaada varaustasi — aina on tekijä lähialueella valmiina.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="speed-right-card reveal" id="cmpCard">
+      <div class="src-label">Siivouspartio vs. perinteiset firmat</div>
+
+      <!-- Metric 1: odotusaika -->
+      <div class="cmp-block">
+        <div class="cmp-metric">
+          <span class="cmp-big">4</span><span class="cmp-big-unit">h</span>
+        </div>
+        <div class="cmp-label">Pikapartio - Suomen nopein siivouspalvelu</div>
+        <div class="cmp-bar-track"><div class="cmp-bar-fill" data-w="10%"></div></div>
+      </div>
+
+      <div class="cmp-block cmp-fade">
+        <div class="cmp-metric">
+          <span class="cmp-big">3–7</span><span class="cmp-big-unit">pv</span>
+        </div>
+        <div class="cmp-label">Perinteinen siivousfirma — odotusaika</div>
+        <div class="cmp-bar-track"><div class="cmp-bar-fill them" data-w="100%"></div></div>
+      </div>
+
+      <!-- Metric 2: verkosto -->
+      <div class="cmp-block">
+        <div class="cmp-metric">
+          <span class="cmp-big">200</span><span class="cmp-big-unit">+</span>
+        </div>
+        <div class="cmp-label">Ammattilaista verkostossa tällä hetkellä</div>
+        <div class="cmp-bar-track"><div class="cmp-bar-fill" data-w="83%"></div></div>
+      </div>
+
+      <!-- Metric 3: kaupungit -->
+      <div class="cmp-block">
+        <div class="cmp-metric">
+          <span class="cmp-big">3</span><span class="cmp-big-unit" style="font-size:1.5rem;padding-bottom:6px">&nbsp;kaupunkia</span>
+        </div>
+        <div class="cmp-label">Espoo · Helsinki · Vantaa</div>
+        <div class="cmp-bar-track"><div class="cmp-bar-fill" data-w="58%"></div></div>
+      </div>
+
+      <div class="cmp-divider-line"></div>
+
+      <!-- Other facts as chips -->
+      <div class="cmp-chips">
+        <div class="cmp-chip">
+          <span class="cmp-chip-label">Varaus verkossa, reaaliajassa</span>
+          <div class="cmp-chip-vals">
+            <span class="cmp-chip-us">Kyllä</span>
+            <span class="cmp-chip-sep">vs</span>
+            <span class="cmp-chip-them">Harvoin</span>
+          </div>
+        </div>
+        <div class="cmp-chip">
+          <span class="cmp-chip-label">Kiinteä hinta etukäteen</span>
+          <div class="cmp-chip-vals">
+            <span class="cmp-chip-us">Kyllä</span>
+            <span class="cmp-chip-sep">vs</span>
+            <span class="cmp-chip-them">Tarjous erikseen</span>
+          </div>
+        </div>
+        <div class="cmp-chip">
+          <span class="cmp-chip-label">Tyytyväisyystakuu</span>
+          <div class="cmp-chip-vals">
+            <span class="cmp-chip-us">100%</span>
+            <span class="cmp-chip-sep">vs</span>
+            <span class="cmp-chip-them">Vaihtelee</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES — B2C + B2B -->
+<section class="customers-section" id="palvelut">
+  <div class="reveal">
+    <div class="section-label">Palvelut</div>
+    <h2 class="section-title">Yrityksille <span style="color:var(--orange)">ja kotitalouksille</span></h2>
+    <p class="section-sub">Siivouspartio palvelee kaikkia. Olipa kyse kodin pikasiivouksesta, toimiston ylläpidosta tai tapahtuman jälkisiivouksesta — partio on paikalla.</p>
+  </div>
+  <div class="customer-tabs reveal">
+    <button class="ctab active" onclick="showTab('b2b',this)">🏢 Yrityksille</button>
+    <button class="ctab" onclick="showTab('b2c',this)">🏠 Kotitalouksille</button>
+  </div>
+  <div class="services-grid reveal">
+    <!-- B2C -->
+    <div class="service-card b2c-card">
+      <div class="sc2-icon">🏠</div>
+      <div class="sc2-title">Kotisiivous</div>
+      <div class="sc2-desc">Perinteinen kattava kotisiivous. Kaikki huoneet, pinnat, lattiat ja kodinkoneet. Soveltuu kaikkiin asuntokokoihin.</div>
+      <div class="sc2-tag">Yleisin valinta</div>
+    </div>
+    <div class="service-card b2c-card">
+      <div class="sc2-icon">🪟</div>
+      <div class="sc2-title">Ikkunanpesu</div>
+      <div class="sc2-desc">Sisä- ja ulkopinnat puhtaaksi kerralla. Ei tikkaita, ei vaaraa — partio hoitaa myös ylempien kerrosten ikkunat. Kevään suosituin lisäpalvelu.</div>
+      <div class="sc2-tag">Kausiluonteinen</div>
+    </div>
+    <div class="service-card b2c-card">
+      <div class="sc2-icon">📦</div>
+      <div class="sc2-title">Muutto- ja luovutussiivous</div>
+      <div class="sc2-desc">Täydellinen loppusiivous muuttoa varten. Kaappien sisät, kodinkoneet, ikkunat, parvekkeet — vuokrasopimus kuntoon.</div>
+      <div class="sc2-tag">Myös kiireellisenä</div>
+    </div>
+    <div class="service-card b2c-card">
+      <div class="sc2-icon">🏡</div>
+      <div class="sc2-title">AirBnB-vaihtosiivous</div>
+      <div class="sc2-desc">Nopea ja tarkka siivous vierasvaihtojen välissä. Partio tietää aikataulusi ja toimii sen mukaan — ei yhtäkään menetettyä varausta.</div>
+      <div class="sc2-tag">Lyhyt varoitusaika</div>
+    </div>
+    <div class="service-card b2c-card">
+      <div class="sc2-icon">🚿</div>
+      <div class="sc2-title">WC & kylpyhuone pikahuolto</div>
+      <div class="sc2-desc">Tarviitseeko kylppäri freesauksen? Partio siivoaa perusteellisesti vessat ja kylpyhuoneet — kalkkikertymät, saippuatahrat, kaikki.</div>
+      <div class="sc2-tag">Kuin uusi</div>
+    </div>
+    <div class="service-card b2c-card">
+      <div class="sc2-icon">🔨</div>
+      <div class="sc2-title">Remonttisiivous</div>
+      <div class="sc2-desc">Remontin jälkeinen syvä siivous — rakennuspöly, maaliläiskät, laastijäämät ja hienojakoinen pöly pinnoilta, nurkista ja ilmanvaihtoventtiileistä. Koti asuttavaan kuntoon nopeasti.</div>
+      <div class="sc2-tag">Syvä puhdistus</div>
+    </div>
+
+    <!-- B2B -->
+    <div class="service-card b2b-card">
+      <div class="sc2-icon">🏢</div>
+      <div class="sc2-title">Toimistosiivous</div>
+      <div class="sc2-desc">Ylläpitosiivous pienille ja keskisuurille toimistoille. Arki-iltoina tai viikonloppuisin — ei häiritä työpäivää.</div>
+      <div class="sc2-tag">Joka viikko</div>
+    </div>
+    <div class="service-card b2b-card">
+      <div class="sc2-icon">🚽</div>
+      <div class="sc2-title">WC-tilojen kriisipesu</div>
+      <div class="sc2-desc">Tukos, hygieniaongelma tai asiakkaat valittaa? Partio paikalla nopeasti — wc-tilat desinfioidaan ja kunnostetaan kiireellisenä.</div>
+      <div class="sc2-tag">Alle 4 tunnissa</div>
+    </div>
+    <div class="service-card b2b-card">
+      <div class="sc2-icon">🎪</div>
+      <div class="sc2-title">Tapahtumajälkisiivous</div>
+      <div class="sc2-desc">Tila kuntoon tapahtuman jälkeen. Iso tiimi, nopea työ — tila luovutettavissa seuraavana aamuna.</div>
+      <div class="sc2-tag">Iso kapasiteetti</div>
+    </div>
+    <div class="service-card b2b-card">
+      <div class="sc2-icon">🪟</div>
+      <div class="sc2-title">Ikkunanpesu (liiketilat)</div>
+      <div class="sc2-desc">Näyteikkunat, toimistolasit ja julkisivut — ensivaikutelma kuntoon. Soveltuu myymälöille, ravintoloille ja toimistoille.</div>
+      <div class="sc2-tag">Takuukirkkaat</div>
+    </div>
+    <div class="service-card b2b-card">
+      <div class="sc2-icon">🍳</div>
+      <div class="sc2-title">Keittiön tarkastuspesu</div>
+      <div class="sc2-desc">Partio puhdistaa ravintolakeittiön perusteellisesti — rasvasuodattimet, uunit, pinnat, lattiat. Hygieniatodistus kuntoon.</div>
+      <div class="sc2-tag">Samana päivänä</div>
+    </div>
+    <div class="service-card b2b-card">
+      <div class="sc2-icon">🏗️</div>
+      <div class="sc2-title">Rakennussiivous</div>
+      <div class="sc2-desc">Loppusiivous uudisrakennuksille ja remontoiduille tiloille. Rakennuspöly, roska ja jäte pois — tila luovutuskunnossa aikataulussa.</div>
+      <div class="sc2-tag">Isot kohteet ok</div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="miten">
+  <div class="how-header reveal">
+    <div>
+      <div class="section-label">Miten toimii</div>
+      <h2 class="section-title">Neljä askelta.<br>Alle 3 minuuttia.</h2>
+    </div>
+    <p class="section-sub">Kaikki maksetaan etukäteen verkossa — ei käteistä, ei laskuja, ei soittelua. Niin yrityksille kuin kotitalouksille.</p>
+  </div>
+  <div class="steps-grid reveal">
+    <div class="step-card">
+      <div class="step-img-overlay">
+        <img class="step-img" src="1.avif" alt="Varauksen teko puhelimella">
+      </div>
+      <div class="step-body">
+        <div class="step-num">01</div>
+        <div class="step-title">Valitse palvelu</div>
+        <div class="step-desc">Pikapartio (4h) tai aikataulutettu (3 pv). Kotiin tai yritykseen. Hinta lasketaan automaattisesti.</div>
+        <div class="step-badge">⚡ Alle 3 min</div>
+      </div>
+    </div>
+    <div class="step-card">
+      <div class="step-img-overlay">
+        <img class="step-img" src="2.avif" alt="Vahvistusviesti puhelimella">
+      </div>
+      <div class="step-body">
+        <div class="step-num">02</div>
+        <div class="step-title">Vahvistus sähköpostilla</div>
+        <div class="step-desc">Saat sähköpostivahvistuksen alle 30 minuutissa. Partiojohtaja vahvistaa ajan ja ammattilaisen.</div>
+        <div class="step-badge">📧 &lt;30 min</div>
+      </div>
+    </div>
+    <div class="step-card">
+      <div class="step-img-overlay">
+        <img class="step-img" src="3.avif" alt="Siivouspartio saapuu kotiin">
+      </div>
+      <div class="step-body">
+        <div class="step-num">03</div>
+        <div class="step-title">Partio saapuu</div>
+        <div class="step-desc">Ammattilaiset saapuvat sovittuna aikana varusteineen. Työ tehdään aina kunnolla ja sovitussa ajassa.</div>
+        <div class="step-badge">🧹 100% takuu</div>
+      </div>
+    </div>
+    <div class="step-card">
+      <div class="step-img-overlay">
+        <img class="step-img" src="4.avif" alt="Maksu kortilla verkossa">
+      </div>
+      <div class="step-body">
+        <div class="step-num">04</div>
+        <div class="step-title">Maksu kortilla</div>
+        <div class="step-desc">Kiinteä hinta maksetaan turvallisesti kortilla tai verkossa palvelun jälkeen — ei käteistä.</div>
+        <div class="step-badge">🔒 Turvallinen</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section" id="hinnat">
+  <div class="pricing-header reveal" style="display:grid;grid-template-columns:1fr auto;align-items:end;gap:24px">
+    <div>
+      <div class="section-label">Hinnoittelu</div>
+      <h2 class="section-title">Selkeä hinta.<br>Ei yllätyksiä.</h2>
+      <p class="section-sub">Maksat nopeudesta tai suunnittelet etukäteen ja säästät. Kotitalouksille ja pienyrityksille samat hinnat — isommille yrityksille räätälöity sopimus.</p>
+    </div>
+    <div class="alv-toggle" id="alvToggle">
+      <button class="alv-btn active" id="alvInc" onclick="setAlv(true)">ALV 25,5%</button>
+      <button class="alv-btn" id="alvExc" onclick="setAlv(false)">ALV 0%</button>
+    </div>
+  </div>
+  <div class="pricing-grid reveal">
+    <div class="price-card">
+      <div class="price-icon">📅</div>
+      <div class="price-name">Aikataulutettu Partio</div>
+      <div class="price-tagline">Varaa 3 päivää etukäteen, säästät enemmän</div>
+      <div class="price-main">
+        <div class="price-amount"><sup>€</sup><span class="pa-num" data-inc="45" data-exc="36">45</span><sub>/h</sub></div>
+        <div class="price-note pa-note" data-inc="Minimi 2h · Yksiö = 90€ · Sis. ALV 25,5%" data-exc="Minimi 2h · Yksiö = 72€ · ALV 0%">Minimi 2h · Yksiö = 90€ · Sis. ALV 25,5%</div>
+      </div>
+      <ul class="price-features">
+        <li>Toimitus 3 päivän sisällä</li>
+        <li>Valitse aika kalenterista</li>
+        <li>Koti ja yritys</li>
+        <li>Tyytyväisyystakuu</li>
+        <li>Maksu siivouksen jälkeen</li>
+      </ul>
+      <a href="#varaus" class="btn-book btn-outline">Varaa aikataulutettu</a>
+    </div>
+    <div class="price-card featured">
+      <div class="price-badge">Suosituin</div>
+      <div class="price-icon">⚡</div>
+      <div class="price-name">Pikapartio</div>
+      <div class="price-tagline">Tarvitset siivouksen tänään tai huomenna?</div>
+      <div class="price-main">
+        <div class="price-amount"><sup>€</sup><span class="pa-num" data-inc="59" data-exc="47">59</span><sub>/h</sub></div>
+        <div class="price-note pa-note" data-inc="Minimi 2h · Yksiö = 118€ · Sis. ALV 25,5%" data-exc="Minimi 2h · Yksiö = 94€ · ALV 0%">Minimi 2h · Yksiö = 118€ · Sis. ALV 25,5%</div>
+      </div>
+      <ul class="price-features">
+        <li>Toimitus 4 tunnin sisällä</li>
+        <li>Vahvistus alle 30 min</li>
+        <li>Koti ja yritys</li>
+        <li>Tyytyväisyystakuu</li>
+        <li>Prioriteetti kalenterissa</li>
+      </ul>
+      <a href="#varaus" class="btn-book btn-solid">Varaa pikapartio</a>
+    </div>
+    <div class="price-card">
+      <div class="price-icon">📦</div>
+      <div class="price-name">Kuukausipaketti</div>
+      <div class="price-tagline">4 käyntiä kuussa — varaa kerralla, ei stressiä</div>
+      <div class="price-main">
+        <div class="price-amount"><span style="font-size:1.1rem;font-weight:600;opacity:.7">Alk. </span><sup>€</sup><span class="pa-num" data-inc="349" data-exc="278">349</span><sub>/kk</sub></div>
+        <div class="price-note pa-note" data-inc="4 × 2h käyntiä · ~43€/h · Sis. ALV 25,5%" data-exc="4 × 2h käyntiä · ~34€/h · ALV 0%">4 × 2h käyntiä · ~43€/h · Sis. ALV 25,5%</div>
+      </div>
+      <ul class="price-features">
+        <li>Viikoittainen kiinteä aika</li>
+        <li>Koti tai toimisto</li>
+        <li>Prioriteetti kalenterissa</li>
+        <li>Ajan vaihto ilmaiseksi (48h)</li>
+        <li>Kuukausi-irtisanominen</li>
+      </ul>
+      <a href="#varaus" class="btn-book btn-outline">Aloita paketti</a>
+    </div>
+  </div>
+  <div style="margin-top:32px;text-align:center;color:rgba(255,255,255,.4);font-size:.85rem;font-weight:300">
+    Isommat yrityskohteet ja sopimuskumppanuudet — <a href="#" data-email="help&#64;siivouspartio&#46;fi" onclick="this.href='mailto:'+this.dataset.email" style="color:var(--orange2);text-decoration:none;font-weight:600">ota yhteyttä →</a>
+  </div>
+
+  <!-- Kotitalousvähennys banner -->
+  <div style="margin-top:40px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:28px 32px;display:flex;align-items:center;gap:28px;flex-wrap:wrap">
+    <div style="font-size:2.2rem;flex-shrink:0">🏷️</div>
+    <div style="flex:1;min-width:220px">
+      <div style="font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:6px;letter-spacing:-.01em">Kotitalousvähennys — säästä jopa 35%</div>
+      <div style="font-size:.86rem;color:rgba(255,255,255,.55);line-height:1.6;font-weight:300">Kotitaloussiivous oikeuttaa verotuksessa kotitalousvähennykseen. Vähennä <strong style="color:rgba(255,255,255,.8)">35% työn hinnasta</strong> suoraan veroistasi — enintään <strong style="color:rgba(255,255,255,.8)">1 600€/henkilö/vuosi</strong>. Omavastuu 150€. Keramore Oy on ennakkoperintärekisterissä.</div>
+    </div>
+    <div style="flex-shrink:0;background:rgba(244,97,30,.15);border:1px solid rgba(244,97,30,.3);border-radius:12px;padding:16px 22px;text-align:center;min-width:140px">
+      <div style="font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--orange);line-height:1;letter-spacing:-.03em">35%</div>
+      <div style="font-size:.72rem;color:rgba(255,255,255,.45);font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-top:4px">Veroetu</div>
+      <div style="font-size:.75rem;color:rgba(255,255,255,.35);margin-top:6px;line-height:1.4">max 1 600€<br>/ hlö / vuosi</div>
+    </div>
+  </div>
+</section>
+
+<!-- SIZE TABLE + GUARANTEE -->
+<section class="size-section" id="opas">
+  <div class="section-label reveal">Hintaopas</div>
+  <h2 class="section-title reveal">Paljonko aikaa tarvitaan?</h2>
+  <div class="size-layout">
+    <div class="reveal">
+      <p class="section-sub" style="margin-bottom:28px">Arvioi tarvittava aika alla olevan taulukon avulla. Partiojohtaja ilmoittaa etukäteen jos aika ylittyy — ei yllätyksiä laskussa.</p>
+      <table class="size-table">
+        <thead>
+          <tr><th>Koko</th><th>Aika</th><th>Hinta alkaen <span style="font-weight:400;opacity:.6;font-size:.7rem">sis. ALV</span></th></tr>
+        </thead>
+        <tbody>
+          <tr><td>alle 35 m&sup2;</td><td>2h</td><td class="price-col">90&euro;</td></tr>
+          <tr><td>35&ndash;60 m&sup2;</td><td>2&ndash;3h</td><td class="price-col">90&euro;</td></tr>
+          <tr><td>60&ndash;90 m&sup2;</td><td>3&ndash;4h</td><td class="price-col">135&euro;</td></tr>
+          <tr><td>90 m&sup2;+</td><td>4&ndash;5h</td><td class="price-col">180&euro;</td></tr>
+          <tr><td>Suuret tilat</td><td colspan="2" style="color:var(--orange);font-weight:600">Kysy &rarr; <a href="#" data-email="help&#64;siivouspartio&#46;fi" onclick="this.href='mailto:'+this.dataset.email" style="color:var(--orange2);text-decoration:none;font-weight:600">help&#64;siivouspartio&#46;fi</a></td></tr>
+          <tr style="background:rgba(244,97,30,.04)">
+            <td colspan="3" style="color:#5a6475;font-size:.82rem;padding:12px 14px">
+              ✦ Palvelutoiveet voivat vaikuttaa hintaan &nbsp;·&nbsp;
+              <button onclick="openCpiModal()" style="background:none;border:none;color:var(--orange2);font-weight:700;font-size:.82rem;cursor:pointer;padding:0;font-family:'DM Sans',sans-serif;text-decoration:underline;text-underline-offset:3px">Lue lisää →</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="guarantee-box reveal">
+      <div class="guarantee-icon">🛡️</div>
+      <h3>Palvelutakuu</h3>
+      <p>Emme lupaa mahdottomia. Me lupaamme tehdä työn kunnolla — ja jos et ole tyytyväinen, reklamaatio hoidetaan ilman väittelyä.</p>
+      <div class="guarantee-points">
+        <div class="gp"><div class="gp-dot">✓</div><span>Reklamaatio hoidetaan samana päivänä — ei kysymyksiä</span></div>
+        <div class="gp"><div class="gp-dot">✓</div><span>Peruutus yli 24h ennen = maksuton. Alle 24h = 50€ peruutusmaksu</span></div>
+        <div class="gp"><div class="gp-dot">✓</div><span>Maksu aina toteutuneen työmäärän mukaisesti hinta-arvioon suhteutettuna</span></div>
+        <div class="gp"><div class="gp-dot">✓</div><span>Kuukausipaketti irtisanottavissa milloin tahansa kuukauden varoitusajalla</span></div>
+        <div class="gp"><div class="gp-dot">✓</div><span>Mikäli palvelu ei vastaa odotuksianne, veloitamme vain puolet sovitusta hinnasta</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section class="booking-section" id="varaus">
+  <div class="varaus-outer">
+
+    <!-- Vasen: otsikko + lomake -->
+    <div class="varaus-left">
+      <div class="section-label">Varaus</div>
+      <h2 class="section-title">Varaa siivous nyt</h2>
+      <p class="section-sub" style="color:#5a6475">Täytä lomake — saat vahvistuksen sähköpostilla alle 30 minuutissa.</p>
+
+      <div class="booking-form-wrap reveal">
+
+    <!-- Askelmerkki -->
+    <div class="msf-steps">
+      <div class="msf-step active" data-step="1">
+        <div class="msf-step-num">1</div>
+        <div class="msf-step-label">Palvelu</div>
+      </div>
+      <div class="msf-step-line"></div>
+      <div class="msf-step" data-step="2">
+        <div class="msf-step-num">2</div>
+        <div class="msf-step-label">Kohde</div>
+      </div>
+      <div class="msf-step-line"></div>
+      <div class="msf-step" data-step="3">
+        <div class="msf-step-num">3</div>
+        <div class="msf-step-label">Yhteystiedot</div>
+      </div>
+    </div>
+
+    <!-- ASKEL 1: Palvelu -->
+    <div class="msf-panel active" data-panel="1">
+      <div class="msf-panel-title">🧹 Valitse palvelu</div>
+
+      <div class="fg">
+        <label>Palvelutaso</label>
+        <div class="svc-sel">
+          <div class="svc-opt">
+            <input type="radio" name="service" id="s2" value="Aikataulutettu">
+            <label for="s2"><strong>📅 Aikataulutettu</strong>45€/h · sis. ALV</label>
+          </div>
+          <div class="svc-opt">
+            <input type="radio" name="service" id="s1" value="Pikapartio">
+            <label for="s1"><strong>⚡ Pikapartio</strong>59€/h · sis. ALV</label>
+          </div>
+          <div class="svc-opt">
+            <input type="radio" name="service" id="s3" value="Kuukausipaketti">
+            <label for="s3"><strong>📦 Paketti</strong>Alk. 349€/kk · sis. ALV</label>
+          </div>
+        </div>
+      </div>
+
+      <div id="dateTimeWrap1">
+        <div class="frow">
+          <div><label>Päivämäärä</label><input type="date" id="bookDate" required></div>
+          <div><label>Toivottu kellonaika</label><input type="time" id="bookTime" min="07:00" max="20:00" required></div>
+        </div>
+      </div>
+
+      <div class="fg" style="margin-bottom:0">
+        <label>Palvelutoiveet <span style="font-weight:400;opacity:.5">(voi valita useita)</span></label>
+        <div class="chips-wrap" id="chips-b2c">
+          <div class="chip-opt"><input type="checkbox" id="ch1" name="palvelutyyppi" value="Yleis- & pintasiivous"><label for="ch1">🧹 Yleis- &amp; pintasiivous</label></div>
+          <div class="chip-opt"><input type="checkbox" id="ch2" name="palvelutyyppi" value="Kylpyhuone & WC"><label for="ch2">🛁 Kylpyhuone &amp; WC</label></div>
+          <div class="chip-opt"><input type="checkbox" id="ch3" name="palvelutyyppi" value="Keittiö"><label for="ch3">🍳 Keittiö</label></div>
+          <div class="chip-opt"><input type="checkbox" id="ch4" name="palvelutyyppi" value="Ikkunanpesu"><label for="ch4">🪟 Ikkunanpesu</label></div>
+          <div class="chip-opt"><input type="checkbox" id="ch5" name="palvelutyyppi" value="Roskientyhjennys & kierrätys"><label for="ch5">🗑️ Roskientyhjennys &amp; kierrätys</label></div>
+          <div class="chip-opt"><input type="checkbox" id="ch6" name="palvelutyyppi" value="Muutto / luovutus"><label for="ch6">📦 Muutto / luovutus</label></div>
+        </div>
+        <div class="chips-wrap" id="chips-b2b" style="display:none">
+          <div class="chip-opt"><input type="checkbox" id="ch7" name="palvelutyyppi" value="Yleis- & pintasiivous"><label for="ch7">🧹 Yleis- &amp; pintasiivous</label></div>
+          <div class="chip-opt"><input type="checkbox" id="ch8" name="palvelutyyppi" value="WC-tilat"><label for="ch8">🚽 WC-tilat</label></div>
+          <div class="chip-opt"><input type="checkbox" id="ch9" name="palvelutyyppi" value="Taukotila & keittiö"><label for="ch9">🍵 Taukotila &amp; keittiö</label></div>
+          <div class="chip-opt"><input type="checkbox" id="ch10" name="palvelutyyppi" value="Ikkunanpesu"><label for="ch10">🪟 Ikkunanpesu</label></div>
+          <div class="chip-opt"><input type="checkbox" id="ch11" name="palvelutyyppi" value="Roskientyhjennys & kierrätys"><label for="ch11">🗑️ Roskientyhjennys &amp; kierrätys</label></div>
+          <div class="chip-opt"><input type="checkbox" id="ch12" name="palvelutyyppi" value="Neuvottelu- & asiakastilat"><label for="ch12">🪑 Neuvottelu- &amp; asiakastilat</label></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ASKEL 2: Kohde & aikataulu -->
+    <div class="msf-panel" data-panel="2">
+      <div class="msf-panel-title">🏠 Kohde</div>
+
+      <div class="fg">
+        <label>Kohteen koko</label>
+        <select id="size" required>
+          <option value="">Valitse koko</option>
+          <option value="2">Yksiö / pieni tila — alle 35m² (n. 2h)</option>
+          <option value="2.5">Kaksio / tila — 35–60m² (2–3h)</option>
+          <option value="3.5">Kolmio / tila — 60–90m² (3–4h)</option>
+          <option value="4.5">Iso kohde — 90m²+ (4–5h)</option>
+        </select>
+      </div>
+
+      <div class="frow">
+        <div>
+          <label>Katuosoite</label>
+          <input type="text" placeholder="Katuosoite ja numero" id="address" required>
+        </div>
+        <div>
+          <label>Kaupunki</label>
+          <select id="city" required>
+            <option value="">Valitse alue</option>
+            <option value="Espoo">📍 Espoo</option>
+            <option value="Helsinki">📍 Helsinki</option>
+            <option value="Vantaa">📍 Vantaa</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="dateTimeWrap" style="display:none">
+        <!-- date+time inputs live in step 3 now, this div kept for JS compat -->
+      </div>
+
+      <div class="fg" style="margin-bottom:0">
+        <label>Lisätiedot <span style="font-weight:400;opacity:.5">(valinnainen)</span></label>
+        <textarea id="lisatiedot" placeholder="Erityistoiveet, lemmikit, avainkoodi, tapahtuma, yrityksen lisätiedot…" style="min-height:80px"></textarea>
+      </div>
+    </div>
+
+    <!-- ASKEL 3: Yhteystiedot -->
+    <div class="msf-panel" data-panel="3" id="msfStep3">
+      <div class="msf-panel-title">📍 Yhteystiedot</div>
+
+      <div class="bf-sub-title">Yhteystiedot</div>
+
+      <div class="frow">
+        <div><label>Etunimi</label><input type="text" placeholder="Etunimi" id="fname" required></div>
+        <div><label>Sukunimi / Yritys</label><input type="text" placeholder="Sukunimi tai yritys" id="lname" required></div>
+      </div>
+      <div class="frow">
+        <div><label>Puhelin</label><input type="tel" placeholder="+358 40 …" id="phone" required></div>
+        <div><label>Sähköposti</label><input type="email" placeholder="nimi@email.fi" id="email" required></div>
+      </div>
+
+      <div class="bf-divider"></div>
+
+      <div class="fg">
+        <label>Asiakastyyppi</label>
+        <div class="svc-sel" style="grid-template-columns:1fr 1fr">
+          <div class="svc-opt">
+            <input type="radio" name="custype" id="ct1" value="kotitalous" checked onchange="switchCustType('b2c')">
+            <label for="ct1"><strong>🏠 Kotitalous</strong>Yksityishenkilö</label>
+          </div>
+          <div class="svc-opt">
+            <input type="radio" name="custype" id="ct2" value="yritys" onchange="switchCustType('b2b')">
+            <label for="ct2"><strong>🏢 Yritys</strong>Toimisto / tila</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="fg" style="margin-bottom:0">
+        <label>Maksutapa</label>
+        <div class="svc-sel" id="paymentOptions" style="grid-template-columns:1fr 1fr">
+          <div class="svc-opt">
+            <input type="radio" name="payment" id="p1" value="kortti" checked>
+            <label for="p1"><strong>💳 Kortilla</strong>Palvelun jälkeen</label>
+          </div>
+          <div class="svc-opt" id="payLaskuOpt" style="display:none">
+            <input type="radio" name="payment" id="p2" value="lasku">
+            <label for="p2"><strong>🧾 Lasku</strong>Sähköpostiin 14 pv</label>
+          </div>
+          <div class="svc-opt" id="payKtvOpt">
+            <input type="radio" name="payment" id="p3" value="kotitalousvahennys">
+            <label for="p3"><strong>🏷️ Kotitalousvähennys</strong>35% veroetu · max 1 600€/hlö</label>
+          </div>
+        </div>
+        <div id="ktvInfo" style="display:none;margin-top:10px;padding:11px 14px;background:rgba(244,97,30,.08);border:1px solid rgba(244,97,30,.25);border-radius:9px;font-size:.82rem;color:#7c3a1a;line-height:1.6">
+          💡 <strong>Kotitalousvähennys 2026:</strong> Saat verotuksessa takaisin 35% siivoustyön osuudesta — enintään 1 600€/henkilö/vuosi. Omavastuu 150€. Työn tekee ennakkoperintärekisteröity Keramore Oy.
+        </div>
+      </div>
+
+      <div class="form-fine" style="margin-top:14px">Peruutus yli 24h ennen = maksuton. Alle 24h = 50€ peruutusmaksu.</div>
+    </div>
+
+    <!-- Footer: hinta + navigaatio — aina näkyvissä -->
+    <div class="msf-footer">
+      <div class="msf-price">
+        <div class="msf-price-label">Arvioitu kokonaishinta <span id="ps-alv-note">sis. ALV 25,5%</span></div>
+        <div id="priceDisplay">118€ <span>· 2h · 59€/h</span></div>
+        <div id="ps-exvat" style="display:none"></div>
+        <div id="ps-sunday" style="display:none;margin-top:7px;padding:7px 12px;background:rgba(244,97,30,.13);border:1px solid rgba(244,97,30,.35);border-radius:7px;color:#f4611e;font-size:.78rem;font-weight:600;letter-spacing:.01em">☀️ Sunnuntailisä: hinta on kaksinkertainen</div>
+      </div>
+      <div class="msf-nav">
+        <button class="msf-btn-back" id="msfBackBtn" onclick="msfPrevStep()" style="display:none">← Takaisin</button>
+        <button class="msf-btn-next" id="msfNextBtn" onclick="msfNextStep()">Seuraava →</button>
+      </div>
+    </div>
+    <div id="msfResult"></div>
+
+  </div>
+    </div><!-- /varaus-left -->
+
+    <!-- Oikea: Rasmus yhteystiedot -->
+    <div class="varaus-right">
+      <div class="varaus-contact-card reveal">
+        <div class="varaus-contact-photo">
+          <img src="Rasmus.avif" alt="Rasmus Rautavirta">
+        </div>
+        <div class="varaus-contact-body">
+          <div class="varaus-contact-role">Asiakaspalvelu · Myynti · Operaatiot</div>
+          <div class="varaus-contact-name">Rasmus Rautavirta</div>
+          <p class="varaus-contact-desc">Arkisin 9–17: varaukset, tarjoukset ja reklamaatiot. Muulloin varaukset lomakkeella.</p>
+          <div class="varaus-contact-links">
+            <a href="tel:+358442361914" class="vcl">
+              <div class="vcl-icon">📞</div>
+              <div><div class="vcl-label">Puhelin</div><div class="vcl-val">044 2361914</div></div>
+            </a>
+            <a href="#" data-email="help&#64;siivouspartio&#46;fi" onclick="this.href='mailto:'+this.dataset.email" class="vcl">
+              <div class="vcl-icon">✉️</div>
+              <div><div class="vcl-label">Sähköposti</div><div class="vcl-val"><span class="__cf_email__" data-cfemail="433122302e36306d3122363722352a31372203282631222e2c31266d252a">help&#64;siivouspartio&#46;fi</span></div></div>
+            </a>
+            <a href="#varaus" class="vcl vcl-cta">
+              <div class="vcl-icon">⚡</div>
+              <div><div class="vcl-label">Nopein tapa</div><div class="vcl-val">Täytä lomake</div></div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div><!-- /varaus-right -->
+
+  </div><!-- /varaus-outer -->
+</section>
+
+<!-- TEAM (piilotettu — alkuperäinen versio) -->
+<section class="team-section reveal" style="display:none">
+  <div class="section-label">Tiimi</div>
+  <h2 class="section-title">Partiojohtajat ja avainhenkilöt</h2>
+  <p class="section-sub">Siivouspartion takana on kokenut tiimi, joka varmistaa että jokainen käynti menee nappiin — ajoissa, ammattitaidolla.</p>
+  <div class="team-grid">
+    <div class="team-card reveal">
+      <div class="team-photo">
+        <div class="team-number">01</div>
+        <img src="Rasmus.avif" alt="Toimitusjohtaja" style="width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0">
+        <div class="team-photo-overlay"></div>
+      </div>
+      <div class="team-info">
+        <div class="team-name">Rasmus Rautavirta</div>
+        <div class="team-role">Asiakaspalvelu · Myynti</div>
+        <div class="team-desc">Ensimmäinen kontakti — vastaa varauksista, reklamaatioista ja yrityskyselyistä alle 30 min.</div>
+        <span class="team-badge">Kaikki alueet</span>
+      </div>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-photo">
+        <div class="team-number">02</div>
+        <img src="Oona.avif" alt="Partiojohtaja Helsinki" style="width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0">
+        <div class="team-photo-overlay"></div>
+      </div>
+      <div class="team-info">
+        <div class="team-name">Oona Pennanen</div>
+        <div class="team-role">Partiojohtaja · Helsinki</div>
+        <div class="team-desc">Koordinoi Helsingin alueen tiimejä. Varmistaa aikataulut, tekijät ja laadun jokaisessa kohteessa.</div>
+        <span class="team-badge">📍 Helsinki</span>
+      </div>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-photo">
+        <div class="team-number">03</div>
+        <img src="Henry.avif" alt="Partiojohtaja Espoo" style="width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0">
+        <div class="team-photo-overlay"></div>
+      </div>
+      <div class="team-info">
+        <div class="team-name">Henry Forssell</div>
+        <div class="team-role">Partiojohtaja · Espoo</div>
+        <div class="team-desc">Espoon alueen operatiivinen johtaja. Erikoistunut yritysasiakkaisiin ja suuriin kohteisiin.</div>
+        <span class="team-badge">📍 Espoo</span>
+      </div>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-photo">
+        <div class="team-number">04</div>
+        <img src="Sagar.avif" alt="Asiakaspalvelu" style="width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0">
+        <div class="team-photo-overlay"></div>
+      </div>
+      <div class="team-info">
+        <div class="team-name">Sagar Bhandari</div>
+        <div class="team-role">Partiojohtaja · Vantaa</div>
+        <div class="team-desc">Vantaan alueen nopeasti reagoivan yksikön johtaja. Erikoistunut pienkohteiden monipuolisiin tarpeisiin.</div>
+        <span class="team-badge">📍 Vantaa</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM — uusi versio (piilotettu — sisältö siirretty hero + varaus-osioon) -->
+<section class="team-section" id="tiimi" style="display:none">
+  <div class="section-label">Info</div>
+  <h2 class="section-title">Ota yhteyttä suoraan</h2>
+  <p class="section-sub">Kaikki varaukset, tarjouspyynnöt ja reklamaatiot hoitaa Rasmus — vastaus alle 30 minuutissa arkisin.</p>
+
+  <div class="team-new-layout reveal">
+    <!-- Rasmus — päähenkilö -->
+    <div class="team-lead-card">
+      <div class="team-lead-photo">
+        <img src="Rasmus.avif" alt="Rasmus Rautavirta">
+      </div>
+      <div class="team-lead-info">
+        <div class="team-lead-role">Asiakaspalvelu · Myynti · Operaatiot</div>
+        <div class="team-lead-name">Rasmus Rautavirta</div>
+        <p class="team-lead-desc">Rasmus on ensimmäinen kontaktisi — hoitaa varaukset, tarjoukset ja reklamaatiot. Tavoitat hänet puhelimitse tai sähköpostilla arkisin klo 9–17. Muina aikoina varaukset hoituvat kätevästi lomakkeen kautta.</p>
+        <div class="team-lead-contacts">
+          <a href="tel:+358401234567" class="tlc">
+            <div class="tlc-icon">📞</div>
+            <div><div class="tlc-label">Puhelin</div><div class="tlc-val">040 123 4567</div></div>
+          </a>
+          <a href="#" class="tlc">
+            <div class="tlc-icon">✉️</div>
+            <div><div class="tlc-label">Sähköposti</div><div class="tlc-val"><span class="__cf_email__" data-email="help&#64;siivouspartio&#46;fi">help&#64;siivouspartio&#46;fi</span></div></div>
+          </a>
+          <a href="#varaus" class="tlc tlc-cta">
+            <div class="tlc-icon">⚡</div>
+            <div><div class="tlc-label">Nopein tapa</div><div class="tlc-val">Täytä varauslomake →</div></div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Partiot liikenteessä -->
+    <div class="patrol-map-card">
+      <div class="patrol-map-wrap">
+        <div class="patrol-map-header">
+          <div class="patrol-live-dot"></div>
+          <div class="patrol-map-title">Partiot liikenteessä<br><span>juuri nyt</span></div>
+        </div>
+        <svg viewBox="400 0 1300 1450" xmlns="http://www.w3.org/2000/svg" class="patrol-svg" preserveAspectRatio="xMidYMid slice">
+          <!-- Snazzy Maps base -->
+          <rect width="2100" height="1450" fill="#101729"/>
+          <path fill="#354367" d="M0,0v1450h274.94l51.42-75.82,9-17.39-9.74-39.58-11.73-50.02-9.98-20.43-17.15,35.65-27.65-24.41-31.09,8.31-107.65,89.88-15.88,7.4,70.09-80.96,53.67-28.25,21.03-49.93,22.69-27.62.17-22.8-13.22-7.15,10.73-34.08-15.12-12.93-29.02-40.83-2.42-16.87,27.7-2.2,35.49,31.42,17.05,49.65,14.93,35.29,25.88,8.14,18.46,6.06,16.67,36.42,20.96,21.24-11.15,36.02,29.88,20.18,28.57-17.18-23.36-15.12,8.87-29.29,27.77-14.73,44.17,18.84,28.14,11.37-40.44,34.72-54.51,29.91,2.25,12.97,11.01,3.23,6.12,1.34h.01l30.49,6.69,21.83,4.78,40.97-8.1h.01l24.29-4.8,4.22-5.68h.01s35.37-47.53,35.37-47.53l-38.91-83.82-47.94,6.56-65.82-36.62,80.09-48.07,67.12,9.58,71.61-40.27,109.59-52.58,32.69-53.16,91.03,45.72,31.94,58.44,51.17,25.38,43.24,3.36-9.02-60.8,20.42-55.12,16.97,23.7,7.26,42.85,11.12,30.8,26.26,21.1,37.36-23.87,37.01-7.35,39.16,6.84,38.77-21.22-43.79-78.39,65.65,26.76,14.57-23.11-12.54-17.52-48.14-.84,7.94-21.84-4.17-24.17,7.55-23.74,11.07,12.22,18.47-22.35,5.2,4.17-10.44,27.44,4.26,15.68,32.12-54.01,13.09-5.54,30.71,11.11,30.53,8.83,6.22,13.53h13.7l2.4-22.5,6.68-22.42-3.86-15.56,12.73-2.83,11.17,25.2,9.43,6.57,31.68,1.9,12.65,12.02-3.4,16.29-63.71-.76-10.67,24.71-11.88,6.03-8.86,22.51,3.98,22.28-1.15,12.99,8.96,37.97,13.59-11.06-5.09-14.73,18.55-7.85,32.98,30.72-11.39-42.93,18.38,17.93,14.89,21.99,27.08,5.93,44.6,4.48,28.74-20.32,18.56,23.29,43.16-17.63-14.03-43.61-27.62-26.9-24.51,4.82-29.61-.83-11.24-39.11-9.08-51.19,18.51-3.9,20.99-30.47-16.45-22.81,53.52-10.2,42.28-45.62,20.12-.46,9.03,11.96-26.5,42.45-19.44,32.42-15.79,26.05,19.53,1.71,32.75-33.81,48.54-4.53,23.91-27.46,8.89,38.63,38.04,38.4,19.26,1.77-20.04-40.76,20.04-20.99-37.63,5.26-24.59-24.73,63-14.79,15.14-3.96,9.85,25.01,20.13,24.93,26.07-8.8,19.66-39.28-26.19-30.52,52.61-26.24-21.53-31.85,5.33-4.78,23.36,28.11,15.77-21.21-29.71-30.88-16.47-32-28.6-25.32,46.94-9.59,82.82-61.19,74.01-23.93,20.86-10.97V0H0ZM13.5,170.31l63.57,77.24,36.09,45.37,54.28,60.79,15.44,66.35-6.46,36.42-10.77,24.25-10.64-60.65-23.25-80.33-46.14-46.83-44.91-71.07-27.21-51.54ZM208.77,1041.66l-45.87-17.67-7.02-17.81-13.93,23.85-29.33-2.2-16.33-24.58-37.48,12.89,12.16-45.16,30.91-39.77,26.15-9.23,4.42,51.61,17.99,4.48,23.06,25.31,29.43-5.63,28.02,25.73-22.18,18.18ZM433.03,400.92l-25,18.49,8.63,21.63,3.33,16.92-2.14,20.17,14.96,25.36-3.12,17.27-30.07,23.81-25.46.72-3.85-17.96-11.05-15.64-3.01-40.53,3.42-70.3-1.08-26.7,17.98-5.23,8.02,15.55,24.01-6.22,31.38-2.82,6.08-.39,1.91,22.1-14.94,3.77ZM479.96,488.92l-14.28,21.88-17.48-3.91-7.08-11.02-.89-34.62,9.95-5.43,16.77,6.89,20.92,11.06-7.91,15.15ZM673.54,424.12l-23.69,43.37-9.79,34.82-9.1,11.52-19.79-8.74-35.09,35.88-32.22,19.73h-12.99l53.08-46.71,6.29-15.99-11.52-4.66,21.46-21.73,28.96-25.49,72.86-67.22-28.46,45.22ZM1036.04,324.89v-12.84l9.48-2.55,8.89,2.55,10.69,9.85-1.07,11.87-.46,9.3-6.56,7.6-4.09,6.87-8,5.67-7.7-6.95-2.2-11.22,2.2-9.96-1.18-10.19ZM835.96,961.02l-10.17,1.93-5.13-3.01-1.59-20.03,15.64-11.51,5.06,4.65,1.8,15.54-5.61,12.43ZM849.12,846.59l-20.28-2.45-9.77-29.22,21.25-20.61,23.06-30.17,25.27-5.99,26.1,13.87,14.79,4.3,42.65,32.07,17,34.85-11.79,13.38-38.87,11.34-42.94,25.92-9.72,10.21-5.01-1.91,6.78-35.55,1.3-31.33-26.95,5-12.87,6.29ZM1104.02,974.15l-11.21,6.13-38.25-.35-30.31,8.16-42.84,12.4-23.63-12.14,1.66-20.71-6.35-5.37-15.33-1.85-.76,34.43-32.87-13.09-28.75-11.43-12.44-7.23v-15.04l8.23-18.47,12.81,3.99,4.34-23.35,9.92-6.36,14.55,14.07,14.73,19.14,11.74,3.76,1.73-9.62,3.24-20.86,3.99-11.32-10.23-8.22,17.79-8.04,41.18-25.61,12.28-22.41,5.35,13.21,21.61,13.72,16.01,15.08,7.43,9.82,14.26-22.58,12.89,15.52,4.79,10.46,11.42,19.38,1.02,16.6-12.08-3.11-11.29,15.29-3.58,11.89,35.6,16.1-8.65,8.01ZM1169.57,918.7l-8.29.28-1.54-23.94,3.27-15.18,5.91-.12,2.43,12.22,6.39,11.69-8.17,15.05ZM1210.36,926.12l-17.01-2.04-7.02-8.25-3.56-9.2,8.12-2.98,8.05-1.57,6.19,5.41-5.57,11.48,11.7,3.87-.9,3.28ZM1230.98,925.22l-9.53-.8-5.65,2.63-.29-4.82,4-5.99,7.79,1.74,7.41.85.28,4.27-4.01,2.12ZM1406.71,791.35l-18.87,4.33-25.82,6.1,19,20.92,22.83,15.32-28.71,3.97-22.99,16.33-24.41,9.69-13.13-7.46-4.62-52.94-15.13-31.97,15.8-27.92-7.58-52.61,23.63,25.69,1.41,26.34,11.47-2.24-.7,26.27,7.77.51,21.02-30.04,7.46-38.02,17.37,4.08-2.94,26.17,14.59-22.45,7.51,14.97-2.18,33.98,7.42,29.61,12.14,23.96-22.34-22.59Z"/>
+          <polygon fill="#354367" points="1356.01 1134.19 1341.96 1138.31 1344.91 1180.13 1349.17 1195.22 1376.15 1181.32 1398.74 1177.76 1418.42 1182.51 1426.62 1172.19 1429.15 1151.68 1407.46 1151.1 1395.06 1156 1378.69 1138.68 1356.01 1134.19"/>
+          <polygon fill="#354367" points="1446.49 1139 1450.03 1116.64 1437.73 1107.62 1455.79 1085.91 1474.86 1066.85 1505.26 1042.66 1524.9 1055.18 1571.76 1074.06 1593.3 1088.09 1603 1106.76 1573.1 1109.99 1530.85 1106.76 1528.8 1133.28 1545.1 1147.16 1541.98 1163.17 1509.05 1163.17 1471.55 1170.87 1450.03 1187.6 1442.22 1163.17 1446.49 1139"/>
+          <polygon fill="#354367" points="1577.54 911.55 1562.84 904.84 1553.6 897.21 1552.44 869.96 1560.87 877.36 1573.15 864.12 1579.01 847.91 1591.13 842.13 1596.99 847.91 1604.67 847.65 1610.18 883.13 1577.54 911.55"/>
+          <polygon fill="#354367" points="1308.4 1153.96 1304.97 1132.28 1294.42 1103.48 1320.06 1085.96 1341.94 1100.69 1328.82 1125.86 1316.28 1151.4 1308.4 1153.96"/>
+          <!-- Roads -->
+          <polyline fill="none" stroke="#4a6280" stroke-miterlimit="10" stroke-width="10" points="848.88 967.73 856.65 941.89 838.93 902.33 797.01 851.72 812.74 770.67 819.82 714.08 849.19 624.96 935.35 594.02 1005.4 583.62 1069.05 577.44 1158.86 538.94 1213.71 528.11 1283.93 538.11 1351.44 540.68 1447.32 544.13 1492.78 577.1 1541.2 620.05 1587.03 635.02 1609.03 699.21 1614.16 718.28"/>
+          <polyline fill="none" stroke="#4a6280" stroke-miterlimit="10" stroke-width="10" points="635.92 982.88 646.88 947.82 634.73 904.96 618.55 847.04 612.81 803.84 626.86 758.85 580.85 772.1 506.04 776.11 432.33 727.91 327 672.27 255.68 651.44 175.24 605.38 140.9 570.66 103.83 528.66 53.35 510.14 0 492"/>
+          <polyline fill="none" stroke="#4a6280" stroke-miterlimit="10" stroke-width="10" points="632.55 757.1 697.12 750.85 744.99 743 805.85 734.12 855.97 737.03 937 760.96 1013.28 769 1027.95 815.87 1068.62 833.99 1101.83 842.16 1145.49 897.92 1160.91 936.16 1190.93 983.97 1222.08 978.87"/>
+          <polyline fill="none" stroke="#4a6280" stroke-miterlimit="10" stroke-width="10" points="0 1156 66.24 1129.9 157.76 1080.8 241.03 1037.94 300.47 1042.18 395.75 1063.78 513.98 1025.39 629.17 990.11 710.39 972.06 805.75 972.73 868.18 969.86 944.02 1005.83 1003.65 1000.18 1069 978 1131.6 997.04 1134.94 1033.61 1117.25 1091.09"/>
+          <polyline fill="none" stroke="#4a6280" stroke-miterlimit="10" stroke-width="10" points="1197.04 982.44 1161.49 1005.83 1129.02 997.89"/>
+          <polyline fill="none" stroke="#4a6280" stroke-miterlimit="10" stroke-width="10" points="1233.97 971.05 1246.97 952.02 1243.37 929.56 1241.42 918.91 1239.95 897.14 1279.12 854.94 1295.97 861.95 1292.86 828.19 1267.81 789.58 1254.81 775.42 1273.48 717.98 1300.96 665.04 1371.52 626.98 1444.1 593.13 1494.66 545.51 1558.24 485.55 1579.51 402.4 1636.3 327.36 1646.85 179.01 1689.97 69.96 1719 0"/>
+          <polyline fill="none" stroke="#4a6280" stroke-miterlimit="10" stroke-width="10" points="828 0 872.77 73.23 902.43 149.26 924.31 214.2 977.65 316.01 992.06 397.8 1016.79 477.35 1059.75 558.2 1085.81 614.94 1094.95 680.19 1073.8 742.16 1070.68 787.97 1092.86 841.88"/>
+          <polyline fill="none" stroke="#4a6280" stroke-miterlimit="10" stroke-width="10" points="1295.97 861.95 1337.11 864.18 1397.72 844.46 1462.06 797.17 1523.33 738.7 1595.86 727.94 1678.21 667.39 1746.33 601.07 1767.88 537.87 1780.99 521.88"/>
+          <polyline fill="none" stroke="#4a6280" stroke-miterlimit="10" stroke-width="10" points="1071.02 725.94 1122.71 737.24 1160.36 735.44 1202.97 737.97 1198.31 789.83 1222.34 827.32 1273.43 863.68"/>
+          <polyline fill="none" stroke="#4a6280" stroke-miterlimit="10" stroke-width="10" points="1146.92 889.99 1195.35 865.31 1222.34 827.32"/>
+          <polyline fill="none" stroke="#4a6280" stroke-miterlimit="10" stroke-width="10" points="1161.49 1005.83 1168.27 1051.07 1190.92 1052.9 1226.95 1021.66 1213.74 981.3"/>
+
+          <!-- City labels -->
+          <text x="720" y="900" fill="rgba(255,255,255,0.28)" font-family="sans-serif" font-size="42" font-weight="700" letter-spacing="4" text-anchor="middle">ESPOO</text>
+          <text x="1070" y="950" fill="rgba(255,255,255,0.28)" font-family="sans-serif" font-size="42" font-weight="700" letter-spacing="4" text-anchor="middle">HELSINKI</text>
+          <text x="1100" y="450" fill="rgba(255,255,255,0.28)" font-family="sans-serif" font-size="42" font-weight="700" letter-spacing="4" text-anchor="middle">VANTAA</text>
+
+          <!-- Patrol dots — rendered by JS based on time of day -->
+          <g id="patrolDots"></g>
+        </svg>
+        <!-- Counter overlay -->
+        <div class="patrol-map-count">
+          <div class="pmc-row"><span class="pmc-dot"></span><span class="pmc-num" id="patrolCount">10</span><span class="pmc-label">partiota liikkeellä</span></div>
+        </div>
+      </div>
+      <!-- Area info below map -->
+      <div class="patrol-areas">
+        <div class="patrol-area">
+          <div class="pa-name"><span class="pa-dot"></span>Espoo</div>
+          <div class="pa-count" id="areaEspoo">3 partiota</div>
+        </div>
+        <div class="patrol-area">
+          <div class="pa-name"><span class="pa-dot" style="animation-delay:.4s"></span>Helsinki</div>
+          <div class="pa-count" id="areaHelsinki">4 partiota</div>
+        </div>
+        <div class="patrol-area">
+          <div class="pa-name"><span class="pa-dot" style="animation-delay:.8s"></span>Vantaa</div>
+          <div class="pa-count" id="areaVantaa">3 partiota</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="cancel-banner">
+  <span style="font-size:1.1rem;flex-shrink:0">📋</span>
+  <span><strong>Peruutuskäytäntö:</strong> Yli 24h ennen → maksuton peruutus. Alle 24h ennen → 50€ peruutusmaksu. Kuukausipaketti: irtisano milloin tahansa kuukauden varoitusajalla.</span>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logos">
+        <a href="#" class="logo">
+          <div class="logo-icon"><img src="lightning-tiny.svg" alt="siivouspartio icon"></div>
+          <div class="logo-text">Siivous<span>partio</span></div>
+        </a>
+        <div class="footer-logo-divider"></div>
+        <div class="footer-keramore">
+          <a href="https://www.keramore.fi" target="_blank" class="keramore-logo">
+            <img src="keramore.avif" alt="Keramore" class="keramore-logo-img">
+          </a>
+        </div>
+      </div>
+      <p>Suomen nopein siivouspalvelu. Yli 200 ammattilaisen verkosto Espoon, Helsingin ja Vantaan alueella. Kotitaloudet ja yritykset — nopea reagointi, kiinteät hinnat, tyytyväisyystakuu.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Palvelut</h4>
+      <ul>
+        <li><a href="#hinnat">🚀 Pikapartio — 59€/h</a></li>
+        <li><a href="#hinnat">📅 Aikataulutettu — 45€/h</a></li>
+        <li><a href="#hinnat">📦 Kuukausipaketti — 349€/kk</a></li>
+        <li><a href="#opas">Hintaopas</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Yhteystiedot</h4>
+      <ul>
+        <li><a href="tel:+358401234567">📞 044 2361914</a></li>
+        <li><a href="#" data-email="help&#64;siivouspartio&#46;fi" onclick="this.href='mailto:'+this.dataset.email" style="color:inherit;text-decoration:none">help&#64;siivouspartio&#46;fi</a></li>
+        <li><a href="#">Helsinki, Espoo, Vantaa</a></li>
+        <li><a href="#">Arkisin 9–17 · Viikonloput: sähköpostilla</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Siivouspartio · Osa Keramore Oy palveluita · Kaikki oikeudet pidätetään</span>
+    <span><a href="https://www.keramore.fi/tietosuojaseloste/">Tietosuoja</a> · <a href="#">Käyttöehdot</a></span>
+  </div>
+</footer>
+
+<script>
+// ── PATROL MAP — real-time dot logic ──────────────────────────────
+const DOTS = {
+  // 7 central + 3 edge per pool — all on #354367 land mass
+  // SVG sub-paths are water cutouts (bays/inlets) — coordinates avoid those ranges
+  espoo: [
+    // central (70%) — Espoo land core, clear of coastal inlets
+    {cx:600,cy:860}, {cx:650,cy:880}, {cx:690,cy:830},
+    {cx:630,cy:910}, {cx:670,cy:800}, {cx:650,cy:955}, {cx:610,cy:825},
+    // edge (30%) — moved inward from coastline
+    {cx:510,cy:870}, {cx:530,cy:945}, {cx:550,cy:765}
+  ],
+  helsinki: [
+    // central (70%) — shifted right+down onto peninsula land
+    // avoids water cutout M1104 (x:880-1104, y:858-988) and tiny bays M1169/M1210
+    {cx:1150,cy:1005}, {cx:1195,cy:990}, {cx:1165,cy:1045},
+    {cx:1235,cy:1015}, {cx:1145,cy:1065}, {cx:1175,cy:975}, {cx:1225,cy:1055},
+    // edge (30%)
+    {cx:1285,cy:1005}, {cx:1500,cy:975}, {cx:1095,cy:1075}
+  ],
+  vantaa: [
+    // central (70%) — Vantaa inland, clear of M1036 tiny cutout (x:1027-1065, y:299-350)
+    {cx:1055,cy:395}, {cx:1105,cy:415}, {cx:1005,cy:378},
+    {cx:1155,cy:388}, {cx:1085,cy:440}, {cx:1025,cy:425}, {cx:1125,cy:368},
+    // edge (30%)
+    {cx:925,cy:390}, {cx:1305,cy:438}, {cx:1225,cy:408}
+  ]
+}
+
+const SCHEDULE = [
+  { from:  0, to:  6, e: 0, h: 0, v: 0 },
+  { from:  6, to:  8, e: 1, h: 2, v: 1 },
+  { from:  8, to: 11, e: 2, h: 4, v: 1 },
+  { from: 11, to: 15, e: 3, h: 5, v: 2 },
+  { from: 15, to: 18, e: 4, h: 6, v: 2 },
+  { from: 18, to: 21, e: 2, h: 3, v: 1 },
+  { from: 21, to: 24, e: 1, h: 1, v: 0 },
+]
+
+const SVG_NS = 'http://www.w3.org/2000/svg'
+
+function getSlot(h) {
+  return SCHEDULE.find(s => h >= s.from && h < s.to) || SCHEDULE[0]
+}
+
+// Apply ±1 variation, keeping within bounds
+function vary(base, maxPool) {
+  if (base === 0) return 0
+  const delta = Math.random() < 0.5 ? 1 : -1
+  return Math.max(1, Math.min(maxPool, base + delta))
+}
+
+function renderPatrols() {
+  const h = new Date().getHours()
+  const slot = getSlot(h)
+
+  const day = new Date().getDay()
+  const isWeekend = day === 0 || day === 6
+  const isNight = slot.h === 0 && slot.e === 0 // 00-06 slot: no patrols
+
+  let e, hh, v
+
+  if (isNight) {
+    e = 0; hh = 0; v = 0
+  } else if (isWeekend) {
+    // Weekend: smaller numbers but still min 1 per city with patrols
+    hh = Math.max(1, Math.round(slot.h * 0.35))
+    e  = Math.max(1, Math.round(slot.e * 0.35))
+    v  = Math.min(2, Math.max(1, Math.round(slot.v * 0.35)))
+  } else {
+    // Weekday: vary around schedule, Helsinki & Espoo priority, Vantaa max 3
+    hh = vary(slot.h, DOTS.helsinki.length)   // Helsinki: highest priority
+    e  = vary(slot.e, DOTS.espoo.length)       // Espoo: second priority
+    v  = Math.min(3, vary(slot.v, 3))          // Vantaa: hard cap at 3
+    // Guarantee minimum 1 per active city
+    if (hh < 1) hh = 1
+    if (e  < 1) e  = 1
+    if (v  < 1) v  = 1
+  }
+
+  const total = e + hh + v
+
+  const g = document.getElementById('patrolDots')
+  if (!g) return
+  while (g.firstChild) g.removeChild(g.firstChild)
+
+  function addDots(area, count) {
+    const pool = DOTS[area]
+    // Shuffle pool so positions vary each minute
+    const shuffled = [...pool].sort(() => Math.random() - 0.5)
+    for (let i = 0; i < count; i++) {
+      const pos = shuffled[i]
+      const delay = (i * 0.37).toFixed(2) + 's'
+      const c = document.createElementNS(SVG_NS, 'circle')
+      c.setAttribute('cx', pos.cx); c.setAttribute('cy', pos.cy)
+      c.setAttribute('r', '18'); c.setAttribute('fill', '#f4611e')
+      c.setAttribute('class', 'pd'); c.style.animationDelay = delay
+      g.appendChild(c)
+      const r = document.createElementNS(SVG_NS, 'circle')
+      r.setAttribute('cx', pos.cx); r.setAttribute('cy', pos.cy)
+      r.setAttribute('r', '18'); r.setAttribute('fill', 'none')
+      r.setAttribute('stroke', '#f4611e'); r.setAttribute('stroke-width', '5')
+      r.setAttribute('class', 'pd-ring'); r.style.animationDelay = delay
+      g.appendChild(r)
+    }
+  }
+
+  addDots('espoo', e)
+  addDots('helsinki', hh)
+  addDots('vantaa', v)
+
+  const countEl = document.getElementById('patrolCount')
+  if (countEl) countEl.textContent = total
+
+  const fmt = n => n === 0 ? 'ei partiota' : n + (n === 1 ? ' partio' : ' partiota')
+
+  const aE = document.getElementById('areaEspoo')
+  const aH = document.getElementById('areaHelsinki')
+  const aV = document.getElementById('areaVantaa')
+  if (aE) aE.textContent = fmt(e)
+  if (aH) aH.textContent = fmt(hh)
+  if (aV) aV.textContent = fmt(v)
+
+  document.querySelectorAll('.patrol-area').forEach((el, i) => {
+    el.style.opacity = [e, hh, v][i] === 0 ? '0.35' : '1'
+  })
+}
+
+renderPatrols()
+setInterval(renderPatrols, 30 * 60 * 1000)
+
+
+function openCpiModal(){document.getElementById('cpiModal').classList.add('open');document.body.style.overflow='hidden'}
+function closeCpiModal(){document.getElementById('cpiModal').classList.remove('open');document.body.style.overflow=''}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeCpiModal()})
+
+// Nav
+function toggleNav(){document.getElementById('mobileNav').classList.toggle('open')}
+document.getElementById('hamburger').addEventListener('click',toggleNav)
+
+// Tabs — B2C / B2B
+function showTab(tab, btn){
+  document.querySelectorAll('.ctab').forEach(b=>b.classList.remove('active'))
+  btn.classList.add('active')
+  document.querySelectorAll('.b2c-card').forEach(c=>c.style.display=tab==='b2c'?'block':'none')
+  document.querySelectorAll('.b2b-card').forEach(c=>c.style.display=tab==='b2b'?'block':'none')
+}
+
+// Chips — vaihda palvelutyypit asiakastyypin mukaan
+function switchCustType(type){
+  const b2c=document.getElementById('chips-b2c')
+  const b2b=document.getElementById('chips-b2b')
+  const laskuOpt=document.getElementById('payLaskuOpt')
+  const ktvOpt=document.getElementById('payKtvOpt')
+  const ktvInfo=document.getElementById('ktvInfo')
+  if(type==='b2b'){
+    b2c.style.display='none'
+    b2b.style.display='flex'
+    b2c.querySelectorAll('input').forEach(i=>i.checked=false)
+    if(laskuOpt) laskuOpt.style.display=''
+    if(ktvOpt) ktvOpt.style.display='none'
+    if(ktvInfo) ktvInfo.style.display='none'
+    // if kotitalousvähennys was selected, reset to kortti
+    const ktvRadio=document.getElementById('p3')
+    if(ktvRadio && ktvRadio.checked){ document.getElementById('p1').checked=true }
+  } else {
+    b2b.style.display='none'
+    b2c.style.display='flex'
+    b2b.querySelectorAll('input').forEach(i=>i.checked=false)
+    if(laskuOpt) laskuOpt.style.display='none'
+    if(ktvOpt) ktvOpt.style.display=''
+    // if lasku was selected, reset to kortti
+    const laskuRadio=document.getElementById('p2')
+    if(laskuRadio && laskuRadio.checked){ document.getElementById('p1').checked=true }
+  }
+  updatePrice()
+}
+
+// Kotitalousvähennys info toggle
+document.addEventListener('change', function(e){
+  if(e.target.name==='payment'){
+    const ktvInfo=document.getElementById('ktvInfo')
+    if(ktvInfo) ktvInfo.style.display = e.target.value==='kotitalousvahennys' ? 'block' : 'none'
+  }
+})
+
+// ALV toggle — pricing section
+let alvInclusive = true
+const VAT = 1.255
+function setAlv(inc){
+  alvInclusive = inc
+  document.getElementById('alvInc').classList.toggle('active', inc)
+  document.getElementById('alvExc').classList.toggle('active', !inc)
+  document.querySelectorAll('.pa-num').forEach(el=>{
+    el.textContent = inc ? el.dataset.inc : el.dataset.exc
+  })
+  document.querySelectorAll('.pa-note').forEach(el=>{
+    el.textContent = inc ? el.dataset.inc : el.dataset.exc
+  })
+}
+
+// ── MULTI-STEP FORM ──
+let msfCurrent = 1
+const MSF_TOTAL = 3
+
+function msfGoto(step, dir) {
+  const currentPanel = document.querySelector('.msf-panel.active')
+  const nextPanel    = document.querySelector(`.msf-panel[data-panel="${step}"]`)
+  if (!nextPanel) return
+
+  if (currentPanel) {
+    currentPanel.classList.remove('active', 'slide-fwd', 'slide-bck')
+  }
+  nextPanel.classList.remove('slide-fwd', 'slide-bck')
+  void nextPanel.offsetWidth // force reflow for re-animation
+  nextPanel.classList.add('active', dir === 'back' ? 'slide-bck' : 'slide-fwd')
+
+  document.querySelectorAll('.msf-step').forEach(s => {
+    const n = parseInt(s.dataset.step)
+    s.classList.toggle('active', n === step)
+    s.classList.toggle('done', n < step)
+  })
+  document.querySelectorAll('.msf-step-line').forEach((l, i) => {
+    l.classList.toggle('done', i + 1 < step)
+  })
+
+  msfCurrent = step
+  msfUpdateNav()
+
+  // Scroll form into view smoothly
+  document.getElementById('varaus')?.scrollIntoView({behavior:'smooth', block:'start'})
+}
+
+function msfUpdateNav() {
+  const back = document.getElementById('msfBackBtn')
+  const next = document.getElementById('msfNextBtn')
+  if (!back || !next) return
+  back.style.display = msfCurrent === 1 ? 'none' : ''
+  next.textContent = msfCurrent === MSF_TOTAL ? 'Lähetä varaus →' : 'Seuraava →'
+}
+
+function msfNextStep() {
+  if (msfCurrent === MSF_TOTAL) { openSla(); return }
+  if (!msfValidate(msfCurrent)) return
+  msfGoto(msfCurrent + 1, 'fwd')
+}
+
+function msfPrevStep() {
+  if (msfCurrent <= 1) return
+  msfGoto(msfCurrent - 1, 'back')
+}
+
+function msfValidate(step) {
+  if (step === 1) {
+    if (!document.querySelector('input[name="service"]:checked')) {
+      alert('Valitse palvelutaso ennen jatkamista.'); return false
+    }
+    const isPika = document.querySelector('input[name="service"]:checked')?.value === 'Pikapartio'
+    if (!isPika) {
+      if (!document.getElementById('bookDate').value) { alert('Valitse toivottu päivämäärä.'); return false }
+      if (!document.getElementById('bookTime').value) { alert('Valitse toivottu kellonaika.'); return false }
+    }
+  }
+  if (step === 2) {
+    if (!document.getElementById('size').value) {
+      alert('Valitse kohteen koko.')
+      return false
+    }
+    if (!document.getElementById('address').value.trim()) { alert('Syötä katuosoite.'); return false }
+    if (!document.getElementById('city').value) { alert('Valitse kaupunki.'); return false }
+  }
+  return true
+}
+
+// Price calculator
+const rates={Pikapartio:59,Aikataulutettu:45}
+const hrs={'2':2,'2.5':2.5,'3.5':3.5,'4.5':4.5}
+const paketti_kk={'':349,'2':349,'2.5':399,'3.5':499,'4.5':599}
+
+// Chip effects: extraHours added before multiplier, multiplier applied after
+// alwaysApply: true = applies even when it's the only selection
+const chipEffects = {
+  'Yleis- & pintasiivous':           { h: 0,   x: 1,   alwaysApply: false },
+  'Kylpyhuone & WC':                 { h: 1,   x: 1,   alwaysApply: false },
+  'Keittiö':                         { h: 0.5, x: 1,   alwaysApply: false },
+  'Ikkunanpesu':                     { h: 0,   x: 1.5, alwaysApply: false },
+  'Roskientyhjennys & kierrätys':    { h: 0,   x: 1,   alwaysApply: false },
+  'Muutto / luovutus':               { h: 0,   x: 1.5, alwaysApply: true  },
+  'WC-tilat':                        { h: 1,   x: 1,   alwaysApply: false },
+  'Taukotila & keittiö':             { h: 1,   x: 1,   alwaysApply: false },
+  'Neuvottelu- & asiakastilat':      { h: 0,   x: 1,   alwaysApply: false },
+}
+
+function getChipAdjustment(){
+  const checked = [...document.querySelectorAll('input[name="palvelutyyppi"]:checked')]
+  let extraH = 0
+  let multiplier = 1
+  checked.forEach((inp, i) => {
+    const fx = chipEffects[inp.value]
+    if(!fx) return
+    // First selection is free unless alwaysApply
+    if(i === 0 && !fx.alwaysApply) return
+    extraH += fx.h
+    multiplier *= fx.x
+  })
+  return { extraH, multiplier }
+}
+
+function fmtH(h){
+  if(h===Math.floor(h)) return h+'h'
+  return h.toFixed(1).replace('.',',')+'h'
+}
+
+function isSunday(){
+  const dateVal = document.getElementById('bookDate')?.value
+  if(!dateVal) return false
+  const [y,m,d] = dateVal.split('-').map(Number)
+  return new Date(y, m-1, d).getDay() === 0
+}
+
+function updatePrice(){
+  const svcEl  = document.querySelector('input[name="service"]:checked')
+
+  if(!svcEl){
+    const el = document.getElementById('priceDisplay')
+    if(el) el.innerHTML = '— <span>· valitse palvelutaso</span>'
+    return
+  }
+
+  const svc    = svcEl.value
+  const sz     = document.getElementById('size').value
+  const el     = document.getElementById('priceDisplay')
+  const exvatNote  = document.getElementById('ps-exvat')
+  const alvNote    = document.getElementById('ps-alv-note')
+  const sundayNote = document.getElementById('ps-sunday')
+  const isB2B  = document.querySelector('input[name="custype"]:checked')?.value === 'yritys'
+  const baseH  = sz ? hrs[sz] : 2
+  const { extraH, multiplier } = getChipAdjustment()
+  const adjH   = (baseH + extraH) * multiplier
+  const sunday = isSunday()
+  const dayMult = sunday ? 2 : 1
+
+  if(sundayNote) sundayNote.style.display = sunday ? 'block' : 'none'
+
+  function showExvat(total){
+    if(isB2B){
+      const exvat = Math.round(total / VAT)
+      alvNote.textContent = ' sis. ALV 25,5%'
+      exvatNote.style.display = 'block'
+      exvatNote.textContent = '= ' + exvat + '€ ilman ALV (+ ALV 25,5%)'
+    } else {
+      exvatNote.style.display = 'none'
+      alvNote.textContent = ' sis. ALV 25,5%'
+    }
+  }
+
+  let totalText = ''
+
+  if(svc === 'Kuukausipaketti'){
+    const monthly = paketti_kk[sz] || 349
+    const adjusted = Math.round(monthly * multiplier * dayMult + extraH * (rates.Aikataulutettu || 45) * 4 * dayMult)
+    const perVisit = Math.round(adjusted / 4)
+    totalText = adjusted + '€/kk'
+    el.innerHTML = adjusted + '€<sub>/kk</sub> <span>· 4 käyntiä · ' + perVisit + '€/käynti</span>'
+    showExvat(adjusted)
+  } else {
+    const rate  = rates[svc]
+    const total = Math.round(rate * adjH * dayMult)
+    const hLabel = fmtH(adjH)
+    totalText = total + '€'
+    el.innerHTML = total + '€ <span>· ' + hLabel + ' · ' + (rate * dayMult) + '€/h</span>'
+    showExvat(total)
+  }
+
+}
+document.querySelectorAll('input[name="service"], #size').forEach(el => el.addEventListener('change', updatePrice))
+document.addEventListener('change', e => {
+  if(e.target.name==='palvelutyyppi'||e.target.name==='custype') updatePrice()
+  if(e.target.id==='bookDate') updatePrice()
+})
+document.getElementById('bookDate')?.addEventListener('input', updatePrice)
+updatePrice()
+
+// Booking handler — HubSpot Forms API
+function getHutk(){
+  const match = document.cookie.match(/(?:^|;\s*)hubspotutk=([^;]*)/)
+  return match ? match[1] : ''
+}
+
+async function handleBooking(){
+  const fname   = document.getElementById('fname').value.trim()
+  const lname   = document.getElementById('lname').value.trim()
+  const phone   = document.getElementById('phone').value.trim()
+  const email   = document.getElementById('email').value.trim()
+  const address = document.getElementById('address').value.trim()
+  const city    = document.getElementById('city').value
+  const size    = document.getElementById('size').value
+  const date    = document.getElementById('bookDate').value
+  const time    = document.getElementById('bookTime').value
+  const notes   = document.getElementById('lisatiedot').value.trim()
+  const svc     = document.querySelector('input[name="service"]:checked').value
+  const custype = document.querySelector('input[name="custype"]:checked')?.value || 'kotitalous'
+  const payment = document.querySelector('input[name="payment"]:checked')?.value || ''
+  const palvelutoiveet = [...document.querySelectorAll('input[name="palvelutyyppi"]:checked')]
+                          .map(i => i.value).join(', ')
+
+  const priceDisplay = document.getElementById('priceDisplay')
+  const priceText = priceDisplay ? priceDisplay.innerText.replace(/\s+/g, ' ').trim() : ''
+  const exvatEl = document.getElementById('ps-exvat')
+  const exvatText = (exvatEl && exvatEl.style.display !== 'none') ? ' · ' + exvatEl.textContent.trim() : ''
+  const arvioidutHinta = priceText + exvatText
+  const sizeLabels = {'2':'alle 35m²','2.5':'35–60m²','3.5':'60–90m²','4.5':'90m²+'}
+
+  const btn = document.getElementById('msfNextBtn')
+  const origText = btn.textContent
+  btn.textContent = 'Lähetetään...'
+  btn.disabled = true
+
+  try {
+    const payload = {
+      fields: [
+        {name:'firstname',          value: fname},
+        {name:'lastname',           value: lname},
+        {name:'phone',              value: phone},
+        {name:'email',              value: email},
+        {name:'address',            value: address},
+        {name:'city',               value: city},
+        {name:'property_size',      value: sizeLabels[size] || size},
+        {name:'service_type',       value: svc},
+        {name:'customer_type',      value: custype},
+        {name:'service_requests',   value: palvelutoiveet},
+        {name:'payment_method',     value: payment},
+        {name:'service_date',       value: date},
+        {name:'service_time',       value: time},
+        {name:'lisatiedot',          value: notes},
+        {name:'arvioitu_hinta',      value: arvioidutHinta}
+      ],
+      context: {pageUri: window.location.href, pageName: 'Siivouspartio — Varauslomake', hutk: getHutk()},
+      legalConsentOptions: {
+        consent: {
+          consentToProcess: true,
+          text: 'Hyväksyn tietojeni käsittelyn palvelun tuottamista varten.'
+        }
+      }
+    }
+
+    console.log('=== HubSpot payload ===')
+    payload.fields.forEach(f => console.log(f.name, ':', JSON.stringify(f.value)))
+
+  const res = await fetch(
+      'https://api.hsforms.com/submissions/v3/integration/submit/147825068/2f5ffcad-f72b-45e8-aee9-42097b9fbc0c',
+      {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify(payload)
+      }
+    )
+
+    const responseText = await res.text()
+    console.log('HubSpot response:', res.status, responseText)
+
+    if(res.ok){
+      // ── Zapier Webhook — tiketti + sähköpostit ──
+      fetch('https://hooks.zapier.com/hooks/catch/26714714/upwuzzt/', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          firstname,
+          lastname,
+          email,
+          phone,
+          address,
+          city,
+          property_size:    sizeLabels[size] || size,
+          service_type:     svc,
+          service_date:     date,
+          service_time:     time,
+          customer_type:    custype,
+          service_requests: palvelutoiveet,
+          payment_method:   payment,
+          arvioitu_hinta:   arvioidutHinta,
+          lisatiedot:       notes
+        })
+      }).catch(e => console.error('Zapier webhook error:', e))
+
+      btn.textContent = '✓ Varaus lähetetty!'
+      btn.style.background = '#16a34a'
+      btn.disabled = true
+      document.getElementById('msfBackBtn').style.display = 'none'
+      const msg = document.createElement('div')
+      msg.className = 'msf-success'
+      msg.innerHTML = '<strong>Kiitos varauksesta, '+fname+'! 🎉</strong><br>Otamme sinuun yhteyttä alle 30 minuutissa.'
+      document.getElementById('msfResult').appendChild(msg)
+    } else {
+      console.error('HubSpot error', res.status, responseText)
+      throw new Error('HTTP ' + res.status + ':\n' + responseText)
+    }
+  } catch(e){
+    console.error('Booking submission error:', e)
+    btn.textContent = origText
+    btn.disabled = false
+    const msg = e.message.includes('Failed to fetch')
+      ? 'Verkkovirhe — sivu pitää olla julkaistuna oikealla domainilla (ei file://). Tarkista myös selaimen konsoli (F12).'
+      : 'Lähetys epäonnistui:\n\n' + e.message
+    alert(msg)
+  }
+}
+
+// Reveal on scroll — comparison table animations start only when fully visible
+const revealEls = document.querySelectorAll('.reveal')
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target) } })
+}, {threshold: 0.1})
+revealEls.forEach(el => observer.observe(el))
+
+// Comparison section: animate bars and elements when card fully in view
+const cmpCard = document.querySelector('#cmpCard')
+if(cmpCard){
+  const cmpObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        // Animate bars using data-w attribute
+        e.target.querySelectorAll('.cmp-bar-fill').forEach((bar, i) => {
+          const targetW = bar.getAttribute('data-w') || '50%'
+          setTimeout(() => { bar.style.width = targetW }, i * 120)
+        })
+        // Animate big numbers
+        e.target.querySelectorAll('.cmp-big').forEach((el, i) => {
+          el.style.opacity = '0'
+          el.style.transform = 'translateY(14px)'
+          el.style.transition = `opacity .5s ${i * 0.15}s ease, transform .5s ${i * 0.15}s ease`
+          setTimeout(() => {
+            el.style.opacity = '1'
+            el.style.transform = 'translateY(0)'
+          }, 30)
+        })
+        cmpObserver.unobserve(e.target)
+      }
+    })
+  }, {threshold: 0.7})
+  cmpObserver.observe(cmpCard)
+}
+</script>
+
+<!-- SLA MODAL -->
+<div class="sla-overlay" id="slaOverlay">
+  <div class="sla-modal">
+    <div class="sla-header">
+      <h3>📋 Palvelusopimus & tilausehdot</h3>
+      <p>Lue ja hyväksy ehdot ennen varauksen lähettämistä</p>
+    </div>
+    <div class="sla-body">
+      <h4>1. Palvelun sisältö</h4>
+      <p>Siivouspartio sitoutuu suorittamaan tilatun siivouspalvelun sovittuun aikaan ammattitaidolla. Palvelun laajuus määräytyy tilatun palvelutyypin ja kohteen koon mukaan. Mikäli työ vaatii enemmän aikaa kuin arvioitu, partiojohtaja ilmoittaa tästä etukäteen.</p>
+      <h4>2. Peruutuskäytäntö</h4>
+      <ul>
+        <li><strong>Yli 24h ennen palvelua:</strong> Peruutus on maksuton.</li>
+        <li><strong>Alle 24h ennen palvelua:</strong> Veloitamme 50€ peruutusmaksun.</li>
+        <li><strong>Kuukausipaketti:</strong> Irtisanottavissa milloin tahansa kuukauden varoitusajalla.</li>
+      </ul>
+      <h4>3. Maksu</h4>
+      <p>Maksu suoritetaan palvelun jälkeen kortilla iZettle tai Square -maksupäätteellä. Hinnat sisältävät ALV 25,5%. Laskutus on mahdollista yritysasiakkaille sopimuksen mukaan.</p>
+      <h4>4. Tyytyväisyystakuu</h4>
+      <p>Jos jokin jäi siistimättä tai olet tyytymätön lopputulokseen, partio palaa korjaamaan työn 24h sisällä reklamaatiosta. Reklamaatio tulee tehdä saman päivän aikana palvelun suorittamisesta.</p>
+      <h4>5. Asiakkaan velvollisuudet</h4>
+      <ul>
+        <li>Kohde on normaalisti siivottavassa kunnossa — ei rakennusjätettä tai poikkeuksellista epäjärjestystä ilman erillistä sopimusta.</li>
+        <li>Pääsy kohteeseen on järjestetty sovittuun aikaan.</li>
+        <li>Lemmikit ja erityisolosuhteet ilmoitetaan etukäteen lisätietokenttään.</li>
+      </ul>
+      <h4>6. Vastuunrajoitus</h4>
+      <p>Siivouspartio ei vastaa jo olemassa olevista vaurioista tai normaalista kulumisesta. Mahdolliset vahingot tulee ilmoittaa välittömästi palvelun jälkeen. Korvausvastuu on rajoitettu palvelun arvoon.</p>
+      <h4>7. Henkilötiedot</h4>
+      <p>Lomakkeella kerättyjä tietoja käytetään ainoastaan palvelun tuottamiseen ja yhteydenpitoon. Tietoja ei luovuteta kolmansille osapuolille. <a href="https://www.keramore.fi/tietosuojaseloste/" style="color:var(--orange)">Tietosuojaseloste</a></p>
+    </div>
+    <div class="sla-accept">
+      <label class="sla-checkbox">
+        <input type="checkbox" id="slaCheck">
+        <span>Olen lukenut ja hyväksyn palvelusopimuksen sekä tilausehdot</span>
+      </label>
+      <div class="sla-btns">
+        <button class="sla-btn-cancel" id="slaCancel">Peruuta</button>
+        <button class="sla-btn-confirm" id="slaConfirm">Hyväksy ja lähetä varaus →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+
+  // ── Pikapartio — piilota päivämäärä & kellonaika ──
+  function updateDateTimeVisibility() {
+    const serviceVal = document.querySelector('input[name="service"]:checked')?.value
+    const dateInput = document.getElementById('bookDate')
+    const timeInput = document.getElementById('bookTime')
+    if (!dateInput) return
+    if (serviceVal === 'Pikapartio') {
+      const now = new Date()
+      const yyyy = now.getFullYear()
+      const mm = String(now.getMonth()+1).padStart(2,'0')
+      const dd = String(now.getDate()).padStart(2,'0')
+      dateInput.value = `${yyyy}-${mm}-${dd}`
+      const nextHour = now.getHours() + 1
+      const clampedHour = Math.min(Math.max(nextHour, 7), 20)
+      timeInput.value = `${String(clampedHour).padStart(2,'0')}:00`
+      dateInput.readOnly = true
+      timeInput.readOnly = true
+      dateInput.style.cssText = 'border-color:var(--orange);background:rgba(244,97,30,.18);color:var(--orange2);box-shadow:0 0 0 3px rgba(244,97,30,.2);cursor:default;pointer-events:none'
+      timeInput.style.cssText = 'border-color:var(--orange);background:rgba(244,97,30,.18);color:var(--orange2);box-shadow:0 0 0 3px rgba(244,97,30,.2);cursor:default;pointer-events:none'
+      dateInput.required = false
+      timeInput.required = false
+      const wrap = document.getElementById('dateTimeWrap1')
+      if (wrap) wrap.style.display = ''
+    } else {
+      dateInput.readOnly = false
+      timeInput.readOnly = false
+      dateInput.style.cssText = ''
+      timeInput.style.cssText = ''
+      dateInput.required = true
+      timeInput.required = true
+      const wrap = document.getElementById('dateTimeWrap1')
+      if (wrap) wrap.style.display = ''
+    }
+  }
+
+  document.querySelectorAll('input[name="service"]').forEach(r => {
+    r.addEventListener('change', updateDateTimeVisibility)
+  })
+  updateDateTimeVisibility() // aja heti sivun latautuessa
+
+  // ── Initialisoi maksutavat sivun latautuessa (kotitalous = oletus) ──
+  const laskuOpt = document.getElementById('payLaskuOpt')
+  const ktvOpt   = document.getElementById('payKtvOpt')
+  if(laskuOpt) laskuOpt.style.display = 'none'
+  if(ktvOpt)   ktvOpt.style.display   = ''
+
+  // ── SLA modal ──
+  const overlay = document.getElementById('slaOverlay')
+  const check   = document.getElementById('slaCheck')
+  const confirm = document.getElementById('slaConfirm')
+  const cancel  = document.getElementById('slaCancel')
+  check.addEventListener('change', function(){ confirm.classList.toggle('active', this.checked) })
+  cancel.addEventListener('click', function(){ overlay.classList.remove('open'); document.body.style.overflow='' })
+  confirm.addEventListener('click', function(){ overlay.classList.remove('open'); document.body.style.overflow=''; handleBooking() })
+  overlay.addEventListener('click', function(e){ if(e.target===overlay){ overlay.classList.remove('open'); document.body.style.overflow='' } })
+
+  // ── Hero parallax mousemove ──
+  ;(function(){
+    const hero = document.querySelector('.hero')
+    const imgCard = document.querySelector('.hero-img-card')
+    const patrolWidget = document.querySelector('.hero-patrol-widget')
+    const statBadges = document.querySelector('.hero-stat-badges')
+    if(!hero || !imgCard || !patrolWidget) return
+
+    if(statBadges){
+      statBadges.style.willChange = 'transform'
+      statBadges.style.transition = 'transform .08s linear'
+    }
+
+    // Only on desktop
+    const mq = window.matchMedia('(min-width:1061px)')
+    let rafId = null
+    let targetImg    = {x:0,y:0}
+    let targetPatrol = {x:0,y:0}
+    let targetBadges = {x:0,y:0}
+    let currentImg    = {x:0,y:0}
+    let currentPatrol = {x:0,y:0}
+    let currentBadges = {x:0,y:0}
+
+    function lerp(a, b, t){ return a + (b - a) * t }
+
+    function animate(){
+      currentImg.x    = lerp(currentImg.x,    targetImg.x,    0.09)
+      currentImg.y    = lerp(currentImg.y,    targetImg.y,    0.09)
+      currentPatrol.x = lerp(currentPatrol.x, targetPatrol.x, 0.07)
+      currentPatrol.y = lerp(currentPatrol.y, targetPatrol.y, 0.07)
+      currentBadges.x = lerp(currentBadges.x, targetBadges.x, 0.08)
+      currentBadges.y = lerp(currentBadges.y, targetBadges.y, 0.08)
+
+      imgCard.style.transform      = `translate(${currentImg.x.toFixed(2)}px, ${currentImg.y.toFixed(2)}px)`
+      patrolWidget.style.transform = `translate(${currentPatrol.x.toFixed(2)}px, ${currentPatrol.y.toFixed(2)}px)`
+      if(statBadges) statBadges.style.transform = `translate(${currentBadges.x.toFixed(2)}px, ${currentBadges.y.toFixed(2)}px)`
+
+      rafId = requestAnimationFrame(animate)
+    }
+
+    function onMove(e){
+      if(!mq.matches) return
+      const rect = hero.getBoundingClientRect()
+      const nx = ((e.clientX - rect.left) / rect.width  - 0.5) * 2
+      const ny = ((e.clientY - rect.top)  / rect.height - 0.5) * 2
+
+      targetImg.x    = nx * 2.5
+      targetImg.y    = ny * 1.8
+      targetBadges.x = nx * 3.5
+      targetBadges.y = ny * 2.5
+      targetPatrol.x = nx * 10
+      targetPatrol.y = ny * 7
+    }
+
+    function onLeave(){
+      targetImg.x = 0; targetImg.y = 0
+      targetPatrol.x = 0; targetPatrol.y = 0
+      targetBadges.x = 0; targetBadges.y = 0
+    }
+
+    hero.addEventListener('mousemove', onMove, {passive:true})
+    hero.addEventListener('mouseleave', onLeave)
+    rafId = requestAnimationFrame(animate)
+  })()
+
+
+  const heroCounter = document.querySelector('.hpc-img-big')
+  if(heroCounter){
+    let started = false
+    const counterObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if(e.isIntersecting && !started){
+          started = true
+          let count = 0
+          const target = 200
+          const interval = setInterval(() => {
+            count = Math.min(count + 4, target)
+            e.target.innerHTML = count + '<span>+</span>'
+            if(count >= target) clearInterval(interval)
+          }, 16)
+          counterObs.unobserve(e.target)
+        }
+      })
+    }, {threshold: 0.5})
+    counterObs.observe(heroCounter)
+  }
+
+})
+
+function openSla(){
+  const fname   = document.getElementById('fname').value.trim()
+  const lname   = document.getElementById('lname').value.trim()
+  const email   = document.getElementById('email').value.trim()
+  const phone   = document.getElementById('phone').value.trim()
+  if(!fname)   {alert('Syötä etunimi.');return}
+  if(!lname)   {alert('Syötä sukunimi tai yrityksen nimi.');return}
+  if(!phone)   {alert('Syötä puhelinnumero.');return}
+  if(!email)   {alert('Syötä sähköpostiosoite.');return}
+  document.getElementById('slaCheck').checked = false
+  document.getElementById('slaConfirm').classList.remove('active')
+  document.getElementById('slaOverlay').classList.add('open')
+  document.body.style.overflow = 'hidden'
+}
+</script>
+
+<!-- PATROL MODAL -->
+<div id="cpiModal" class="cpi-modal-overlay" onclick="if(event.target===this)closeCpiModal()">
+  <div class="cpi-modal">
+    <button class="cpi-modal-close" onclick="closeCpiModal()">✕</button>
+    <div class="cpi-modal-header">
+      <div class="cpi-modal-icon">💡</div>
+      <h3>Miten palvelutoiveet vaikuttavat hintaan?</h3>
+      <p>Ensimmäinen valinta sisältyy aina perushintaan. Lisävalinnat kasvattavat arviota seuraavasti:</p>
+    </div>
+    <div class="cpi-modal-section">
+      <div class="cpi-modal-label">Kotitalouksille</div>
+      <div class="cpi-modal-rows">
+        <div class="cpi-modal-row"><span class="cpi-modal-chip">🧹 Yleis- &amp; pintasiivous</span><span class="cpi-modal-tag cpi-free">sisältyy</span><span class="cpi-modal-desc">Pohja kaikelle — lattiat, pinnat, pöydät</span></div>
+        <div class="cpi-modal-row"><span class="cpi-modal-chip">🛁 Kylpyhuone &amp; WC</span><span class="cpi-modal-tag cpi-hours">+ 1h</span><span class="cpi-modal-desc">Kalkkikertymät, saippuatahrat, peilit, saniteettitilat</span></div>
+        <div class="cpi-modal-row"><span class="cpi-modal-chip">🍳 Keittiö</span><span class="cpi-modal-tag cpi-hours">+ 0,5h</span><span class="cpi-modal-desc">Liesi, tasot, kaapistot ulkopuolelta, kodinkoneet</span></div>
+        <div class="cpi-modal-row"><span class="cpi-modal-chip">🪟 Ikkunanpesu</span><span class="cpi-modal-tag cpi-mult">× 1,5</span><span class="cpi-modal-desc">Sisä- ja ulkopinnat — 50% lisä kokonaishintaan</span></div>
+        <div class="cpi-modal-row"><span class="cpi-modal-chip">🗑️ Roskientyhjennys</span><span class="cpi-modal-tag cpi-free">ei lisää</span><span class="cpi-modal-desc">Sisältyy siivoukseen ilman lisäaikaa</span></div>
+        <div class="cpi-modal-row"><span class="cpi-modal-chip">📦 Muutto / luovutus</span><span class="cpi-modal-tag cpi-mult">× 1,5 aina</span><span class="cpi-modal-desc">Kaappien sisät, parvekkeet, kodinkoneet — tarkkuustyö joka vaatii enemmän aikaa</span></div>
+      </div>
+    </div>
+    <div class="cpi-modal-section">
+      <div class="cpi-modal-label">Yrityksille</div>
+      <div class="cpi-modal-rows">
+        <div class="cpi-modal-row"><span class="cpi-modal-chip">🧹 Yleis- &amp; pintasiivous</span><span class="cpi-modal-tag cpi-free">sisältyy</span><span class="cpi-modal-desc">Lattiat, tasot, toimistotilat</span></div>
+        <div class="cpi-modal-row"><span class="cpi-modal-chip">🚽 WC-tilat</span><span class="cpi-modal-tag cpi-hours">+ 1h</span><span class="cpi-modal-desc">Desinfiointi, kalkkikertymät, paperit täyteen</span></div>
+        <div class="cpi-modal-row"><span class="cpi-modal-chip">🍵 Taukotila &amp; keittiö</span><span class="cpi-modal-tag cpi-hours">+ 1h</span><span class="cpi-modal-desc">Astianpesu, mikrot, työtasot, kahvinkeitin</span></div>
+        <div class="cpi-modal-row"><span class="cpi-modal-chip">🪟 Ikkunanpesu</span><span class="cpi-modal-tag cpi-mult">× 1,5</span><span class="cpi-modal-desc">Näyteikkunat, toimistolasit — 50% lisä kokonaishintaan</span></div>
+        <div class="cpi-modal-row"><span class="cpi-modal-chip">🗑️ Roskientyhjennys</span><span class="cpi-modal-tag cpi-free">ei lisää</span><span class="cpi-modal-desc">Kaikki roskakorit ja kierrätyspisteet</span></div>
+        <div class="cpi-modal-row"><span class="cpi-modal-chip">🪑 Neuvottelu- &amp; asi
