@@ -1953,7 +1953,7 @@ async function handleBooking(){
   const priceText = priceDisplay ? priceDisplay.innerText.replace(/\s+/g, ' ').trim() : ''
   const exvatEl = document.getElementById('ps-exvat')
   const exvatText = (exvatEl && exvatEl.style.display !== 'none') ? ' · ' + exvatEl.textContent.trim() : ''
-  const arvioidutHinta = priceText + exvatText
+  const arvioituHinta = priceText + exvatText
   const sizeLabels = {'2':'alle 35m²','2.5':'35–60m²','3.5':'60–90m²','4.5':'90m²+'}
 
   const btn = document.getElementById('msfNextBtn')
@@ -1977,8 +1977,8 @@ async function handleBooking(){
         {name:'payment_method',     value: payment},
         {name:'service_date',       value: date},
         {name:'service_time',       value: time},
-        {name:'lisatiedot',          value: notes}
-        {name:'arvioitu_hinta',      value: arvioidutHinta}
+        {name:'lisatiedot',         value: notes}
+        {name:'arvioitu_hinta',     value: arvioituHinta}
       ],
       context: {pageUri: window.location.href, pageName: 'Siivouspartio — Varauslomake', hutk: getHutk()},
       legalConsentOptions: {
