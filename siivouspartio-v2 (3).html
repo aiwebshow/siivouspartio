@@ -1167,7 +1167,7 @@ footer{background:var(--navy);padding:56px 5% 36px;color:rgba(255,255,255,.45)}
       <div class="price-main">
         <div class="price-amount"><sup>€</sup><span class="pa-num" data-inc="45" data-exc="31">45</span><sub>/h</sub></div>
         <div class="price-ktv">✦ ~29€/h kotitalousvähennyksellä</div>
-        <div class="price-note pa-note" data-inc="Minimi 2h · Yksiö = 78€ · Sis. ALV 25,5%" data-exc="Minimi 2h · Yksiö = 62€ · ALV 0%">Minimi 2h · Yksiö = 78€ · Sis. ALV 25,5%</div>
+        <div class="price-note pa-note" data-inc="Minimi 2h · Yksiö = 90€ · Sis. ALV 25,5%" data-exc="Minimi 2h · Yksiö = 71€ · ALV 0%">Minimi 2h · Yksiö = 90€ · Sis. ALV 25,5%</div>
       </div>
       <ul class="price-features">
         <li>Toimitus 3 päivän sisällä</li>
@@ -1245,10 +1245,10 @@ footer{background:var(--navy);padding:56px 5% 36px;color:rgba(255,255,255,.45)}
           <tr><th>Koko</th><th>Aika</th><th>Hinta alkaen <span style="font-weight:400;opacity:.6;font-size:.7rem">sis. ALV</span></th></tr>
         </thead>
         <tbody>
-          <tr><td>alle 45 m&sup2;</td><td>2h</td><td class="price-col">78&euro;</td></tr>
-          <tr><td>35&ndash;60 m&sup2;</td><td>2&ndash;3h</td><td class="price-col">78&ndash;117&euro;</td></tr>
-          <tr><td>60&ndash;90 m&sup2;</td><td>3&ndash;4h</td><td class="price-col">117&ndash;156&euro;</td></tr>
-          <tr><td>90 m&sup2;+</td><td>4&ndash;5h</td><td class="price-col">156&ndash;195&euro;</td></tr>
+          <tr><td>alle 45 m&sup2;</td><td>2h</td><td class="price-col">90&euro;</td></tr>
+          <tr><td>35&ndash;60 m&sup2;</td><td>2&ndash;3h</td><td class="price-col">90&ndash;135&euro;</td></tr>
+          <tr><td>60&ndash;90 m&sup2;</td><td>3&ndash;4h</td><td class="price-col">135&ndash;180&euro;</td></tr>
+          <tr><td>90 m&sup2;+</td><td>4&ndash;5h</td><td class="price-col">180&ndash;225&euro;</td></tr>
           <tr><td>Suuret tilat</td><td colspan="2" style="color:var(--orange);font-weight:600">Kysy &rarr; <a href="#" data-email="help&#64;siivouspartio&#46;fi" onclick="this.href='mailto:'+this.dataset.email" style="color:var(--orange2);text-decoration:none;font-weight:600">help&#64;siivouspartio&#46;fi</a></td></tr>
           <tr style="background:rgba(244,97,30,.04)">
             <td colspan="3" style="color:#5a6475;font-size:.82rem;padding:12px 14px">
@@ -2139,7 +2139,7 @@ function msfValidate(step) {
 }
 
 // Price calculator
-const rates={Pikapartio:59,Aikataulutettu:39}
+const rates={Pikapartio:59,Aikataulutettu:45}
 const hrs={'2':2,'2.5':2.5,'3':3,'3.5':3.5,'4':4,'4.5':4.5,'5':5,'6':6,'7':7,'8':8,'9':9,'10':10}
 const paketti_kk={'':299,'2':299,'2.5':349,'3':399,'3.5':449,'4':499,'4.5':549,'5':599,'6':699,'7':799,'8':899,'9':999,'10':1099}
 
@@ -2372,7 +2372,7 @@ function updatePrice(){
 
   if(svc === 'Kuukausipaketti'){
     const monthly = paketti_kk[sz] || 349
-    const adjusted = Math.round(monthly * multiplier * dayMult + extraH * (rates.Aikataulutettu || 39) * 4 * dayMult) + eqCost
+    const adjusted = Math.round(monthly * multiplier * dayMult + extraH * (rates.Aikataulutettu || 45) * 4 * dayMult) + eqCost
     const perVisit = Math.round(adjusted / 4)
     const discounted = activeCoupon ? Math.round(adjusted * (1 - activeCoupon.discount)) : null
     totalText = (discounted || adjusted) + '€/kk'
