@@ -779,7 +779,7 @@ footer{background:var(--navy);padding:56px 5% 36px;color:rgba(255,255,255,.45)}
         <div class="hero-trust-sep"></div>
         <div class="hero-trust-item"><strong>100%</strong> takuu</div>
         <div class="hero-trust-sep"></div>
-        <div class="hero-trust-item">Ei sopimuspakkoa</div>
+        <div class="hero-trust-item"><strong>Ei</strong> sopimuspakkoa</div>
       </div>
     </div>
 
@@ -2915,9 +2915,9 @@ document.addEventListener('DOMContentLoaded', function(){
         if(e.isIntersecting && !started){
           started = true
           let count = 0
-          const target = 200
+          const target = 4,7
           const interval = setInterval(() => {
-            count = Math.min(count + 4, target)
+            count = Math.min(count + 0.2, target)
             e.target.innerHTML = count + '<span>+</span>'
             if(count >= target) clearInterval(interval)
           }, 16)
