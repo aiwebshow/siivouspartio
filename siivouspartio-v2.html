@@ -1958,17 +1958,20 @@ function getEqData() {
 // Ikkunanpesu-dropdown optiot
 const WINDOW_OPTS_WITH_KOTISIIVOUS = [
   { value: '',     label: 'Valitse määrä' },
-  { value: '0.5',  label: '1–4 ikkunaa (+0,5h)' },
-  { value: '1',    label: '5–8 ikkunaa (+1h)' },
-  { value: '1.5',  label: '9–12 ikkunaa (+1,5h)' },
-  { value: '2',    label: '13+ ikkunaa (+2h)' },
+  { value: '1',    label: '1–4 ikkunaa (+1h)' },
+  { value: '1.5',  label: '5–8 ikkunaa (+1,5h)' },
+  { value: '2.5',    label: '9–12 ikkunaa (+2,5h)' },
+  { value: '3',  label: '13–16 ikkunaa (+3h)' },
+  { value: '3.5',    label: '17-20 ikkunaa (+3,5h)' },
+  { value: 'ask',  label: '20+ ikkunaa — kysy tarjous' },
 ]
 const WINDOW_OPTS_STANDALONE = [
   { value: '',     label: 'Valitse määrä' },
   { value: '2',    label: '5–8 ikkunaa (2h)' },
-  { value: '2.5',  label: '9–12 ikkunaa (2,5h)' },
-  { value: '3',    label: '13–16 ikkunaa (3h)' },
-  { value: 'ask',  label: '17+ ikkunaa — kysy tarjous' },
+  { value: '3',  label: '9–12 ikkunaa (3h)' },
+  { value: '3.5',    label: '13–16 ikkunaa (3.5h)' },
+  { value: '4',  label: '17-20 ikkunaa (4h)' },
+  { value: 'ask',  label: '20+ ikkunaa — kysy tarjous' },
 ]
 
 function updateWindowOpts() {
