@@ -3002,12 +3002,12 @@ function redeemCoupon() {
 }
 
 // Show popup after 8s if not already seen
-setTimeout(() => {
-  if (!sessionStorage.getItem('couponSeen')) {
-    sessionStorage.setItem('couponSeen', '1')
-    openCouponPopup()
-  }
-}, 20000)
+// setTimeout(() => {
+//  if (!sessionStorage.getItem('couponSeen')) {
+//    sessionStorage.setItem('couponSeen', '1')
+//    openCouponPopup()
+//  }
+//}, 20000)
 
 function openSla(){
   const fname   = document.getElementById('fname').value.trim()
