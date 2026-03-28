@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Siivouspartio — Worker Knowledge Base</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Syne:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a1628;
+  --bg2:#111118;
+  --bg3:#1a1a24;
+  --bg4:#22222e;
+  --yellow:#f4611e;
+  --yellow2:#ff7a3d;
+  --yellow-dim:rgba(244,97,30,.12);
+  --text:#e8e8ed;
+  --text2:#9898a8;
+  --text3:#68687a;
+  --border:#2a2a38;
+  --green:#34d399;
+  --red:#f87171;
+  --blue:#60a5fa;
+  --orange:#fb923c;
+  --radius:12px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:15px;overflow-x:hidden}
+
+/* SIDEBAR */
+.sidebar{position:fixed;left:0;top:0;width:280px;height:100vh;background:var(--bg2);border-right:1px solid var(--border);overflow-y:auto;z-index:100;transition:transform .3s}
+.sidebar-header{padding:24px 20px 16px;border-bottom:1px solid var(--border)}
+.sidebar-header .logo-row{display:flex;align-items:center;gap:12px}
+.sidebar-header .logo-icon{background:var(--yellow);width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sidebar-header .logo-icon img{width:20px;height:20px;display:block}
+.sidebar-header .logo-text{font-family:'Syne',sans-serif;font-weight:700;font-size:18px;color:#ffffff;display:inline}
+.sidebar-header .logo-text span{color:var(--yellow);display:inline}
+.sidebar-header .logo-subtitle{font-size:11px;color:var(--text3);font-weight:400;margin-top:6px;margin-left:44px}
+.sidebar-header h2{font-size:14px;font-weight:700;color:var(--yellow);letter-spacing:.5px;text-transform:uppercase}
+.sidebar-header h2 span{display:block;font-size:11px;color:var(--text3);font-weight:400;text-transform:none;letter-spacing:0;margin-top:2px}
+.nav-section{padding:16px 12px 8px}
+.nav-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--text3);padding:0 8px 8px;display:flex;align-items:center;gap:6px}
+.nav-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;cursor:pointer;transition:all .15s;font-size:13px;color:var(--text2);text-decoration:none;margin-bottom:2px}
+.nav-item:hover{background:var(--yellow-dim);color:var(--text)}
+.nav-item.active{background:var(--yellow-dim);color:var(--yellow);font-weight:600}
+.nav-item .icon{font-size:16px;width:22px;text-align:center;flex-shrink:0}
+.nav-item .badge{margin-left:auto;background:var(--yellow);color:var(--bg);font-size:10px;font-weight:700;padding:1px 6px;border-radius:10px}
+
+/* MAIN */
+.main{margin-left:280px;min-height:100vh;background:#ffffff}
+.topbar{position:sticky;top:0;background:rgba(255,255,255,.95);backdrop-filter:blur(20px);border-bottom:1px solid #d0d0d0;padding:14px 32px;display:flex;align-items:center;justify-content:space-between;z-index:50}
+.topbar h1{font-size:15px;font-weight:600;color:#1a1a1a}
+.topbar .search{background:#f6f4f1;border:1px solid #d0d0d0;border-radius:8px;padding:7px 14px;font-size:13px;color:#1a1a1a;width:260px;outline:none;font-family:inherit}
+.topbar .search:focus{border-color:var(--yellow);box-shadow:0 0 0 3px var(--yellow-dim)}
+.topbar .search::placeholder{color:#6a6a6a}
+
+.content{padding:32px;max-width:900px;margin:0 auto;color:#1a1a1a}
+
+/* PAGE */
+.page{display:none}
+.page.active{display:block}
+
+/* HERO CARD */
+.hero-card{background:#f6f4f1;border:1px solid #d0d0d0;border-radius:16px;padding:40px;margin-bottom:32px;position:relative;overflow:hidden}
+.hero-card::before{content:'⚡';position:absolute;right:30px;top:20px;font-size:80px;opacity:.06}
+.hero-card h2{font-family:'Syne',sans-serif;font-weight:700;font-size:28px;color:var(--yellow);margin-bottom:8px}
+.hero-card p{color:#4a4a4a;font-size:15px;max-width:600px}
+
+/* CARDS */
+.card{background:#f6f4f1;border:1px solid #d0d0d0;border-radius:var(--radius);padding:24px;margin-bottom:16px;transition:border-color .2s}
+.card:hover{border-color:#b0b0b0}
+.card h3{font-family:'Syne',sans-serif;font-weight:500;font-size:17px;color:#1a1a1a;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.card h3 .num{background:var(--yellow);color:#ffffff;font-size:11px;font-weight:700;width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.card p,.card li{font-size:14px;color:#4a4a4a;line-height:1.8}
+.card ul{padding-left:20px;margin-top:8px}
+.card li{margin-bottom:4px}
+
+/* STEP CARDS */
+.step-grid{display:grid;gap:12px;margin-top:16px}
+.step{background:#f6f4f1;border:1px solid #d0d0d0;border-radius:10px;padding:16px 20px;display:flex;gap:14px;align-items:flex-start}
+.step-num{background:var(--yellow);color:#ffffff;font-size:12px;font-weight:700;min-width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.step-content h4{font-family:'Syne',sans-serif;font-weight:400;font-size:14px;color:#1a1a1a;margin-bottom:4px}
+.step-content p{font-size:13px;color:#4a4a4a}
+
+/* TAGS */
+.tag{display:inline-block;padding:3px 10px;border-radius:6px;font-size:11px;font-weight:600;margin:2px 4px 2px 0}
+.tag-yellow{background:var(--yellow-dim);color:var(--yellow)}
+.tag-green{background:rgba(52,211,153,.12);color:var(--green)}
+.tag-blue{background:rgba(96,165,250,.12);color:var(--blue)}
+.tag-orange{background:rgba(251,146,60,.12);color:var(--orange)}
+.tag-red{background:rgba(248,113,113,.12);color:var(--red)}
+
+/* SECTION HEADER */
+.section-head{margin:32px 0 16px;padding-bottom:8px;border-bottom:1px solid #d0d0d0}
+.section-head h3{font-family:'Syne',sans-serif;font-weight:500;font-size:18px;color:#1a1a1a;display:flex;align-items:center;gap:8px}
+.section-head p{font-size:13px;color:#6a6a6a;margin-top:4px}
+
+/* COLLAPSIBLE */
+.collapsible{background:#f6f4f1;border:1px solid #d0d0d0;border-radius:var(--radius);margin-bottom:10px;overflow:hidden}
+.collapsible-header{padding:16px 20px;cursor:pointer;display:flex;align-items:center;gap:12px;transition:background .15s;user-select:none}
+.collapsible-header:hover{background:#eeebe8}
+.collapsible-header .ch-icon{font-size:20px;width:28px;text-align:center;flex-shrink:0}
+.collapsible-header h4{font-family:'Syne',sans-serif;font-weight:400;font-size:15px;color:#1a1a1a;flex:1}
+.collapsible-header .arrow{color:#6a6a6a;font-size:12px;transition:transform .2s}
+.collapsible.open .collapsible-header .arrow{transform:rotate(90deg)}
+.collapsible-body{display:none;padding:0 20px 20px 60px}
+.collapsible.open .collapsible-body{display:block}
+.collapsible-body p,.collapsible-body li{font-size:13.5px;color:#4a4a4a;line-height:1.8}
+.collapsible-body ul{padding-left:18px;margin:8px 0}
+.collapsible-body h5{font-size:13px;font-weight:700;color:var(--yellow);margin:14px 0 6px;text-transform:uppercase;letter-spacing:.5px}
+
+/* CHECKLIST */
+.checklist{margin:12px 0}
+.check-item{display:flex;align-items:flex-start;gap:10px;padding:6px 0;font-size:13.5px;color:#4a4a4a}
+.check-item::before{content:'✓';color:var(--green);font-weight:700;font-size:14px;margin-top:1px;flex-shrink:0}
+
+/* PRICE BOX */
+.price-box{background:var(--yellow-dim);border:1px solid rgba(244,97,30,.2);border-radius:10px;padding:16px 20px;margin:16px 0;display:flex;align-items:center;gap:16px}
+.price-box .amount{font-size:28px;font-weight:700;color:var(--yellow);white-space:nowrap}
+.price-box .desc{font-size:13px;color:#4a4a4a}
+.price-box .desc strong{color:#1a1a1a}
+
+/* VIDEO LINKS */
+.video-link{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#f6f4f1;border:1px solid #d0d0d0;border-radius:8px;margin:6px 0;text-decoration:none;transition:all .15s}
+.video-link:hover{border-color:#b0b0b0;background:#eeebe8}
+.video-link .yt{color:#ff0000;font-size:18px;flex-shrink:0}
+.video-link .vl-text{font-size:13px;color:#1a1a1a;font-weight:500}
+.video-link .vl-ch{font-size:11px;color:#6a6a6a}
+
+/* TABLE */
+.info-table{width:100%;border-collapse:collapse;margin:12px 0}
+.info-table th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:#6a6a6a;padding:8px 12px;border-bottom:1px solid #d0d0d0}
+.info-table td{padding:10px 12px;font-size:13.5px;color:#4a4a4a;border-bottom:1px solid #d0d0d0}
+.info-table tr:hover td{background:#eeebe8}
+
+/* ALERT */
+.alert{border-radius:10px;padding:14px 18px;margin:12px 0;display:flex;gap:10px;align-items:flex-start;font-size:13px}
+.alert-yellow{background:var(--yellow-dim);border:1px solid rgba(244,97,30,.2);color:var(--yellow)}
+.alert-green{background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.2);color:var(--green)}
+.alert-red{background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.2);color:var(--red)}
+.alert-blue{background:rgba(96,165,250,.08);border:1px solid rgba(96,165,250,.2);color:var(--blue)}
+.alert .alert-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+
+/* GRID */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+
+/* MOBILE */
+.mobile-header{display:none;position:fixed;top:0;left:0;right:0;z-index:200;background:var(--bg2);border-bottom:1px solid var(--border);padding:12px 16px;align-items:center;gap:16px}
+.mobile-toggle{background:transparent;border:none;padding:8px;cursor:pointer;color:var(--text);font-size:20px;flex-shrink:0}
+.mobile-logo{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.mobile-logo .logo-icon{background:var(--yellow);width:28px;height:28px;border-radius:5px;display:flex;align-items:center;justify-content:center}
+.mobile-logo .logo-icon img{width:16px;height:16px;display:block}
+.mobile-logo .logo-text{font-family:'Syne',sans-serif;font-weight:700;font-size:15px;color:#ffffff}
+.mobile-logo .logo-text span{color:var(--yellow)}
+.mobile-page-title{font-size:14px;font-weight:600;color:var(--text);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mobile-search-btn{background:transparent;border:none;padding:8px;cursor:pointer;color:var(--text);font-size:18px;flex-shrink:0}
+.mobile-search-overlay{display:none;position:fixed;top:56px;left:0;right:0;background:var(--bg2);border-bottom:1px solid var(--border);padding:16px;padding-top:16px;z-index:199}
+.mobile-search-overlay.active{display:block}
+.mobile-search-overlay input{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-size:14px;color:var(--text);width:100%;outline:none;font-family:inherit}
+.mobile-search-overlay input:focus{border-color:var(--yellow);box-shadow:0 0 0 3px var(--yellow-dim)}
+.mobile-search-overlay input::placeholder{color:var(--text3)}
+@media(max-width:768px){
+  .sidebar{transform:translateX(-100%)}
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-left:0;padding-top:56px}
+  .mobile-header{display:flex}
+  .content{padding:20px 16px}
+  .grid-2,.grid-3{grid-template-columns:1fr}
+  .hero-card{padding:24px}
+  .hero-card h2{font-size:22px}
+  .topbar{display:none}
+}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:90}
+@media(max-width:768px){.sidebar.open~.overlay{display:block}}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--text3)}
+
+/* PRINT */
+.print-btn{background:var(--bg3);border:1px solid var(--border);color:var(--text2);padding:6px 14px;border-radius:6px;font-size:12px;cursor:pointer;font-family:inherit;transition:all .15s}
+.print-btn:hover{border-color:var(--yellow);color:var(--yellow)}
+</style>
+</head>
+<body>
+
+<div class="mobile-header">
+  <button class="mobile-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">☰</button>
+  <div class="mobile-logo">
+    <div class="logo-icon"><img src="lightning-tiny.svg" alt="siivouspartio icon"></div>
+    <div class="logo-text">Siivous<span>partio</span></div>
+  </div>
+  <div class="mobile-page-title" id="mobile-page-title">Welcome & Rules</div>
+  <button class="mobile-search-btn" onclick="document.getElementById('mobile-search-overlay').classList.toggle('active')">🔍</button>
+</div>
+<div class="mobile-search-overlay" id="mobile-search-overlay">
+  <input type="text" placeholder="Search guides..." id="mobileSearchInput" onkeydown="if(event.key==='Enter'){handleMobileSearch()}">
+</div>
+<div class="overlay" onclick="document.querySelector('.sidebar').classList.remove('open')"></div>
+
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="logo-row">
+      <div class="logo-icon"><img src="lightning-tiny.svg" alt="siivouspartio icon"></div>
+      <div class="logo-text">Siivous<span>partio</span></div>
+    </div>
+    <div class="logo-subtitle">Knowledge Base</div>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">Start Here</div>
+    <a class="nav-item active" data-page="home" onclick="showPage('home')">
+      <span class="icon">🏠</span> Welcome & Rules
+      <span class="badge">START</span>
+    </a>
+    <a class="nav-item" data-page="payments" onclick="showPage('payments')">
+      <span class="icon">💰</span> Payments & Pricing
+    </a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">Home Cleaning</div>
+    <a class="nav-item" data-page="home-cleaning" onclick="showPage('home-cleaning')">
+      <span class="icon">🧹</span> Home Cleaning
+    </a>
+    <a class="nav-item" data-page="bathroom" onclick="showPage('bathroom')">
+      <span class="icon">🚿</span> Bathroom Deep Clean
+    </a>
+    <a class="nav-item" data-page="window" onclick="showPage('window')">
+      <span class="icon">🪟</span> Window Cleaning
+    </a>
+    <a class="nav-item" data-page="oven" onclick="showPage('oven')">
+      <span class="icon">🔥</span> Oven Cleaning
+    </a>
+    <a class="nav-item" data-page="fridge" onclick="showPage('fridge')">
+      <span class="icon">🧊</span> Fridge Cleaning
+    </a>
+    <a class="nav-item" data-page="bedlinen" onclick="showPage('bedlinen')">
+      <span class="icon">🛏️</span> Bed Linen Change
+    </a>
+    <a class="nav-item" data-page="sauna" onclick="showPage('sauna')">
+      <span class="icon">🧖</span> Sauna Cleaning
+    </a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">Commercial Cleaning</div>
+    <a class="nav-item" data-page="office" onclick="showPage('office')">
+      <span class="icon">🏢</span> Office Cleaning
+    </a>
+    <a class="nav-item" data-page="toilet" onclick="showPage('toilet')">
+      <span class="icon">🚽</span> Commercial Toilet
+    </a>
+    <a class="nav-item" data-page="restaurant" onclick="showPage('restaurant')">
+      <span class="icon">🍽️</span> Restaurant Cleaning
+    </a>
+    <a class="nav-item" data-page="event" onclick="showPage('event')">
+      <span class="icon">🎪</span> Event After Clean
+    </a>
+    <a class="nav-item" data-page="conference" onclick="showPage('conference')">
+      <span class="icon">🪑</span> Conference Room
+    </a>
+    <a class="nav-item" data-page="construction" onclick="showPage('construction')">
+      <span class="icon">🏗️</span> Construction Clean
+    </a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">Resources</div>
+    <a class="nav-item" data-page="equipment" onclick="showPage('equipment')">
+      <span class="icon">🧽</span> Equipment & Chemicals
+    </a>
+    <a class="nav-item" data-page="videos" onclick="showPage('videos')">
+      <span class="icon">🎬</span> Video Tutorials
+    </a>
+  </div>
+</nav>
+
+<div class="main">
+  <div class="topbar">
+    <h1 id="page-title">Welcome & Rules</h1>
+    <input type="text" class="search" placeholder="Search guides..." id="searchInput" onkeyup="handleSearch()">
+  </div>
+
+  <div class="content">
+
+<!-- ===================== HOME ===================== -->
+<div class="page active" id="page-home">
+  <div class="hero-card">
+    <h2>⚡ Welcome to Siivouspartio</h2>
+    <p>This is your guide to doing great work. Read every page. Follow every step. Ask your team leader if you do not understand something. You are a cleaning pro — act like one!</p>
+  </div>
+
+  <div class="section-head">
+    <h3>📋 Your Job Responsibilities</h3>
+    <p>These are the things you MUST do for every shift. No exceptions.</p>
+  </div>
+
+  <div class="step-grid">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h4>Apply to Open Shifts on Connecteam</h4>
+        <p>Open the <strong>Connecteam app</strong> on your phone. Go to the <strong>"Open Shifts"</strong> tab. Look at the shifts that are free. Pick the ones you want to work. Tap <strong>"Apply"</strong>. Wait for your team leader to say yes. Do this every day so you get enough work.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h4>Read the Shift Requirements</h4>
+        <p>Before you go to a job, <strong>read the shift notes carefully</strong>. The notes tell you: what kind of cleaning to do, what the customer wants, what tools to bring, and any special things to know. If you do not read the notes, you might do the wrong thing. Always read them.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h4>Arrive at the Location on Time</h4>
+        <p>Go to the address in the shift notes. Be there <strong>at the exact time</strong> — not late, not too early. If you will be late, <strong>tell your team leader right away</strong>. Being late makes the customer unhappy and hurts our company. Plan your trip before you leave home.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h4>Clock In and Clock Out</h4>
+        <p>When you arrive at the job, open Connecteam and tap <strong>"Clock In"</strong>. This starts your work timer. When you finish all the cleaning, tap <strong>"Clock Out"</strong>. You must do this for <strong>every single shift</strong>. If you forget, your hours will not be counted.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h3>💰 Taking Payments</h3>
+    <p>How to handle money after every gig.</p>
+  </div>
+
+  <div class="card">
+    <h3>📱 Using Vipps MobilePay App</h3>
+    <p>After you finish cleaning, you take payment from the customer using the <strong>Vipps MobilePay app</strong> on your phone. <strong>Before charging, look at the task details in Connecteam</strong> to see how many hours were scheduled and what the price estimation is. Enter the correct amount in the app and let the customer pay. Always be polite and say thank you.</p>
+    
+    <div class="alert alert-yellow" style="margin-top:12px">
+      <span class="alert-icon">⚠️</span>
+      <div><strong>Important price rules:</strong><br>
+      <strong>Always check the task first</strong> — look at how many hours were scheduled and the estimated price.<br>
+      If the work takes <strong>longer</strong> than planned → you MUST ask the customer first before working extra time. Do NOT just keep cleaning without asking.<br>
+      If the work takes <strong>less time</strong> than planned → only charge for the time you actually worked. Be honest. This builds trust.</div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="price-box">
+      <div class="amount">€45/h</div>
+      <div class="desc"><strong>Normal gigs</strong><br>Scheduled 3+ days ahead. Standard rate.</div>
+    </div>
+    <div class="price-box">
+      <div class="amount">€59/h</div>
+      <div class="desc"><strong>Fast response gigs</strong><br>Urgent — same day or next day work.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🔁 Monthly Recurring Customers</h3>
+    <p>Some customers pay every month <strong>automatically</strong>. For these customers, you do <strong>NOT</strong> take payment. Their card is charged by the system. Just do the cleaning and go.</p>
+    <div class="alert alert-green" style="margin-top:10px">
+      <span class="alert-icon">✅</span>
+      <div><strong>Exception:</strong> If a monthly customer asks for <strong>extra work</strong> (something not in their plan), then charge them <strong>only for that extra work</strong>. Not for the whole visit — just the extra part.</div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h3>⭐ Golden Rules</h3>
+    <p>Remember these every single day.</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>🕐 Be On Time</h3>
+      <p>Customers are waiting for you. Late arrival = bad review. Set alarms. Plan your route. Arrive 5 minutes early.</p>
+    </div>
+    <div class="card">
+      <h3>🧤 Wear Gloves</h3>
+      <p>Always wear rubber gloves when using chemicals. This keeps your hands safe and looks professional.</p>
+    </div>
+    <div class="card">
+      <h3>📸 Take Before/After Photos</h3>
+      <p>Take photos before you start and after you finish. This protects you and shows the customer great results.</p>
+    </div>
+    <div class="card">
+      <h3>😊 Be Friendly</h3>
+      <p>Smile. Say hello. Be polite. If the customer has questions, answer them. You represent Siivouspartio.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PAYMENTS PAGE ===================== -->
+<div class="page" id="page-payments">
+  <div class="hero-card">
+    <h2>💰 Payments & Pricing</h2>
+    <p>Everything you need to know about charging customers and handling money.</p>
+  </div>
+
+  <div class="card">
+    <h3>Pricing Summary</h3>
+    <table class="info-table">
+      <thead><tr><th>Type</th><th>Rate</th><th>When</th></tr></thead>
+      <tbody>
+        <tr><td><span class="tag tag-green">Scheduled</span></td><td><strong>€45/h</strong></td><td>Booked 3+ days ahead</td></tr>
+        <tr><td><span class="tag tag-orange">Urgent</span></td><td><strong>€59/h</strong></td><td>Same day or next day</td></tr>
+        <tr><td><span class="tag tag-blue">Monthly</span></td><td><strong>Auto-charged</strong></td><td>Recurring — no payment needed</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>📱 Step-by-Step: Taking Payment with Vipps MobilePay</h3>
+    <div class="step-grid">
+      <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Finish all cleaning work</h4><p>Make sure the job is done. Check every room.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Check the task details in Connecteam</h4><p>Look at how many hours were scheduled for the shift and what the price estimation is. This tells you what to charge.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Open Vipps MobilePay on your phone</h4><p>Make sure you are logged in.</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Enter the correct amount</h4><p>Based on the task details and actual time worked. Example: If 3 hours were scheduled at €45/h = €135.</p></div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-content"><h4>Let the customer pay</h4><p>Show the screen to the customer or send the payment request.</p></div></div>
+      <div class="step"><div class="step-num">6</div><div class="step-content"><h4>Confirm the payment went through</h4><p>Wait for the green check. Say thank you.</p></div></div>
+    </div>
+  </div>
+
+  <div class="alert alert-red">
+    <span class="alert-icon">🚫</span>
+    <div><strong>Never take cash.</strong> All payments go through Vipps MobilePay or the automatic billing system. If a customer wants to pay cash, tell them we only accept digital payments.</div>
+  </div>
+
+  <div class="card">
+    <h3>⏱️ What If Work Takes More or Less Time?</h3>
+    <div class="grid-2" style="margin-top:12px">
+      <div class="alert alert-orange" style="margin:0">
+        <span class="alert-icon">⏰</span>
+        <div><strong>Work takes LONGER?</strong><br>Stop and ask the customer: "This will take a bit more time. Is that okay?" Only keep working if they say yes. Then charge for the real time.</div>
+      </div>
+      <div class="alert alert-green" style="margin:0">
+        <span class="alert-icon">💚</span>
+        <div><strong>Work takes LESS time?</strong><br>Be honest. Only charge for the time you actually worked. Example: If you finished in 2.5 hours, charge 2.5 hours — not 3.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== HOME CLEANING ===================== -->
+<div class="page" id="page-home-cleaning">
+  <div class="hero-card">
+    <h2>🧹 Home Cleaning Guide</h2>
+    <p>The most common job. A full clean of the customer's home — every room, every surface.</p>
+  </div>
+
+  <div class="card">
+    <h3>🎯 The Goal</h3>
+    <p>When you leave, the home should look and smell fresh. Every surface should be dust-free. Every floor should be clean. The customer should say "wow!"</p>
+  </div>
+
+  <div class="section-head"><h3>Step-by-Step Instructions</h3></div>
+  <div class="step-grid">
+    <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Walk through the whole home first</h4><p>Look at every room. See what needs the most work. Check the shift notes for any special requests from the customer.</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Start from the TOP — work DOWN</h4><p>Always clean high things first (shelves, light fixtures, tops of cabinets). Dust falls down. If you clean the floor first, it will get dirty again.</p></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Clean the kitchen</h4><p>Wipe all counters and tables. Clean the stove top. Wipe cabinet doors. Clean the sink with degreaser. Empty the trash can and put in a new bag.</p></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Clean the bathrooms</h4><p>Scrub the toilet inside and outside. Clean the sink and mirror. Scrub the shower or bathtub. Wipe tiles. Mop the floor. Use disinfectant.</p></div></div>
+    <div class="step"><div class="step-num">5</div><div class="step-content"><h4>Clean the bedrooms and living areas</h4><p>Dust all surfaces (tables, shelves, TV, window sills). Make the beds if the customer wants it. Pick up visible trash.</p></div></div>
+    <div class="step"><div class="step-num">6</div><div class="step-content"><h4>Vacuum all floors</h4><p>Vacuum every room, including under beds and sofas if you can reach. Vacuum rugs and carpets carefully. Move slowly so the vacuum picks up everything.</p></div></div>
+    <div class="step"><div class="step-num">7</div><div class="step-content"><h4>Mop all hard floors</h4><p>After vacuuming, mop all tile, wood, and stone floors with a damp mop. Do NOT use too much water — wet floors can damage wood.</p></div></div>
+    <div class="step"><div class="step-num">8</div><div class="step-content"><h4>Final check</h4><p>Walk through every room one more time. Look for spots you missed. Check mirrors for streaks. Make sure trash bags are tied and by the door.</p></div></div>
+  </div>
+
+  <div class="alert alert-yellow" style="margin-top:16px">
+    <span class="alert-icon">💡</span>
+    <div><strong>Recommended sequence:</strong> Kitchen → bathrooms → bedrooms → living room → floors. Following the same order consistently ensures complete coverage.</div>
+  </div>
+</div>
+
+<!-- ===================== BATHROOM ===================== -->
+<div class="page" id="page-bathroom">
+  <div class="hero-card">
+    <h2>🚿 Bathroom Deep Clean</h2>
+    <p>A very detailed cleaning of the bathroom. This goes deeper than a normal home clean.</p>
+  </div>
+  <div class="step-grid">
+    <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Spray everything first</h4><p>Spray the toilet, sink, shower, tub, and tiles with bathroom cleaner. Let it sit for 5–10 minutes. The chemicals need time to break down the dirt.</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Scrub the shower/tub</h4><p>Use a scrub brush on all tiles and grout lines. Pay extra attention to corners where mold likes to grow. Scrub the shower head and faucet handles.</p></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Deep clean the toilet</h4><p>Put toilet cleaner inside the bowl. Scrub with a toilet brush. Wipe the outside, the seat, the lid, and behind the toilet. Use disinfectant spray.</p></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Clean the sink and mirror</h4><p>Scrub the sink basin and faucet. Remove limescale with lime remover. Clean the mirror with glass cleaner — use a microfiber cloth to avoid streaks.</p></div></div>
+    <div class="step"><div class="step-num">5</div><div class="step-content"><h4>Scrub tile walls and floor</h4><p>Scrub wall tiles near the shower. Scrub the floor on your hands and knees if needed. Get into every corner and behind the toilet.</p></div></div>
+    <div class="step"><div class="step-num">6</div><div class="step-content"><h4>Rinse everything</h4><p>Rinse all surfaces with clean water. Make sure no chemical residue is left. Dry the mirror and faucets with a clean cloth for a shiny finish.</p></div></div>
+  </div>
+  <div class="alert alert-red" style="margin-top:16px">
+    <span class="alert-icon">⚠️</span>
+    <div><strong>Safety:</strong> Never mix bleach with other chemicals. It can make dangerous gas. Always open a window or turn on the fan for fresh air when using strong cleaners.</div>
+  </div>
+</div>
+
+<!-- ===================== WINDOW ===================== -->
+<div class="page" id="page-window">
+  <div class="hero-card">
+    <h2>🪟 Window Cleaning</h2>
+    <p>Crystal clear windows make a huge difference. This guide shows you how to get streak-free glass every time.</p>
+  </div>
+  <div class="step-grid">
+    <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Remove dust and loose dirt</h4><p>Use a dry cloth or brush to wipe the window frame and sill first. Remove cobwebs from corners. This stops mud from forming when you spray.</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Spray window cleaner on the glass</h4><p>Spray the whole glass surface evenly. Or dip a window washer (the fuzzy tool) in a bucket of soapy water and scrub the glass.</p></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Squeegee from top to bottom</h4><p>Start at the top left corner. Pull the squeegee straight across. Wipe the squeegee blade with a cloth after each pass. Overlap each stroke a little so you don't leave lines.</p></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Wipe the edges</h4><p>Use a dry microfiber cloth to wipe the edges and corners where the squeegee can't reach.</p></div></div>
+    <div class="step"><div class="step-num">5</div><div class="step-content"><h4>Clean the window sill and frame</h4><p>Wipe the frame with a damp cloth. Clean the sill. If there is mold, use mold remover. Dry everything.</p></div></div>
+    <div class="step"><div class="step-num">6</div><div class="step-content"><h4>Do both sides</h4><p>Clean inside AND outside if the customer asked for it. Be very careful with high windows. Use an extension pole — never stand on unsafe things.</p></div></div>
+  </div>
+  <div class="alert alert-blue" style="margin-top:16px">
+    <span class="alert-icon">💡</span>
+    <div><strong>Best conditions:</strong> Do NOT clean windows in direct sunlight. The cleaner dries too fast and leaves streaks. Cloudy days or shade = best results.</div>
+  </div>
+</div>
+
+<!-- ===================== OVEN ===================== -->
+<div class="page" id="page-oven">
+  <div class="hero-card">
+    <h2>🔥 Oven Cleaning</h2>
+    <p>Ovens get very dirty with burnt food and grease. This is how you make them look new again.</p>
+  </div>
+  <div class="step-grid">
+    <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Make sure the oven is OFF and cool</h4><p>Never clean a hot oven. Turn it off and wait until it is cool enough to touch.</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Remove the racks and trays</h4><p>Take out all oven racks, trays, and loose parts. Put them in the sink or bathtub with hot soapy water to soak.</p></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Spray oven cleaner inside</h4><p>Spray a thick layer of oven cleaner on all inside surfaces — walls, floor, ceiling, and door glass. Avoid the heating elements. Let it sit for 15–20 minutes (or as the product says).</p></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Scrub the inside</h4><p>Use a scrub sponge or brush to scrub off the softened grease and burnt food. Scrub hard in the corners and bottom where food collects.</p></div></div>
+    <div class="step"><div class="step-num">5</div><div class="step-content"><h4>Wipe clean with a damp cloth</h4><p>Wipe all surfaces with a damp cloth until no cleaner is left inside. Rinse the cloth many times. You don't want chemical residue when the customer uses the oven.</p></div></div>
+    <div class="step"><div class="step-num">6</div><div class="step-content"><h4>Scrub and dry the racks</h4><p>Scrub the racks that were soaking. Rinse them. Dry them. Put them back in the oven. Close the door.</p></div></div>
+    <div class="step"><div class="step-num">7</div><div class="step-content"><h4>Clean the outside</h4><p>Wipe the oven door, handle, and control panel with a damp cloth and all-purpose cleaner. Polish with a dry cloth.</p></div></div>
+  </div>
+</div>
+
+<!-- ===================== FRIDGE ===================== -->
+<div class="page" id="page-fridge">
+  <div class="hero-card">
+    <h2>🧊 Fridge Cleaning</h2>
+    <p>A clean fridge is a healthy fridge. This job takes about 15 minutes.</p>
+  </div>
+  <div class="step-grid">
+    <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Ask before removing food</h4><p>Ask the customer if you can take the food out. If they are not home and the notes say to clean the fridge, gently remove items to a counter.</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Remove shelves and drawers</h4><p>Take out all removable shelves, drawers, and trays. Put them in the sink.</p></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Wash shelves and drawers</h4><p>Wash them with warm soapy water. Scrub off any sticky spots. Rinse and dry them.</p></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Wipe inside the fridge</h4><p>Use a mild cleaning solution (water + dish soap or a gentle all-purpose cleaner). Wipe all walls, the ceiling, and the floor of the fridge. Pay attention to corners and the rubber door seal.</p></div></div>
+    <div class="step"><div class="step-num">5</div><div class="step-content"><h4>Dry and reassemble</h4><p>Dry all surfaces. Put shelves and drawers back. Put the food back. Wipe the outside of the fridge and the handle.</p></div></div>
+  </div>
+  <div class="alert alert-green" style="margin-top:12px">
+    <span class="alert-icon">💡</span>
+    <div><strong>Best practice:</strong> Work efficiently to minimize food temperature exposure. Keep the fridge door open only when actively working.</div>
+  </div>
+</div>
+
+<!-- ===================== BED LINEN ===================== -->
+<div class="page" id="page-bedlinen">
+  <div class="hero-card">
+    <h2>🛏️ Bed Linen Change</h2>
+    <p>Fresh sheets make a home feel brand new. This add-on takes about 15 minutes per bed.</p>
+  </div>
+  <div class="step-grid">
+    <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Remove old sheets</h4><p>Take off the duvet cover, pillowcases, and fitted sheet. Put them in a pile — ask the customer where dirty laundry goes.</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Check the mattress</h4><p>If there are crumbs or hair on the mattress, quickly vacuum it. Straighten the mattress protector if there is one.</p></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Put on the fitted sheet</h4><p>Stretch the fitted sheet over all 4 corners tightly. No wrinkles. Pull it smooth.</p></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Put on the duvet cover</h4><p>Turn the duvet cover inside out. Grab the far corners. Clip the duvet corners and shake it down. Button or zip it closed. Lay it flat and neat.</p></div></div>
+    <div class="step"><div class="step-num">5</div><div class="step-content"><h4>Put on pillowcases</h4><p>Put clean pillowcases on all pillows. Fluff the pillows. Place them neatly at the head of the bed.</p></div></div>
+  </div>
+  <div class="alert alert-yellow" style="margin-top:12px">
+    <span class="alert-icon">📋</span>
+    <div><strong>Note:</strong> The customer should have clean sheets ready for you. If they don't, ask where the clean sheets are. Never use dirty sheets.</div>
+  </div>
+</div>
+
+<!-- ===================== SAUNA ===================== -->
+<div class="page" id="page-sauna">
+  <div class="hero-card">
+    <h2>🧖 Sauna Cleaning</h2>
+    <p>Saunas are very common in Finland. They need special care. This add-on takes about 30 minutes.</p>
+  </div>
+  <div class="step-grid">
+    <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Make sure the sauna is OFF and cool</h4><p>Never clean a hot sauna. The heater (kiuas) must be completely off and cool before you start.</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Remove loose items</h4><p>Take out any towels, buckets, ladles, or seat covers. Move them outside the sauna.</p></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Scrub the benches (lauteet)</h4><p>Use a scrub brush and sauna-safe cleaner (or mild soap and water). Scrub the top and bottom of each bench. Scrub in the direction of the wood grain. Rinse with clean water.</p></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Clean the walls</h4><p>Wipe wooden walls with a damp cloth. Do not soak the wood — too much water can damage it. For stains, use a gentle sauna cleaner.</p></div></div>
+    <div class="step"><div class="step-num">5</div><div class="step-content"><h4>Scrub the floor</h4><p>The floor is usually the dirtiest part. Scrub it with a stiff brush and cleaner. Rinse well with water. The drain should be clear — check it.</p></div></div>
+    <div class="step"><div class="step-num">6</div><div class="step-content"><h4>Wipe the heater area</h4><p>Carefully wipe around the heater with a damp cloth. Do NOT touch the stones (kiuaskivet). Do NOT pour water on a cold heater.</p></div></div>
+    <div class="step"><div class="step-num">7</div><div class="step-content"><h4>Leave door open to dry</h4><p>After cleaning, leave the sauna door open so air can flow and the wood dries properly.</p></div></div>
+  </div>
+</div>
+
+<!-- ===================== OFFICE ===================== -->
+<div class="page" id="page-office">
+  <div class="hero-card">
+    <h2>🏢 Office Cleaning</h2>
+    <p>Weekly or regular cleaning of small to medium offices. Usually done in evenings or weekends.</p>
+  </div>
+  <div class="step-grid">
+    <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Empty all trash cans</h4><p>Go to every desk and room. Empty every trash can. Put in new bags. This is always the first thing you do.</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Wipe desks and surfaces</h4><p>Use a damp microfiber cloth with all-purpose cleaner. Wipe all desks, tables, counters, and shelves. Be careful around computers — do not spray liquid near electronics.</p></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Clean the kitchen/break room</h4><p>Wash any dishes in the sink. Wipe counters, tables, and the microwave inside and out. Clean the coffee machine exterior. Wipe the fridge handle.</p></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Clean the toilets</h4><p>Scrub and disinfect toilets, sinks, and mirrors. Refill paper towels, toilet paper, and soap if supplies are there. Mop the floor.</p></div></div>
+    <div class="step"><div class="step-num">5</div><div class="step-content"><h4>Vacuum all floors</h4><p>Vacuum the entire office including under desks and in meeting rooms. Vacuum rugs and mats.</p></div></div>
+    <div class="step"><div class="step-num">6</div><div class="step-content"><h4>Mop hard floors</h4><p>After vacuuming, mop all hard floor areas. Use a damp mop — not soaking wet.</p></div></div>
+    <div class="step"><div class="step-num">7</div><div class="step-content"><h4>Final walk-through</h4><p>Check that all lights are off (unless the customer says to leave them on). Make sure doors are locked if you have keys. Leave the office looking perfect.</p></div></div>
+  </div>
+  <div class="alert alert-blue" style="margin-top:12px">
+    <span class="alert-icon">🔒</span>
+    <div><strong>Security:</strong> Do NOT touch private documents on desks. Do NOT open drawers. If you find a door locked, leave it. Report any security issues to your team leader.</div>
+  </div>
+</div>
+
+<!-- ===================== COMMERCIAL TOILET ===================== -->
+<div class="page" id="page-toilet">
+  <div class="hero-card">
+    <h2>🚽 Commercial Toilet Cleaning</h2>
+    <p>Public and commercial toilets need extra disinfection. Hygiene is the #1 priority here.</p>
+  </div>
+  <div class="step-grid">
+    <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Put on extra protection</h4><p>Wear rubber gloves, and if available, a cleaning apron. Commercial toilets can be very dirty.</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Spray disinfectant on all surfaces</h4><p>Spray toilets, urinals, sinks, door handles, flush buttons, and taps with disinfectant. Let it sit for 5 minutes.</p></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Scrub all toilets and urinals</h4><p>Use a toilet brush inside. Use a scrub sponge on the outside. Clean the base of each toilet — this is where dirt hides.</p></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Clean sinks and mirrors</h4><p>Scrub sinks with bathroom cleaner. Polish faucets. Clean mirrors with glass cleaner. Wipe soap dispensers.</p></div></div>
+    <div class="step"><div class="step-num">5</div><div class="step-content"><h4>Refill supplies</h4><p>Fill toilet paper holders, paper towel dispensers, and soap dispensers. If supplies are out, tell your team leader.</p></div></div>
+    <div class="step"><div class="step-num">6</div><div class="step-content"><h4>Mop the entire floor</h4><p>Mop with hot water and disinfectant. Get under sinks and behind toilets. Make sure the drain is clear.</p></div></div>
+    <div class="step"><div class="step-num">7</div><div class="step-content"><h4>Check for smells</h4><p>If it still smells bad, look for hidden sources (under toilet base, drain, behind pipes). Use air freshener if needed.</p></div></div>
+  </div>
+</div>
+
+<!-- ===================== RESTAURANT ===================== -->
+<div class="page" id="page-restaurant">
+  <div class="hero-card">
+    <h2>🍽️ Restaurant Cleaning</h2>
+    <p>Restaurants must pass health inspections. Cleaning here must be very thorough. Grease is your biggest enemy.</p>
+  </div>
+  <div class="step-grid">
+    <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Kitchen — Degrease all surfaces</h4><p>Spray heavy-duty degreaser on counters, stovetops, prep tables, and hoods. Let it work. Scrub with a tough sponge. Wipe clean. Repeat if needed.</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Clean grease filters</h4><p>Remove the grease filters from the hood. Soak them in hot soapy water with degreaser. Scrub, rinse, dry, and put back.</p></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Ovens and deep fryers</h4><p>Clean according to the oven guide. For deep fryers: drain old oil (if asked), scrub inside with degreaser, rinse well.</p></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Dining area</h4><p>Wipe all tables and chairs. Clean the bar area. Wipe menus and condiment holders. Vacuum or sweep the floor. Then mop.</p></div></div>
+    <div class="step"><div class="step-num">5</div><div class="step-content"><h4>Bathrooms</h4><p>Follow the commercial toilet guide. Restaurant bathrooms must be spotless — customers judge the restaurant by the bathroom.</p></div></div>
+    <div class="step"><div class="step-num">6</div><div class="step-content"><h4>Floors — Kitchen</h4><p>Sweep the kitchen floor first. Then mop with hot water and degreaser. Kitchen floors get very greasy and slippery. Scrub stubborn spots.</p></div></div>
+  </div>
+  <div class="alert alert-red" style="margin-top:12px">
+    <span class="alert-icon">🦺</span>
+    <div><strong>Safety:</strong> Kitchen floors are slippery. Wear non-slip shoes. Be careful around hot equipment. Never use water near electrical panels.</div>
+  </div>
+</div>
+
+<!-- ===================== EVENT ===================== -->
+<div class="page" id="page-event">
+  <div class="hero-card">
+    <h2>🎪 Event After Cleaning</h2>
+    <p>After a party or event, the space needs fast, thorough cleaning. Big team, fast work.</p>
+  </div>
+  <div class="step-grid">
+    <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Collect all trash first</h4><p>Walk through the entire space. Pick up all trash — cups, plates, napkins, bottles, decorations. Fill trash bags. This is the biggest job.</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Remove decorations</h4><p>Take down any leftover decorations, banners, or tape. Ask what to keep and what to throw away. Stack things neatly.</p></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Wipe all tables and surfaces</h4><p>Wipe down every table, counter, and bar area. Scrub sticky spots from spilled drinks. Use all-purpose cleaner.</p></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Clean the kitchen/serving area</h4><p>Wash any remaining dishes. Wipe counters. Clean the serving area. Take out food trash (it smells fast).</p></div></div>
+    <div class="step"><div class="step-num">5</div><div class="step-content"><h4>Clean bathrooms</h4><p>Bathrooms after events are always messy. Deep clean and disinfect everything. Refill all supplies.</p></div></div>
+    <div class="step"><div class="step-num">6</div><div class="step-content"><h4>Vacuum and mop all floors</h4><p>Vacuum the entire space. Look for confetti, food crumbs, and broken glass. Mop after vacuuming.</p></div></div>
+    <div class="step"><div class="step-num">7</div><div class="step-content"><h4>Move furniture back</h4><p>If tables and chairs were moved for the event, put them back in their normal spots. Check with the customer or shift notes.</p></div></div>
+  </div>
+</div>
+
+<!-- ===================== CONFERENCE ROOM ===================== -->
+<div class="page" id="page-conference">
+  <div class="hero-card">
+    <h2>🪑 Conference Room Cleaning</h2>
+    <p>Meeting rooms must look professional and smell fresh for the next meeting.</p>
+  </div>
+  <div class="step-grid">
+    <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Clear the table</h4><p>Remove any cups, water bottles, papers, and trash from the table. Throw away trash. Leave important-looking documents — do not throw those away.</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Wipe the meeting table</h4><p>Use all-purpose cleaner and a microfiber cloth. Wipe the entire table surface. Dry it so there are no streaks or wet spots.</p></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Clean chairs</h4><p>Wipe armrests and seat backs with a damp cloth. Check for stains. Vacuum fabric chairs if needed. Straighten all chairs around the table neatly.</p></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Clean screens and whiteboards</h4><p>Wipe TV screens gently with a dry microfiber cloth — never spray liquid on a screen. Erase whiteboards (unless notes say "do not erase").</p></div></div>
+    <div class="step"><div class="step-num">5</div><div class="step-content"><h4>Dust and vacuum</h4><p>Dust window sills, shelves, and equipment. Vacuum the floor including under the table.</p></div></div>
+    <div class="step"><div class="step-num">6</div><div class="step-content"><h4>Set up for next meeting</h4><p>If there are pens, notepads, or water bottles for meetings — put them back neatly. The room should look ready for use.</p></div></div>
+  </div>
+</div>
+
+<!-- ===================== CONSTRUCTION ===================== -->
+<div class="page" id="page-construction">
+  <div class="hero-card">
+    <h2>🏗️ Construction Cleaning</h2>
+    <p>After building or renovation work. Very heavy cleaning — dust, paint, plaster, and debris everywhere. This takes 3× normal time.</p>
+  </div>
+  <div class="alert alert-red">
+    <span class="alert-icon">🦺</span>
+    <div><strong>Safety first:</strong> Wear gloves, mask (for dust), safety shoes, high-visibility safety vest, and hard hat that meet construction site work requirements. Watch for nails, screws, and sharp objects on the floor. Open all windows for fresh air.</div>
+  </div>
+  <div class="step-grid" style="margin-top:16px">
+    <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Remove big debris and trash</h4><p>Pick up large pieces — wood, packaging, plastic, leftover materials. Fill trash bags. Put them where the customer says.</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Scrape paint and plaster spots</h4><p>Use a plastic scraper to remove dried paint drops and plaster from floors, windows, and fixtures. Be gentle so you don't scratch surfaces.</p></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Dust everything — twice</h4><p>Construction dust is very fine and gets everywhere. Dust all surfaces from top to bottom. Then do it again. Wipe air vents and light fixtures.</p></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Clean windows</h4><p>Windows will have dust and possibly paint. Follow the window cleaning guide. You may need to scrape before washing.</p></div></div>
+    <div class="step"><div class="step-num">5</div><div class="step-content"><h4>Clean all fixtures</h4><p>Wipe all door handles, light switches, outlet covers, radiators, and skirting boards. These collect a lot of fine dust.</p></div></div>
+    <div class="step"><div class="step-num">6</div><div class="step-content"><h4>Vacuum — then vacuum again</h4><p>Vacuum all floors, corners, and edges. Use the nozzle attachment for tight spots. Then vacuum the whole space again.</p></div></div>
+    <div class="step"><div class="step-num">7</div><div class="step-content"><h4>Mop floors — multiple times</h4><p>Mop all hard floors. Change the water often — construction dust makes water dirty fast. Mop at least 2–3 times until the water stays clean.</p></div></div>
+    <div class="step"><div class="step-num">8</div><div class="step-content"><h4>Final inspection</h4><p>Run a white cloth along any surface. If it comes back dirty, clean again. Construction cleaning is not done until surfaces are truly clean.</p></div></div>
+  </div>
+</div>
+
+<!-- ===================== EQUIPMENT ===================== -->
+<div class="page" id="page-equipment">
+  <div class="hero-card">
+    <h2>🧽 Equipment & Chemicals</h2>
+    <p>Know your tools and products. The right tool for the right job saves time and gives better results.</p>
+  </div>
+
+  <div class="section-head"><h3>🧰 Equipment List</h3></div>
+  <table class="info-table">
+    <thead><tr><th>Tool</th><th>Used For</th><th>Care Tips</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Microfiber cloths</strong></td><td>Dusting, wiping surfaces, polishing glass</td><td>Wash after every job. Do not use fabric softener.</td></tr>
+      <tr><td><strong>Scrub sponge</strong></td><td>Sinks, tubs, toilets, ovens</td><td>Replace when flat or smelly. Use the rough side for tough dirt.</td></tr>
+      <tr><td><strong>Toilet brush</strong></td><td>Inside of toilet bowls</td><td>Rinse with disinfectant after every use. Replace often.</td></tr>
+      <tr><td><strong>Squeegee</strong></td><td>Windows and glass surfaces</td><td>Keep the rubber blade clean and straight. Replace when it leaves streaks.</td></tr>
+      <tr><td><strong>Vacuum cleaner</strong></td><td>All floors, carpets, rugs</td><td>Empty the bag/bin often. Check for blockages. Clean the filter.</td></tr>
+      <tr><td><strong>Mop and bucket</strong></td><td>Hard floors (tile, wood, stone)</td><td>Wring mop well — never too wet. Change water when it gets dirty.</td></tr>
+      <tr><td><strong>Scrub brush (stiff)</strong></td><td>Sauna benches, bathroom floors, grout</td><td>Rinse after use. Let it dry to prevent mold.</td></tr>
+      <tr><td><strong>Plastic scraper</strong></td><td>Paint spots, stickers, dried gunk</td><td>Use plastic — metal scratches surfaces.</td></tr>
+      <tr><td><strong>Extension pole</strong></td><td>High windows, tall ceilings</td><td>Attach squeegee or duster. Better than a ladder for most jobs.</td></tr>
+      <tr><td><strong>Spray bottles</strong></td><td>Holding cleaning solutions</td><td>Label every bottle. Never mix chemicals in one bottle.</td></tr>
+      <tr><td><strong>Rubber gloves</strong></td><td>All cleaning work</td><td>Wear always. Replace when they tear or get thin.</td></tr>
+      <tr><td><strong>Step ladder (A-frame)</strong></td><td>High shelves, top of cabinets</td><td>Make sure it is fully open and on flat ground.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-head"><h3>🧪 Chemicals & Products</h3></div>
+  <table class="info-table">
+    <thead><tr><th>Product</th><th>Used For</th><th>Safety</th></tr></thead>
+    <tbody>
+      <tr><td><strong>All-purpose cleaner</strong></td><td>Most surfaces — counters, tables, desks, shelves</td><td><span class="tag tag-green">Safe</span> Wear gloves</td></tr>
+      <tr><td><strong>Glass cleaner</strong></td><td>Windows, mirrors, glass tables</td><td><span class="tag tag-green">Safe</span> Spray on cloth, not glass near electronics</td></tr>
+      <tr><td><strong>Bathroom cleaner</strong></td><td>Sinks, tubs, showers, tiles</td><td><span class="tag tag-yellow">Mild</span> Good ventilation needed</td></tr>
+      <tr><td><strong>Toilet cleaner</strong></td><td>Inside toilet bowls — breaks down limescale</td><td><span class="tag tag-orange">Strong</span> Do NOT mix with bleach</td></tr>
+      <tr><td><strong>Disinfectant spray</strong></td><td>Toilets, door handles, high-touch areas</td><td><span class="tag tag-yellow">Mild</span> Let it sit before wiping</td></tr>
+      <tr><td><strong>Degreaser (heavy duty)</strong></td><td>Kitchen grease, stovetops, hoods, restaurant kitchens</td><td><span class="tag tag-orange">Strong</span> Wear gloves. Ventilate.</td></tr>
+      <tr><td><strong>Oven cleaner</strong></td><td>Inside ovens — dissolves burnt food and grease</td><td><span class="tag tag-red">Very strong</span> Gloves + ventilation required</td></tr>
+      <tr><td><strong>Lime/limescale remover</strong></td><td>Faucets, shower heads, glass with hard water marks</td><td><span class="tag tag-orange">Strong</span> Do NOT use on marble or natural stone</td></tr>
+      <tr><td><strong>Bleach (if needed)</strong></td><td>Mold, heavy disinfection</td><td><span class="tag tag-red">Very strong</span> NEVER mix with other chemicals!</td></tr>
+      <tr><td><strong>Sauna cleaner</strong></td><td>Sauna benches and walls — gentle on wood</td><td><span class="tag tag-green">Safe</span> Mild formula for wood</td></tr>
+      <tr><td><strong>Floor cleaner</strong></td><td>Mopping all hard floor types</td><td><span class="tag tag-green">Safe</span> Dilute in water as instructed</td></tr>
+    </tbody>
+  </table>
+
+  <div class="alert alert-red" style="margin-top:16px">
+    <span class="alert-icon">☠️</span>
+    <div><strong>DANGER — Never mix these chemicals:</strong><br>
+    • Bleach + Toilet cleaner = Toxic chlorine gas<br>
+    • Bleach + Ammonia = Toxic chloramine gas<br>
+    • Bleach + Vinegar = Chlorine gas<br>
+    When in doubt, use products one at a time. Rinse between products.</div>
+  </div>
+</div>
+
+<!-- ===================== VIDEOS ===================== -->
+<div class="page" id="page-videos">
+  <div class="hero-card">
+    <h2>🎬 Video Tutorials</h2>
+    <p>Watch these YouTube channels and videos to learn cleaning like a pro. These are the best teachers on the internet.</p>
+  </div>
+
+  <div class="section-head"><h3>⭐ Recommended YouTube Channels</h3></div>
+
+  <a class="video-link" href="https://www.youtube.com/@CleanMySpace" target="_blank" rel="noopener">
+    <span class="yt">▶</span>
+    <div><div class="vl-text">Clean My Space — Melissa Maker</div><div class="vl-ch">1.8M+ subscribers · Pro cleaning tips for every room in your home</div></div>
+  </a>
+  <a class="video-link" href="https://www.youtube.com/@aurikatariina" target="_blank" rel="noopener">
+    <span class="yt">▶</span>
+    <div><div class="vl-text">Aurikatariina — The Queen of Cleaning</div><div class="vl-ch">Finnish cleaning pro · Extreme cleaning transformations</div></div>
+  </a>
+  <a class="video-link" href="https://www.youtube.com/cleanthatup" target="_blank" rel="noopener">
+    <span class="yt">▶</span>
+    <div><div class="vl-text">Brandon Pleshek — Clean That Up</div><div class="vl-ch">3rd generation janitor · Commercial and janitorial cleaning tips</div></div>
+  </a>
+  <a class="video-link" href="https://www.youtube.com/@TheCleanLoft" target="_blank" rel="noopener">
+    <span class="yt">▶</span>
+    <div><div class="vl-text">The Clean Loft — Tendy</div><div class="vl-ch">10 years cleaning experience · Product reviews and hacks</div></div>
+  </a>
+  <a class="video-link" href="https://www.youtube.com/@YohaHomeCleaning" target="_blank" rel="noopener">
+    <span class="yt">▶</span>
+    <div><div class="vl-text">Yoha Home Cleaning</div><div class="vl-ch">Extreme home cleaning transformations · Deep clean motivation</div></div>
+  </a>
+
+  <div class="section-head"><h3>📚 Videos by Topic</h3></div>
+
+  <div class="card">
+    <h3>🧹 Home Cleaning Basics</h3>
+    <a class="video-link" href="https://www.youtube.com/watch?v=1D1L9U0-v8Y" target="_blank" rel="noopener">
+      <span class="yt">▶</span>
+      <div><div class="vl-text">Speed Cleaning & Home Cleaning Basics</div><div class="vl-ch">Clean My Space · Fast and efficient cleaning methods</div></div>
+    </a>
+    <a class="video-link" href="https://www.youtube.com/watch?v=TqHX3pTeRdg" target="_blank" rel="noopener">
+      <span class="yt">▶</span>
+      <div><div class="vl-text">Three Wave Cleaning System</div><div class="vl-ch">Clean My Space · Top-to-bottom method</div></div>
+    </a>
+  </div>
+
+  <div class="card">
+    <h3>🚿 Bathroom Cleaning</h3>
+    <a class="video-link" href="https://www.youtube.com/watch?v=OJuS_bP8k9A" target="_blank" rel="noopener">
+      <span class="yt">▶</span>
+      <div><div class="vl-text">Deep Clean Bathroom Tutorials</div><div class="vl-ch">Clean My Space · Complete bathroom cleaning guide</div></div>
+    </a>
+    <a class="video-link" href="https://www.youtube.com/watch?v=cbm7OyDn0R8" target="_blank" rel="noopener">
+      <span class="yt">▶</span>
+      <div><div class="vl-text">Professional Toilet Cleaning Techniques</div><div class="vl-ch">Clean That Up · Commercial janitorial methods</div></div>
+    </a>
+  </div>
+
+  <div class="card">
+    <h3>🪟 Window Cleaning</h3>
+    <a class="video-link" href="https://www.youtube.com/watch?v=ccG850ETFgA" target="_blank" rel="noopener">
+      <span class="yt">▶</span>
+      <div><div class="vl-text">Streak-Free Window Cleaning</div><div class="vl-ch">Clean My Space · Squeegee techniques and tips</div></div>
+    </a>
+  </div>
+
+  <div class="card">
+    <h3>🔥 Kitchen & Oven</h3>
+    <a class="video-link" href="https://www.youtube.com/watch?v=hz7V2X4CWh0" target="_blank" rel="noopener">
+      <span class="yt">▶</span>
+      <div><div class="vl-text">Oven Cleaning Without Harsh Chemicals</div><div class="vl-ch">Clean My Space · Natural cleaning methods</div></div>
+    </a>
+    <a class="video-link" href="https://www.youtube.com/watch?v=Yj3VZVCrFkU" target="_blank" rel="noopener">
+      <span class="yt">▶</span>
+      <div><div class="vl-text">Fridge Cleaning Tutorial</div><div class="vl-ch">Clean My Space · Quick and thorough method</div></div>
+    </a>
+  </div>
+
+  <div class="card">
+    <h3>🏢 Commercial / Office</h3>
+    <a class="video-link" href="https://www.youtube.com/watch?v=yeuAM2mRU2Y" target="_blank" rel="noopener">
+      <span class="yt">▶</span>
+      <div><div class="vl-text">Clean That Up — Professional Office Cleaning</div><div class="vl-ch">Brandon Pleshek · Commercial office methods</div></div>
+    </a>
+    <a class="video-link" href="https://www.youtube.com/c/CleanThatUp" target="_blank" rel="noopener">
+      <span class="yt">▶</span>
+      <div><div class="vl-text">Commercial Cleaning Equipment & Methods</div><div class="vl-ch">Clean That Up · Full channel of professional techniques</div></div>
+    </a>
+  </div>
+
+  <div class="card">
+    <h3>📦 Moving & Move-Out Cleaning</h3>
+    <a class="video-link" href="https://www.youtube.com/watch?v=B2x2JJRia_A" target="_blank" rel="noopener">
+      <span class="yt">▶</span>
+      <div><div class="vl-text">Move-In and Move-Out Cleaning</div><div class="vl-ch">Clean My Space · Deep clean empty spaces</div></div>
+    </a>
+    <a class="video-link" href="https://www.youtube.com/watch?v=DoA02q5Yd1U" target="_blank" rel="noopener">
+      <span class="yt">▶</span>
+      <div><div class="vl-text">Commercial Move-Out Techniques</div><div class="vl-ch">Clean That Up · Professional empty unit cleaning</div></div>
+    </a>
+  </div>
+</div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+
+<script>
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  
+  const page = document.getElementById('page-' + id);
+  if (page) page.classList.add('active');
+  
+  const nav = document.querySelector('[data-page="' + id + '"]');
+  if (nav) nav.classList.add('active');
+  
+  // Update topbar and mobile header titles
+  const hero = page?.querySelector('.hero-card h2');
+  if (hero) {
+    const titleText = hero.textContent;
+    document.getElementById('page-title').textContent = titleText;
+    const mobileTitle = document.getElementById('mobile-page-title');
+    if (mobileTitle) mobileTitle.textContent = titleText;
+  }
+  
+  // Scroll to top
+  window.scrollTo(0, 0);
+  
+  // Close mobile sidebar
+  document.querySelector('.sidebar').classList.remove('open');
+}
+
+// Collapsible sections
+document.querySelectorAll('.collapsible-header').forEach(h => {
+  h.addEventListener('click', () => {
+    h.parentElement.classList.toggle('open');
+  });
+});
+
+// Search
+function handleSearch() {
+  const query = document.getElementById('searchInput').value.toLowerCase().trim();
+  if (!query) return;
+  
+  const pages = document.querySelectorAll('.page');
+  for (const page of pages) {
+    if (page.textContent.toLowerCase().includes(query)) {
+      const id = page.id.replace('page-', '');
+      showPage(id);
+      break;
+    }
+  }
+}
+
+function handleMobileSearch() {
+  const query = document.getElementById('mobileSearchInput').value.toLowerCase().trim();
+  if (!query) return;
+  
+  const pages = document.querySelectorAll('.page');
+  for (const page of pages) {
+    if (page.textContent.toLowerCase().includes(query)) {
+      const id = page.id.replace('page-', '');
+      showPage(id);
+      document.getElementById('mobile-search-overlay').classList.remove('active');
+      document.getElementById('mobileSearchInput').value = '';
+      break;
+    }
+  }
+}
+
+document.getElementById('searchInput').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') handleSearch();
+});
+</script>
+
+</body>
+</html>
