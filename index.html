@@ -1371,7 +1371,7 @@ footer{background:var(--navy);padding:56px 5% 36px;color:rgba(255,255,255,.45)}
         <label>Palvelutoiveet <span style="font-weight:400;opacity:.5">(voi valita useita)</span></label>
         <div class="chips-wrap" id="chips-b2c">
           <div class="chip-opt"><input type="checkbox" id="ch1" name="palvelutyyppi" value="Kotisiivous"><label for="ch1">🧹 Kotisiivous</label></div>
-          <div class="chip-opt"><input type="checkbox" id="ch2" name="palvelutyyppi" value="Kylpyhuoneen pikahuolto"><label for="ch2">🛁 Kylpyhuoneen pikahuolto</label></div>
+          <div class="chip-opt"><input type="checkbox" id="ch2" name="palvelutyyppi" value="Kylpyhuoneen tehopesu"><label for="ch2">🛁 Kylpyhuoneen tehopesu</label></div>
           <div class="chip-opt"><input type="checkbox" id="ch4" name="palvelutyyppi" value="Ikkunanpesu"><label for="ch4">🪟 Ikkunanpesu</label></div>
           <div class="chip-opt"><input type="checkbox" id="ch6" name="palvelutyyppi" value="Muutto / luovutus"><label for="ch6">📦 Muutto / luovutus</label></div>
           <div class="chip-opt"><input type="checkbox" id="ch13" name="palvelutyyppi" value="Uunin pesu"><label for="ch13">🔥 Uunin pesu</label></div>
@@ -2196,7 +2196,7 @@ function updateSizeMode() {
 const chipEffects = {
   // B2C — kotitaloudet
   'Kotisiivous':                       { h: 0,    x: 1,   alwaysApply: false },
-  'Kylpyhuoneen pikahuolto':           { h: 0.5,  x: 1,   alwaysApply: false },
+  'Kylpyhuoneen tehopesu':           { h: 0.5,  x: 1,   alwaysApply: false },
   'Ikkunanpesu':                       { h: 0,    x: 1,   alwaysApply: false },
   'Muutto / luovutus':                 { h: 0,    x: 1.5, alwaysApply: true  },
   'Uunin pesu':                        { h: 0.33, x: 1,   alwaysApply: false },
@@ -3102,7 +3102,7 @@ function setCookie(v){
     <div id="cpiB2c" class="cpi-tab-panel active">
       <div class="cpi-modal-rows">
         <div class="cpi-modal-row"><span class="cpi-modal-chip">🧹 Kotisiivous</span><span class="cpi-modal-tag cpi-free">sisältyy</span><span class="cpi-modal-desc">Lattiat, pinnat, pöydät, keittiö ja roskientyhjennys — kaikki yhdellä valinnalla</span></div>
-        <div class="cpi-modal-row"><span class="cpi-modal-chip">🛁 Kylpyhuoneen pikahuolto</span><span class="cpi-modal-tag cpi-hours">+ 0,5h</span><span class="cpi-modal-desc">Kalkkikertymät, saippuatahrat, peilit ja saniteettitilat</span></div>
+        <div class="cpi-modal-row"><span class="cpi-modal-chip">🛁 Kylpyhuoneen tehopesu</span><span class="cpi-modal-tag cpi-hours">+ 0,5h</span><span class="cpi-modal-desc">Kalkkikertymät, saippuatahrat, peilit ja saniteettitilat</span></div>
         <div class="cpi-modal-row"><span class="cpi-modal-chip">🪟 Ikkunanpesu</span><span class="cpi-modal-tag cpi-hours">per määrä</span><span class="cpi-modal-desc">1–4 ikkunaa +1h · 5–8 ikkunaa +1,5h · 9–12 ikkunaa +2,5h · 13–16 ikkunaa +3h · 17–20 ikkunaa +3,5h</span></div>
         <div class="cpi-modal-row"><span class="cpi-modal-chip">📦 Muutto / luovutus</span><span class="cpi-modal-tag cpi-mult">× 1,5 aina</span><span class="cpi-modal-desc">Kaappien sisät, parvekkeet, kodinkoneet — tarkkuustyö joka vaatii enemmän aikaa</span></div>
         <div class="cpi-modal-row"><span class="cpi-modal-chip">🔥 Uunin pesu</span><span class="cpi-modal-tag cpi-hours">+ 20 min</span><span class="cpi-modal-desc">Rasvanpoisto, uunin sisäpinnat ja ritilät — vaatii Kotisiivous-valinnan</span></div>
