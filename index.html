@@ -1212,7 +1212,7 @@ footer{background:var(--navy);padding:56px 5% 36px;color:rgba(255,255,255,.45)}
       <div class="price-main">
         <div class="price-amount"><sup>€</sup><span class="pa-num" data-inc="86" data-exc="69">86</span><sub>/h</sub></div>
         <div class="price-ktv">✦ ~56€/h kotitalousvähennyksellä</div>
-        <div class="price-note pa-note" data-inc="Minimi 4h · Iso kohde = 344€ · Sis. ALV 25,5%" data-exc="Minimi 4h · Iso kohde = 276€ · ALV 0%">Minimi 4h · Iso kohde = 344€ · Sis. ALV 25,5%</div>
+        <div class="price-note pa-note" data-inc="Minimi 2h · 90-120m² = 172€ · Sis. ALV 25,5%" data-exc="Minimi 2h · 90-120m² = 138€ · ALV 0%">Minimi 2h · 90-120m² = 172€ · Sis. ALV 25,5%</div>
       </div>
       <ul class="price-features">
         <li>Kaksi ammattilaista samaan aikaan</li>
@@ -1236,7 +1236,7 @@ footer{background:var(--navy);padding:56px 5% 36px;color:rgba(255,255,255,.45)}
     </div>
     <div style="flex:1;min-width:220px">
       <div style="font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;color:#4ade80;margin-bottom:6px;letter-spacing:-.01em">Kotitalousvähennys</div>
-      <div style="font-size:.86rem;color:rgba(255,255,255,.55);line-height:1.6;font-weight:300">Tämä palvelu oikeuttaa verotuksessa kotitalousvähennykseen. Vähennä <strong style="color:rgba(255,255,255,.8)">35% työn hinnasta</strong> suoraan veroistasi — enintään <strong style="color:rgba(255,255,255,.8)">1 600€/henkilö/vuosi</strong>. Kun 150 euron vuotuinen omavastuu huomioidaan laskelmassa, esimerkiksi Tehopartio 4h = <strong style="color:rgba(255,255,255,.8)">344€</strong> → <strong style="color:#4ade80">~223,60€</strong> verohyödyn jälkeen. Lue lisää <a href="https://www.vero.fi/henkiloasiakkaat/vahennykset/kotitalousvahennys/" style="color:#4ade80;text-decoration:none">vero.fi</a></div>
+      <div style="font-size:.86rem;color:rgba(255,255,255,.55);line-height:1.6;font-weight:300">Tämä palvelu oikeuttaa verotuksessa kotitalousvähennykseen. Vähennä <strong style="color:rgba(255,255,255,.8)">35% työn hinnasta</strong> suoraan veroistasi — enintään <strong style="color:rgba(255,255,255,.8)">1 600€/henkilö/vuosi</strong>. Kun 150 euron vuotuinen omavastuu huomioidaan laskelmassa, esimerkiksi Tehopartio 2h = <strong style="color:rgba(255,255,255,.8)">172€</strong> → <strong style="color:#4ade80">~111,80€</strong> verohyödyn jälkeen. Lue lisää <a href="https://www.vero.fi/henkiloasiakkaat/vahennykset/kotitalousvahennys/" style="color:#4ade80;text-decoration:none">vero.fi</a></div>
     </div>
   </div>
 </section>
@@ -1730,7 +1730,7 @@ footer{background:var(--navy);padding:56px 5% 36px;color:rgba(255,255,255,.45)}
 
 <div class="cancel-banner">
   <span style="font-size:1.1rem;flex-shrink:0">📋</span>
-  <span><strong>Peruutuskäytäntö:</strong> Yli 24h ennen → maksuton peruutus. Alle 24h ennen → 50€ peruutusmaksu. Kuukausipaketti: voit perua tai keskeyttää palvelun koska tahansa.</span>
+  <span><strong>Peruutuskäytäntö:</strong> Yli 24h ennen → maksuton peruutus. Alle 24h ennen → 50€ peruutusmaksu. Jos partio myöhästyy yli tunnin → siirrä aika -50% hintaan.</span>
 </div>
 
 <footer>
@@ -1754,8 +1754,8 @@ footer{background:var(--navy);padding:56px 5% 36px;color:rgba(255,255,255,.45)}
       <h4>Palvelut</h4>
       <ul>
         <li><a href="#hinnat">⚡ Peruspartio — 45€/h</a></li>
-        <li><a href="#hinnat">⚡⚡⚡ Pikapartio — 59€/h</a></li>
         <li><a href="#hinnat">⚡⚡ Tehopartio — 86€/h</a></li>
+        <li><a href="#hinnat">⚡⚡⚡ Pikapartio — 59€/h</a></li>
         <li><a href="#opas">Hintaopas</a></li>
       </ul>
     </div>
@@ -2169,12 +2169,12 @@ const SIZE_OPTS_NORMAL = [
 ]
 const SIZE_OPTS_TEHO = [
   {value:'',     label:'Valitse koko'},
-  {value:'4',    label:'90–120m² (4h)'},
-  {value:'4.5',  label:'120–150m² (4–5h)'},
-  {value:'5.5',  label:'150–180m² (5–6h)'},
-  {value:'6.5',  label:'180–220m² (6–7h)'},
-  {value:'7.5',  label:'220–260m² (7–8h)'},
-  {value:'9',    label:'260m²+ (9h+)'},
+  {value:'2',    label:'90–120m² (2h)'},
+  {value:'2.5',  label:'120–150m² (2–3h)'},
+  {value:'3',    label:'150–180m² (3h)'},
+  {value:'3.5',  label:'180–220m² (3–4h)'},
+  {value:'4',    label:'220–260m² (4h)'},
+  {value:'4.5',  label:'260–300m² (4–5h)'},
   {value:'ask',  label:'Suuri tila — kysy tarjous'},
 ]
 const SIZE_OPTS_HOURS = [
@@ -2375,8 +2375,8 @@ function updatePrice(){
   }
 
   let baseH  = sz ? hrs[sz] : 2
-  // Tehopartio minimi 4h
-  if(svc === 'Tehopartio' && baseH < 4) baseH = 4
+  // Tehopartio minimi 2h
+  if(svc === 'Tehopartio' && baseH < 2) baseH = 2
   
   const { extraH, multiplier } = getChipAdjustment()
 
@@ -2499,6 +2499,14 @@ async function handleBooking(){
   const { has: eqHas, bring: eqBring } = getEqData()
   const varusteet = eqBring.length ? 'Vuokraus: ' + eqBring.join(', ') : ''
 
+  // Palvelutasojen ikonit
+  const serviceIcons = {
+    'Peruspartio': '⚡',
+    'Pikapartio': '⚡⚡⚡',
+    'Tehopartio': '⚡⚡'
+  }
+  const svcWithIcon = (serviceIcons[svc] || '') + ' ' + svc
+
   const priceDisplay = document.getElementById('priceDisplay')
   const priceText = priceDisplay ? priceDisplay.innerText.replace(/\s+/g, ' ').trim() : ''
   const exvatEl = document.getElementById('ps-exvat')
@@ -2542,7 +2550,7 @@ async function handleBooking(){
           (() => { const w = document.getElementById('windowCount')?.value; return (w && w !== '') ? 'Ikkunoita: ' + (document.getElementById('windowCount').options[document.getElementById('windowCount').selectedIndex]?.text || w) : '' })(),
           varusteet      ? 'Välineistö: ' + varusteet          : '',
           notes          ? 'Lisätiedot: ' + notes              : '',
-          'Palvelu: ' + svc,
+          'Palvelu: ' + svcWithIcon,
           'Asiakastyyppi: ' + custype,
           'Osoite: ' + address + ', ' + city,
           'Koko: ' + (sizeLabels[size] || size),
@@ -2588,7 +2596,7 @@ async function handleBooking(){
         address,
         city,
         property_size:    sizeLabels[size] || size || '-',
-        service_type:     svc || '-',
+        service_type:     svcWithIcon || '-',
         service_date:     date || '-',
         service_time:     time || '-',
         customer_type:    custype || '-',
@@ -2608,7 +2616,7 @@ async function handleBooking(){
           `Sähköposti: ${email}`,
           `Asiakastyyppi: ${custype}`,
           ``,
-          `Palvelutaso: ${svc}`,
+          `Palvelutaso: ${svcWithIcon}`,
           `Päivämäärä: ${date || 'Pikapartio'}`,
           `Aloitus: ${time || '—'} · Lopetus: ${endTime || '—'} · Kesto: ${durationLabel}`,
           `Osoite: ${address}, ${city}`,
