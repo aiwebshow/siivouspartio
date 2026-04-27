@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Siivouspartio — Siivousta kertatilauksella nopeasti | Helsinki, Espoo, Vantaa</title>
-<meta name="description" content="Ammattisiivous kotiin ja yritykseen. Tilaa muutamalla klikkauksella. Hinta aina etukäteen. Espoo, Helsinki, Vantaa.">
+<meta name="description" content="Ammattisiivous kotiin ja yritykseen. Kotitalousvähennyksen jälkeen alk. 29 €/h. Hinta-arvio etukäteen, tyytyväisyystakuu. Espoo, Helsinki, Vantaa.">
 <link rel="icon" type="image/png" href="favicon.png">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
 <!-- Vercel Web Analytics -->
@@ -1943,8 +1943,49 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
     const rows=gel('bfw-summary-rows')
     if(!rows)return
     const items=[]
-    const label=window._bfwLabel||''
-    if(label)items.push({k:'Palvelu',v:label})
+    const t=getChecked('bfwSvcType')
+    const svcLabels={perus:'Kotisiivous',muutto:'Muuttosiivous',yritys:'Yrityssiivous',ikkuna:'Ikkunanpesu'}
+    const svcEmojis={perus:'🏠',muutto:'📦',yritys:'🏢',ikkuna:'🪟'}
+
+    // Palvelu — oikea nimi
+    if(t) items.push({k:'Palvelu',v:(svcEmojis[t]||'')+' '+(svcLabels[t]||t)})
+
+    // Täydentävät tiedot palvelun mukaan
+    if(t==='perus'){
+      const sqm=gel('bfw-perus-range')?.value
+      const kunto=getChecked('bfwKunto')||'siisti'
+      const kuntoLabel={siisti:'Siisti',normaali:'Normaali',likainen:'Likainen'}[kunto]
+      if(sqm) items.push({k:'Koko',v:sqm+' m²'})
+      items.push({k:'Kohteen kunto',v:kuntoLabel})
+    } else if(t==='muutto'){
+      const sqm=gel('bfw-muutto-range')?.value
+      const suunta=getChecked('bfwMuutto')||'sisaan'
+      const suuntaLabel={pois:'Poismuutto',sisaan:'Sisäänmuutto',remontti:'Remonttisiivous'}[suunta]
+      if(sqm) items.push({k:'Koko',v:sqm+' m²'})
+      items.push({k:'Tyyppi',v:suuntaLabel})
+    } else if(t==='yritys'){
+      const sqm=gel('bfw-yritys-range')?.value
+      const tyyppi=getChecked('bfwYTyyppi')||'toimisto'
+      const tyyppiLabel={toimisto:'Toimisto',myymala:'Myymälä',tuotanto:'Ravintola',tuotantotila:'Tuotantotila'}[tyyppi]
+      const freq=getChecked('bfwYFreq')||'kerta'
+      const freqLabel={kerta:'Kertaluonteinen',viikko:'Viikoittain',paivit:'Päivittäin'}[freq]
+      if(sqm) items.push({k:'Koko',v:sqm+' m²'})
+      items.push({k:'Tilatyyppi',v:tyyppiLabel})
+      items.push({k:'Frekvenssi',v:freqLabel})
+    } else if(t==='ikkuna'){
+      const tapa=getChecked('bfwITapa')||'sisa'
+      const tapaLabel={sisa:'Moderni',molemmat:'Vanha (×1.2)'}[tapa]
+      items.push({k:'Ikkunan malli',v:tapaLabel})
+      const tot=wins.pieni+wins.keski+wins.iso
+      if(tot>0){
+        const parts=[]
+        if(wins.pieni>0) parts.push('pienet: '+wins.pieni)
+        if(wins.keski>0) parts.push('normaalit: '+wins.keski)
+        if(wins.iso>0) parts.push('isot: '+wins.iso)
+        items.push({k:'Ikkunat',v:parts.join(', ')})
+      }
+    }
+
     const d=gv('bookDate'),ti=gv('bookTime')
     if(d)items.push({k:'Päivämäärä',v:d+(ti?' klo '+ti:'')})
     const addr=gv('address'),city=gv('city')
@@ -1955,9 +1996,10 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
     const em=gv('email');if(em)items.push({k:'Sähköposti',v:em})
     const ex=window._bfwExtras||[]
     if(ex.length)items.push({k:'Lisäpalvelut',v:ex.map(e=>e.l).join(', ')})
+    if(t==='muutto'&&window.winMuuttoCount>0)items.push({k:'Ikkunanpesu',v:window.winMuuttoCount+' kpl'})
     const notes=gv('lisatiedot')?.trim();if(notes)items.push({k:'Lisätiedot',v:notes})
     const dur=window._bfwDur;if(dur)items.push({k:'Arvioitu kesto',v:dur})
-    if(window._bfwNight)items.push({k:'Lisä',v:'🌙 Yötyölisä +50% (klo 22–06)'})
+    if(window._bfwNight)items.push({k:'Lisä',v:'🌙 Yötyölisä +50%'})
     if(window._bfwInvoice)items.push({k:'Laskutuslisä',v:'+5 €'})
     rows.innerHTML=items.map(i=>`<div class="bfw-summary-row"><span class="bfw-summary-key">${i.k}</span><span class="bfw-summary-val">${i.v}</span></div>`).join('')
   }
