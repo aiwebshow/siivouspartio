@@ -3255,22 +3255,28 @@ async function handleBooking(){
   try {
     const payload = {
       fields: [
-        {name:'firstname',          value: fname},
-        {name:'lastname',           value: lname},
-        {name:'phone',              value: phone},
-        {name:'email',              value: email},
-        {name:'message',            value: [
-          palvelutoiveet ? 'Palvelutoiveet: ' + palvelutoiveet : '',
-          (() => { const w = document.getElementById('windowCountText')?.value; return w ? 'Ikkunoita: ' + w : '' })(),
-          varusteet      ? 'Välineistö: ' + varusteet          : '',
-          notes          ? 'Lisätiedot: ' + notes              : '',
-          'Palvelu: ' + svcWithIcon,
-          'Palvelutyyppi: ' + custype,
+        {name:'firstname',   value: fname},
+        {name:'lastname',    value: lname},
+        {name:'phone',       value: phone},
+        {name:'email',       value: email},
+        {name:'message', value: [
+          'Palvelu: ' + (window._bfwLabel || svc),
+          'Palvelutaso: ' + svcWithIcon,
+          'Kohteen koko: ' + (sizeLabels[size] || size || '—'),
+          'Päivä: ' + (date || '—') + (time ? ' klo ' + time : ''),
+          'Lopetusaika: ' + (endTime || '—'),
+          'Kesto: ' + (durationLabel || '—'),
           'Osoite: ' + address + ', ' + city,
-          'Koko: ' + (sizeLabels[size] || size),
-          'Päivä: ' + (date || 'Pikapartio') + (time ? ' klo ' + time : ''),
-          'Maksutapa: ' + payment,
-          'Hinta-arvio: ' + arvioidutHinta
+          'Maksutapa: ' + (payment || '—'),
+          'Hinta-arvio: ' + arvioidutHinta,
+          (() => { const ex=(window._bfwExtras||[]).map(e=>e.l).filter(Boolean); return ex.length?'Lisäpalvelut: '+ex.join(', '):'' })(),
+          (() => {
+            const svcType = document.querySelector('input[name="bfwSvcType"]:checked')?.value
+            if(svcType==='ikkuna'){ const wt=document.getElementById('windowCountText')?.value; return wt?'Ikkunanpesu: '+wt:'' }
+            if(svcType==='muutto'&&window.winMuuttoCount>0) return 'Ikkunanpesu (muutto): '+window.winMuuttoCount+' kpl'
+            return ''
+          })(),
+          notes ? 'Lisätiedot: ' + notes : '',
         ].filter(Boolean).join('\n')},
       ],
       context: {
@@ -3377,7 +3383,6 @@ async function handleBooking(){
       fetch('https://hooks.zapier.com/hooks/catch/26714714/upwuzzt/', {
         method: 'POST',
         mode: 'no-cors',
-        headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(zapData)
       }).catch(e => console.error('Zapier webhook error:', e))
 
