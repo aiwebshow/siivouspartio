@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Siivouspartio — Siivousta kertatilauksella nopeasti | Helsinki, Espoo, Vantaa</title>
-<meta name="description" content="Ammattisiivous kotiin ja yritykseen. Tilaa muutamalla klikkauksella. Hinta aina etukäteen! Espoo, Helsinki, Vantaa.">
+<meta name="description" content="Ammattisiivous kotiin ja yritykseen. Tilaa muutamalla klikkauksella. Hinta aina etukäteen. Espoo, Helsinki, Vantaa.">
 <link rel="icon" type="image/png" href="favicon.png">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
 <!-- Vercel Web Analytics -->
@@ -34,6 +34,7 @@
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{font-family:'DM Sans',sans-serif;color:var(--text);background:var(--offwhite);overflow-x:hidden}
+html{overflow-x:hidden}
 h1,h2,h3,h4,.logo-text,.stat-num,.price-amount,.form-title,.step-title,.step-num{font-family:'Syne',sans-serif}
 
 /* ── TOP BAR ── */
@@ -686,6 +687,16 @@ footer{background:var(--navy);padding:56px 5% 36px;color:rgba(255,255,255,.45)}
   .price-cta-block{grid-template-columns:1fr}
   .footer-grid{grid-template-columns:1fr;gap:32px}
   .pricing-manifesti-grid{grid-template-columns:1fr!important}
+  .hero-inner{grid-template-columns:1fr}
+  .hero-right{display:none}
+  .section-inner,.pricing-inner,.speed-inner,.hero-inner,section,.pricing-section,.speed-section{max-width:100%;overflow-x:hidden}
+  .bfw-win-row{flex-wrap:wrap;gap:8px}
+  .bfw-win-price{margin-right:0}
+  .trust-marquee-wrap{overflow:hidden}
+  .cmp-chips{overflow-x:hidden}
+  .customer-tabs{flex-wrap:wrap}
+  .proof-inner{flex-wrap:wrap;gap:16px}
+}
 /* removed */
 /* svc-opt override — dark theme */
 .booking-form-wrap .svc-opt label{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.16);color:rgba(255,255,255,.7);font-size:.9rem;font-weight:500}
@@ -1215,7 +1226,25 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
         <div class="booking-form-wrap">
 
 <style>
-/* ── BOOKING FORM — clean rebuild ── */
+@media(max-width:480px){
+  .section-inner,.pricing-inner,.hero-inner,.speed-inner,section>*{padding-left:16px!important;padding-right:16px!important}
+  .bfw-steps{padding:14px 16px}
+  .bfw-panel{padding:18px 16px}
+  .bfw-footer{padding:12px 16px}
+  .bfw-result{padding:0 16px}
+  .bfw-svc-grid{grid-template-columns:1fr 1fr}
+  .bfw-field-grid{grid-template-columns:1fr}
+  .bfw-date-row{grid-template-columns:1fr}
+  .bfw-pay-grid{grid-template-columns:1fr}
+  .bfw-win-row{flex-wrap:wrap}
+  .bfw-win-price{white-space:normal}
+  .steps-grid{grid-template-columns:1fr}
+  .cmp-block{padding:12px}
+  .nav-links{display:none}
+  .proof-inner{gap:12px}
+  * {max-width:100%;box-sizing:border-box}
+  img,svg{max-width:100%;height:auto}
+}
 .bfw{display:block;background:rgba(8,16,36,.78);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1.5px solid var(--orange);border-radius:22px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.06);position:relative;z-index:1}
 
 /* Steps */
@@ -3555,6 +3584,7 @@ if(cmpCard){
       <ul>
         <li><strong>Yli 24h ennen palvelua:</strong> Peruutus on maksuton.</li>
         <li><strong>Alle 24h ennen palvelua:</strong> Veloitamme 50 € peruutusmaksun.</li>
+        <li><strong>Kuukausipaketti:</strong> Irtisanottavissa milloin tahansa kuukauden varoitusajalla.</li>
       </ul>
       <h4>3. Hinta ja maksaminen</h4>
       <p>Aika- ja hinta-arvio pitävät paikkansa 30 minuutin tarkkuudella. Lopullinen hinta perustuu toteutuneeseen työaikaan (hinnat sis. alv 25,5 %). Voit maksaa kortilla, MobilePaylla, maksulinkillä tai yrityslaskulla.</p>
