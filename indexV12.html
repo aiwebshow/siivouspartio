@@ -1947,60 +1947,52 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
     const svcLabels={perus:'Kotisiivous',muutto:'Muuttosiivous',yritys:'Yrityssiivous',ikkuna:'Ikkunanpesu'}
     const svcEmojis={perus:'🏠',muutto:'📦',yritys:'🏢',ikkuna:'🪟'}
 
-    // Palvelu — oikea nimi
     if(t) items.push({k:'Palvelu',v:(svcEmojis[t]||'')+' '+(svcLabels[t]||t)})
 
-    // Täydentävät tiedot palvelun mukaan
+    // Single 'Tiedot' row with all relevant details
+    const tiedot=[]
     if(t==='perus'){
       const sqm=gel('bfw-perus-range')?.value
-      const kunto=getChecked('bfwKunto')||'siisti'
-      const kuntoLabel={siisti:'Siisti',normaali:'Normaali',likainen:'Likainen'}[kunto]
-      if(sqm) items.push({k:'Koko',v:sqm+' m²'})
-      items.push({k:'Kohteen kunto',v:kuntoLabel})
+      if(sqm) tiedot.push(sqm+' m²')
+      const kuntoLabel={siisti:'Siisti',normaali:'Normaali',likainen:'Likainen'}[getChecked('bfwKunto')||'siisti']
+      tiedot.push(kuntoLabel)
     } else if(t==='muutto'){
       const sqm=gel('bfw-muutto-range')?.value
-      const suunta=getChecked('bfwMuutto')||'sisaan'
-      const suuntaLabel={pois:'Poismuutto',sisaan:'Sisäänmuutto',remontti:'Remonttisiivous'}[suunta]
-      if(sqm) items.push({k:'Koko',v:sqm+' m²'})
-      items.push({k:'Tyyppi',v:suuntaLabel})
+      if(sqm) tiedot.push(sqm+' m²')
+      const suuntaLabel={pois:'Poismuutto',sisaan:'Sisäänmuutto',remontti:'Remonttisiivous'}[getChecked('bfwMuutto')||'sisaan']
+      tiedot.push(suuntaLabel)
     } else if(t==='yritys'){
       const sqm=gel('bfw-yritys-range')?.value
-      const tyyppi=getChecked('bfwYTyyppi')||'toimisto'
-      const tyyppiLabel={toimisto:'Toimisto',myymala:'Myymälä',tuotanto:'Ravintola',tuotantotila:'Tuotantotila'}[tyyppi]
-      const freq=getChecked('bfwYFreq')||'kerta'
-      const freqLabel={kerta:'Kertaluonteinen',viikko:'Viikoittain',paivit:'Päivittäin'}[freq]
-      if(sqm) items.push({k:'Koko',v:sqm+' m²'})
-      items.push({k:'Tilatyyppi',v:tyyppiLabel})
-      items.push({k:'Frekvenssi',v:freqLabel})
+      if(sqm) tiedot.push(sqm+' m²')
+      const tyyppiLabel={toimisto:'Toimisto',myymala:'Myymälä',tuotanto:'Ravintola',tuotantotila:'Tuotantotila'}[getChecked('bfwYTyyppi')||'toimisto']
+      const freqLabel={kerta:'Kertaluonteinen',viikko:'Viikoittain',paivit:'Päivittäin'}[getChecked('bfwYFreq')||'kerta']
+      tiedot.push(tyyppiLabel, freqLabel)
     } else if(t==='ikkuna'){
-      const tapa=getChecked('bfwITapa')||'sisa'
-      const tapaLabel={sisa:'Moderni',molemmat:'Vanha (×1.2)'}[tapa]
-      items.push({k:'Ikkunan malli',v:tapaLabel})
-      const tot=wins.pieni+wins.keski+wins.iso
-      if(tot>0){
-        const parts=[]
-        if(wins.pieni>0) parts.push('pienet: '+wins.pieni)
-        if(wins.keski>0) parts.push('normaalit: '+wins.keski)
-        if(wins.iso>0) parts.push('isot: '+wins.iso)
-        items.push({k:'Ikkunat',v:parts.join(', ')})
-      }
+      const tapaLabel={sisa:'Moderni',molemmat:'Vanha'}[getChecked('bfwITapa')||'sisa']
+      tiedot.push(tapaLabel)
+      const parts=[]
+      if(wins.pieni>0) parts.push(wins.pieni+' pientä')
+      if(wins.keski>0) parts.push(wins.keski+' normaalia')
+      if(wins.iso>0) parts.push(wins.iso+' isoa')
+      if(parts.length) tiedot.push(parts.join(', '))
     }
+    if(tiedot.length) items.push({k:'Tiedot',v:tiedot.join(' · ')})
 
     const d=gv('bookDate'),ti=gv('bookTime')
-    if(d)items.push({k:'Päivämäärä',v:d+(ti?' klo '+ti:'')})
+    if(d) items.push({k:'Päivämäärä',v:d+(ti?' klo '+ti:'')})
     const addr=gv('address'),city=gv('city')
-    if(addr&&city)items.push({k:'Osoite',v:addr+', '+city})
+    if(addr&&city) items.push({k:'Osoite',v:addr+', '+city})
     const fn=gv('fname'),ln=gv('lname')
-    if(fn&&ln)items.push({k:'Nimi',v:fn+' '+ln})
-    const ph=gv('phone');if(ph)items.push({k:'Puhelin',v:ph})
-    const em=gv('email');if(em)items.push({k:'Sähköposti',v:em})
+    if(fn&&ln) items.push({k:'Nimi',v:fn+' '+ln})
+    const ph=gv('phone');if(ph) items.push({k:'Puhelin',v:ph})
+    const em=gv('email');if(em) items.push({k:'Sähköposti',v:em})
     const ex=window._bfwExtras||[]
-    if(ex.length)items.push({k:'Lisäpalvelut',v:ex.map(e=>e.l).join(', ')})
-    if(t==='muutto'&&window.winMuuttoCount>0)items.push({k:'Ikkunanpesu',v:window.winMuuttoCount+' kpl'})
-    const notes=gv('lisatiedot')?.trim();if(notes)items.push({k:'Lisätiedot',v:notes})
-    const dur=window._bfwDur;if(dur)items.push({k:'Arvioitu kesto',v:dur})
-    if(window._bfwNight)items.push({k:'Lisä',v:'🌙 Yötyölisä +50%'})
-    if(window._bfwInvoice)items.push({k:'Laskutuslisä',v:'+5 €'})
+    if(ex.length) items.push({k:'Lisäpalvelut',v:ex.map(e=>e.l).join(', ')})
+    if(t==='muutto'&&window.winMuuttoCount>0) items.push({k:'Ikkunanpesu',v:window.winMuuttoCount+' kpl'})
+    const notes=gv('lisatiedot')?.trim();if(notes) items.push({k:'Lisätiedot',v:notes})
+    const dur=window._bfwDur;if(dur) items.push({k:'Kesto',v:dur})
+    if(window._bfwNight) items.push({k:'Lisä',v:'🌙 Yötyölisä +50%'})
+    if(window._bfwInvoice) items.push({k:'Laskutuslisä',v:'+5 €'})
     rows.innerHTML=items.map(i=>`<div class="bfw-summary-row"><span class="bfw-summary-key">${i.k}</span><span class="bfw-summary-val">${i.v}</span></div>`).join('')
   }
 
@@ -3350,75 +3342,50 @@ async function handleBooking(){
     if(res.ok){
       // ── Zapier Webhook — tiketti + sähköpostit ──
       const zapData = {
-        firstname:        fname,
-        lastname:         lname,
-        email,
-        phone,
-        address,
-        city,
-        property_size:    sizeLabels[size] || size || '-',
-        service_type:     svcWithIcon || '-',
-        service_date:     date || '-',
-        service_time:     time || '-',
-        customer_type:    custype || '-',
-        service_requests: (() => {
-          const parts = []
-          if (palvelutoiveet) parts.push(palvelutoiveet)
-          const extras = (window._bfwExtras||[]).map(e=>e.l).filter(Boolean)
-          if (extras.length) parts.push(extras.join(', '))
-          const wt = document.getElementById('windowCountText')?.value
-          if (wt) parts.push('Ikkunat: ' + wt)
-          return parts.join(' | ') || '-'
-        })(),
-        ikkunanpesu: (() => {
+        firstname:       fname,
+        lastname:        lname,
+        email:           email,
+        phone:           phone,
+        address:         address,
+        city:            city,
+        service_type:    svcWithIcon,
+        tiedot:          window._bfwLabel || '',
+        service_date:    date || '',
+        service_time:    time || '',
+        end_time:        endTime || '',
+        duration:        durationLabel || '',
+        duration_hours:  window._bfwDurH ? Math.round(window._bfwDurH*100)/100 : '',
+        property_size:   sizeLabels[size] || size || '',
+        lisapalvelut:    (window._bfwExtras||[]).map(e=>e.l).filter(Boolean).join(', '),
+        ikkunanpesu:     (() => {
           const svcType = document.querySelector('input[name="bfwSvcType"]:checked')?.value
-          if (svcType === 'ikkuna') {
-            const wt = document.getElementById('windowCountText')?.value
-            return wt || '-'
-          } else if (svcType === 'muutto' && window.winMuuttoCount > 0) {
-            return window.winMuuttoCount + ' kpl (muuttosiivous)'
-          }
-          return '-'
+          if(svcType==='ikkuna'){ const wt=document.getElementById('windowCountText')?.value; return wt||'' }
+          if(svcType==='muutto'&&window.winMuuttoCount>0) return window.winMuuttoCount+' kpl'
+          return ''
         })(),
-        payment_method:   payment || '-',
-        arvioitu_hinta:   arvioidutHinta || '-',
-        lisatiedot:       notes || '-',
-        duration:         durationLabel || '—',
-        duration_hours:   window._bfwDurH ? Math.round(window._bfwDurH * 100) / 100 : '—',
-        start_time:       time || '-',
-        end_time:         endTime || '-',
-        ticket_name: `${fname} ${lname} — ${date || 'Pikapartio'}`,
-        ticket_content: [
-          `Asiakas: ${fname} ${lname}`,
-          `Puhelin: ${phone}`,
-          `Sähköposti: ${email}`,
-          `Palvelutyyppi: ${custype}`,
-          ``,
-          `Palvelutaso: ${svcWithIcon}`,
-          `Päivämäärä: ${date || 'Pikapartio'}`,
-          `Aloitus: ${time || '—'} · Lopetus: ${endTime || '—'} · Kesto: ${durationLabel} (${window._bfwDurH ? Math.round(window._bfwDurH*100)/100 : '—'}h)`,
+        payment_method:  payment || '',
+        arvioitu_hinta:  arvioidutHinta || '',
+        lisatiedot:      notes || '',
+        ticket_name:     `${fname} ${lname} — ${date || 'ei päivää'}`,
+        ticket_content:  [
+          `Palvelu: ${svcWithIcon}`,
+          window._bfwLabel ? `Tiedot: ${window._bfwLabel}` : '',
+          date ? `Päivämäärä: ${date}${time?' klo '+time:''}` : '',
+          endTime ? `Lopetusaika: ${endTime}` : '',
+          durationLabel ? `Kesto: ${durationLabel}` : '',
           `Osoite: ${address}, ${city}`,
-          `Kohteen koko: ${sizeLabels[size] || size}`,
-          ``,
-          `Palvelutoiveet: ${palvelutoiveet || '—'}`,
+          sizeLabels[size]||size ? `Koko: ${sizeLabels[size]||size}` : '',
+          '',
+          (window._bfwExtras||[]).length ? `Lisäpalvelut: ${(window._bfwExtras||[]).map(e=>e.l).join(', ')}` : '',
           (() => {
-            const extras = (window._bfwExtras||[]).map(e=>e.l).filter(Boolean)
-            return extras.length ? `Lisäpalvelut: ${extras.join(', ')}` : ''
-          })(),
-          (() => {
-            const svcType = document.querySelector('input[name="bfwSvcType"]:checked')?.value
-            if (svcType === 'ikkuna') {
-              const wt = document.getElementById('windowCountText')?.value
-              return wt ? `Ikkunanpesu: ${wt}` : ''
-            } else if (svcType === 'muutto' && window.winMuuttoCount > 0) {
-              return `Ikkunanpesu (muuttosiivous): ${window.winMuuttoCount} kpl`
-            }
+            const svcType=document.querySelector('input[name="bfwSvcType"]:checked')?.value
+            if(svcType==='ikkuna'){const wt=document.getElementById('windowCountText')?.value;return wt?`Ikkunanpesu: ${wt}`:''}
+            if(svcType==='muutto'&&window.winMuuttoCount>0) return `Ikkunanpesu: ${window.winMuuttoCount} kpl`
             return ''
           })(),
-          `Arvioitu hinta: ${arvioidutHinta}`,
+          `Hinta: ${arvioidutHinta}`,
           `Maksutapa: ${payment}`,
-          ``,
-          `Lisätiedot: ${notes || '—'}`,
+          notes ? `Lisätiedot: ${notes}` : '',
         ].filter(Boolean).join('\n')
       }
       fetch('https://hooks.zapier.com/hooks/catch/26714714/upwuzzt/', {
