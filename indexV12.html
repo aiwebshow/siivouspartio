@@ -3214,17 +3214,16 @@ async function handleBooking(){
                   || 'Peruspartio'
   const custype = document.querySelector('input[name="custype"]:checked')?.value || 'kotitalous'
   const payment = document.querySelector('input[name="payment"]:checked')?.value || ''
-  // Use bfw service label instead of old chip inputs
-  const palvelutoiveet = window._bfwLabel || svc
+  // Use bfw service type as the primary service label
+  const bfwSvcType = document.querySelector('input[name="bfwSvcType"]:checked')?.value
+  const bfwSvcLabels = {perus:'Kotisiivous', muutto:'Muuttosiivous', yritys:'Yrityssiivous', ikkuna:'Ikkunanpesu'}
+  const bfwSvcLabel = bfwSvcLabels[bfwSvcType] || window._bfwLabel || svc
+  const palvelutoiveet = window._bfwLabel || bfwSvcLabel
   const varusteet = ''
 
-  // Palvelutasojen ikonit
-  const serviceIcons = {
-    'Peruspartio': '⚡',
-    'Pikapartio': '⚡⚡⚡',
-    'Tehopartio': '⚡⚡'
-  }
-  const svcWithIcon = (serviceIcons[svc] || '') + ' ' + svc
+  // Palvelutasojen ikonit — use service type emoji instead
+  const serviceEmojis = {perus:'🏠', muutto:'📦', yritys:'🏢', ikkuna:'🪟'}
+  const svcWithIcon = (serviceEmojis[bfwSvcType] || '') + ' ' + bfwSvcLabel
 
   const priceDisplay = document.getElementById('priceDisplay')
   const priceText = priceDisplay ? priceDisplay.innerText.replace(/\s+/g, ' ').trim() : ''
