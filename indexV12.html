@@ -1203,7 +1203,7 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
 
   <div style="position:relative;z-index:2;" id="varaus">
 
-    <div class="reveal" style="margin-bottom:52px;">
+    <div class="reveal" style="margin-bottom:52px;position:relative;z-index:10;">
       <div class="section-label">Varaus</div>
       <h2 class="section-title" style="color:#fff;">Täytä lomake ja näe hintasi heti.</h2>
       <p class="section-sub">Valitse palvelu, kohteen koko ja ajankohta. Vahvistus alle 30 minuutissa.</p>
@@ -1216,7 +1216,7 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
 
 <style>
 /* ── BOOKING FORM — clean rebuild ── */
-.bfw{display:block;background:rgba(8,16,36,.78);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1.5px solid var(--orange);border-radius:22px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.06)}
+.bfw{display:block;background:rgba(8,16,36,.78);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1.5px solid var(--orange);border-radius:22px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.06);position:relative;z-index:1}
 
 /* Steps */
 .bfw-steps{display:flex;align-items:center;padding:22px 32px;border-bottom:1px solid rgba(255,255,255,.07);gap:0}
@@ -4078,7 +4078,9 @@ document.addEventListener('DOMContentLoaded', function(){
 
 // ── KUPONKI ─────────────────────────────────────────────────────────
 const COUPONS = {
-  'PARTIO15': { discount: 0.15, label: '-15%' }
+  'PARTIO15': { discount: 0.15, label: '-15%' },
+  'IKKUNA15': { discount: 0.15, label: '-15%' },
+  'MUUTTO15': { discount: 0.15, label: '-15%' }
 }
 // activeCoupon declared globally at top of script block 2
 
