@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Siivouspartio — Siivousta kertatilauksella nopeasti | Helsinki, Espoo, Vantaa</title>
-<meta name="description" content="Ammattisiivous kotiin ja yritykseen. Tilaa muutamalla klikkauksella. Hinta aina etukäteen. Espoo, Helsinki, Vantaa.">
+<meta name="description" content="Ammattisiivous kotiin ja yritykseen. Kotitalousvähennyksen jälkeen alk. 29 €/h. Hinta-arvio etukäteen, tyytyväisyystakuu. Espoo, Helsinki, Vantaa.">
 <link rel="icon" type="image/png" href="favicon.png">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
 <!-- Vercel Web Analytics -->
@@ -3352,6 +3352,7 @@ async function handleBooking(){
         tiedot:          window._bfwLabel || '-',
         service_date:    date || '-',
         service_time:    time || '-',
+        start_time:      time || '-',
         end_time:        endTime || '-',
         duration:        durationLabel || '-',
         duration_hours:  window._bfwDurH ? Math.round(window._bfwDurH*100)/100 : '-',
@@ -3554,6 +3555,7 @@ if(cmpCard){
       <ul>
         <li><strong>Yli 24h ennen palvelua:</strong> Peruutus on maksuton.</li>
         <li><strong>Alle 24h ennen palvelua:</strong> Veloitamme 50 € peruutusmaksun.</li>
+        <li><strong>Kuukausipaketti:</strong> Irtisanottavissa milloin tahansa kuukauden varoitusajalla.</li>
       </ul>
       <h4>3. Hinta ja maksaminen</h4>
       <p>Aika- ja hinta-arvio pitävät paikkansa 30 minuutin tarkkuudella. Lopullinen hinta perustuu toteutuneeseen työaikaan (hinnat sis. alv 25,5 %). Voit maksaa kortilla, MobilePaylla, maksulinkillä tai yrityslaskulla.</p>
