@@ -1878,8 +1878,10 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
     window._bfwLabel=bfwGetLabel();window._bfwDur=durStr;window._bfwDurH=dur;window._bfwBase=s5(dur*RATE);window._bfwNight=isNight;window._bfwInvoice=invoiceFee
   }
   let winMuutto = 0
+  window.winMuuttoCount = 0
   window.bfwWinMuutto = function(d){
     winMuutto = Math.max(0, winMuutto + d)
+    window.winMuuttoCount = winMuutto
     const n = gel('bfw-wn-muutto'), sub = gel('bfw-ws-muutto')
     if(n) n.textContent = winMuutto
     if(sub) sub.textContent = winMuutto > 0 ? '= €' + (Math.round(winMuutto * WP.keski * 100)/100).toFixed(2).replace('.',',') : '€11,25/kpl'
@@ -3321,8 +3323,16 @@ async function handleBooking(){
           if (wt) parts.push('Ikkunat: ' + wt)
           return parts.join(' | ') || '-'
         })(),
-        ikkunanpesu:      (() => { const sel = document.getElementById('windowCountText'); return sel?.value || '-' })(),
-        varusteet:        varusteet || '-',
+        ikkunanpesu: (() => {
+          const svcType = document.querySelector('input[name="bfwSvcType"]:checked')?.value
+          if (svcType === 'ikkuna') {
+            const wt = document.getElementById('windowCountText')?.value
+            return wt || '-'
+          } else if (svcType === 'muutto' && window.winMuuttoCount > 0) {
+            return window.winMuuttoCount + ' kpl (muuttosiivous)'
+          }
+          return '-'
+        })(),
         payment_method:   payment || '-',
         arvioitu_hinta:   arvioidutHinta || '-',
         lisatiedot:       notes || '-',
@@ -3348,8 +3358,16 @@ async function handleBooking(){
             const extras = (window._bfwExtras||[]).map(e=>e.l).filter(Boolean)
             return extras.length ? `Lisäpalvelut: ${extras.join(', ')}` : ''
           })(),
-          (() => { const sel = document.getElementById('windowCountText'); return sel?.value ? `Ikkunanpesu: ${sel.value}` : '' })(),
-          `Tarvittavat välineet: ${varusteet || '—'}`,
+          (() => {
+            const svcType = document.querySelector('input[name="bfwSvcType"]:checked')?.value
+            if (svcType === 'ikkuna') {
+              const wt = document.getElementById('windowCountText')?.value
+              return wt ? `Ikkunanpesu: ${wt}` : ''
+            } else if (svcType === 'muutto' && window.winMuuttoCount > 0) {
+              return `Ikkunanpesu (muuttosiivous): ${window.winMuuttoCount} kpl`
+            }
+            return ''
+          })(),
           `Arvioitu hinta: ${arvioidutHinta}`,
           `Maksutapa: ${payment}`,
           ``,
@@ -4061,6 +4079,7 @@ document.addEventListener('DOMContentLoaded', function(){
 // ── KUPONKI ─────────────────────────────────────────────────────────
 const COUPONS = {
   'PARTIO15': { discount: 0.15, label: '-15%' }
+  'IKKUNA15': { discount: 0.15, label: '-15%' }
 }
 // activeCoupon declared globally at top of script block 2
 
