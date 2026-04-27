@@ -3342,30 +3342,30 @@ async function handleBooking(){
     if(res.ok){
       // ── Zapier Webhook — tiketti + sähköpostit ──
       const zapData = {
-        firstname:       fname,
-        lastname:        lname,
-        email:           email,
-        phone:           phone,
-        address:         address,
-        city:            city,
-        service_type:    svcWithIcon,
-        tiedot:          window._bfwLabel || '',
-        service_date:    date || '',
-        service_time:    time || '',
-        end_time:        endTime || '',
-        duration:        durationLabel || '',
-        duration_hours:  window._bfwDurH ? Math.round(window._bfwDurH*100)/100 : '',
-        property_size:   sizeLabels[size] || size || '',
-        lisapalvelut:    (window._bfwExtras||[]).map(e=>e.l).filter(Boolean).join(', '),
+        firstname:       fname || '-',
+        lastname:        lname || '-',
+        email:           email || '-',
+        phone:           phone || '-',
+        address:         address || '-',
+        city:            city || '-',
+        service_type:    svcWithIcon || '-',
+        tiedot:          window._bfwLabel || '-',
+        service_date:    date || '-',
+        service_time:    time || '-',
+        end_time:        endTime || '-',
+        duration:        durationLabel || '-',
+        duration_hours:  window._bfwDurH ? Math.round(window._bfwDurH*100)/100 : '-',
+        property_size:   sizeLabels[size] || size || '-',
+        lisapalvelut:    (window._bfwExtras||[]).map(e=>e.l).filter(Boolean).join(', ') || '-',
         ikkunanpesu:     (() => {
           const svcType = document.querySelector('input[name="bfwSvcType"]:checked')?.value
-          if(svcType==='ikkuna'){ const wt=document.getElementById('windowCountText')?.value; return wt||'' }
+          if(svcType==='ikkuna'){ const wt=document.getElementById('windowCountText')?.value; return wt||'-' }
           if(svcType==='muutto'&&window.winMuuttoCount>0) return window.winMuuttoCount+' kpl'
-          return ''
+          return '-'
         })(),
-        payment_method:  payment || '',
-        arvioitu_hinta:  arvioidutHinta || '',
-        lisatiedot:      notes || '',
+        payment_method:  payment || '-',
+        arvioitu_hinta:  arvioidutHinta || '-',
+        lisatiedot:      notes || '-',
         ticket_name:     `${fname} ${lname} — ${date || 'ei päivää'}`,
         ticket_content:  [
           `Palvelu: ${svcWithIcon}`,
@@ -3554,7 +3554,6 @@ if(cmpCard){
       <ul>
         <li><strong>Yli 24h ennen palvelua:</strong> Peruutus on maksuton.</li>
         <li><strong>Alle 24h ennen palvelua:</strong> Veloitamme 50 € peruutusmaksun.</li>
-        <li><strong>Kuukausipaketti:</strong> Irtisanottavissa milloin tahansa kuukauden varoitusajalla.</li>
       </ul>
       <h4>3. Hinta ja maksaminen</h4>
       <p>Aika- ja hinta-arvio pitävät paikkansa 30 minuutin tarkkuudella. Lopullinen hinta perustuu toteutuneeseen työaikaan (hinnat sis. alv 25,5 %). Voit maksaa kortilla, MobilePaylla, maksulinkillä tai yrityslaskulla.</p>
