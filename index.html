@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Siivouspartio — Siivousta kertatilauksella nopeasti | Helsinki, Espoo, Vantaa</title>
-<meta name="description" content="Ammattisiivous kotiin ja yritykseen. Tilaa muutamalla klikkauksella. Hinta-arvio etukäteen. Espoo, Helsinki, Vantaa.">
+<meta name="description" content="Ammattisiivous kotiin ja yritykseen. Kotitalousvähennyksen jälkeen alk. 29 €/h. Hinta-arvio etukäteen, tyytyväisyystakuu. Espoo, Helsinki, Vantaa.">
 <link rel="icon" type="image/png" href="favicon.png">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
 <!-- Vercel Web Analytics -->
@@ -1217,7 +1217,7 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
 
 <style>
 /* ── BOOKING FORM — clean rebuild ── */
-.bfw{display:block;background:rgba(8,16,36,.78);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1.5px solid var(--orange);border-radius:22px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.06)}
+.bfw{display:block;background:rgba(8,16,36,.78);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1.5px solid var(--orange);border-radius:22px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.06);position:relative;z-index:1;width:100%;box-sizing:border-box}
 
 /* Steps */
 .bfw-steps{display:flex;align-items:center;padding:22px 32px;border-bottom:1px solid rgba(255,255,255,.07);gap:0}
@@ -1362,15 +1362,27 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
 .bfw-result:not(:empty){padding:0 32px 24px}
 .bfw-success{padding:16px 20px;background:rgba(22,163,74,.12);border:1px solid rgba(22,163,74,.28);border-radius:10px;color:#4ade80;font-size:.88rem;text-align:center;line-height:1.6}
 @media(max-width:600px){
-  .bfw-steps{padding:16px 20px}
-  .bfw-panel{padding:20px}
-  .bfw-footer{padding:12px 20px;flex-wrap:wrap}
+  .bfw-steps{padding:16px 14px;gap:0;overflow:hidden}
+  .bfw-step-label{font-size:.7rem}
+  .bfw-step-num{width:24px;height:24px;font-size:.75rem}
+  .bfw-panel{padding:18px 14px}
+  .bfw-footer{padding:12px 14px;flex-wrap:wrap;gap:10px}
   .bfw-nav{width:100%;justify-content:flex-end}
   .bfw-btn-back{display:none}
   .bfw-btn-back[style*="inline-block"]{display:inline-block!important;margin-right:auto}
   .bfw-field-grid{grid-template-columns:1fr}
   .bfw-date-row{grid-template-columns:1fr}
-  .bfw-svc-grid{grid-template-columns:1fr 1fr}
+  .bfw-pay-grid{grid-template-columns:1fr}
+  .bfw-svc-grid{grid-template-columns:1fr 1fr;gap:6px}
+  .bfw-svc-name{font-size:.78rem}
+  .bfw-tier-grid{grid-template-columns:1fr 1fr;gap:6px}
+  .bfw-toggle-group{flex-wrap:wrap}
+  .bfw-win-row{flex-wrap:wrap;gap:6px}
+  .bfw-win-price{margin-right:4px;white-space:nowrap}
+  .bfw-result{padding:0 14px}
+  .bfw-result:not(:empty){padding:0 14px 16px}
+  .bfw-summary{padding:14px}
+  .bfw-coupon-row{flex-wrap:nowrap}
 }
 </style>
 
