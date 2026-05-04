@@ -1042,7 +1042,7 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
           <span class="cmp-big" style="color:#fff">45</span><span class="cmp-big-unit" style="color:var(--orange)">€/h</span>
         </div>
         <div class="cmp-label">Yksi selkeä tuntihinta — ei lisämaksuja, ei yllätyksiä</div>
-        <div class="cmp-bar-track"><div class="cmp-bar-fill" data-w="100%"></div></div>
+        <div class="cmp-bar-track"><div class="cmp-bar-fill" data-w="50%"></div></div>
       </div>
 
       <div class="cmp-block">
@@ -1050,7 +1050,7 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
           <span class="cmp-big">12</span><span class="cmp-big-unit">h</span>
         </div>
         <div class="cmp-label">Nopeasti paikalla — ovellasi viimeistään seuraavana aamuna</div>
-        <div class="cmp-bar-track"><div class="cmp-bar-fill" data-w="10%"></div></div>
+        <div class="cmp-bar-track"><div class="cmp-bar-fill" data-w="90%"></div></div>
       </div>
 
       <div class="cmp-block">
@@ -1473,11 +1473,11 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
         <span class="bfw-slider-label">Asunnon koko</span>
         <span class="bfw-slider-val" id="bfw-muutto-val">60 m²</span>
       </div>
-      <input type="range" class="bfw-range" min="20" max="300" value="60" step="5" id="bfw-muutto-range" oninput="bfwCalc()">
+      <input type="range" class="bfw-range" min="20" max="300" value="75" step="5" id="bfw-muutto-range" oninput="bfwCalc()">
       <div class="bfw-section-title">Tyyppi</div>
       <div class="bfw-toggle-group">
-        <label class="bfw-toggle"><input type="radio" name="bfwMuutto" value="pois" onchange="bfwCalc()"><span class="bfw-toggle-label">Poismuutto</span></label>
-        <label class="bfw-toggle"><input type="radio" name="bfwMuutto" value="sisaan" checked onchange="bfwCalc()"><span class="bfw-toggle-label">Sisäänmuutto</span></label>
+        <label class="bfw-toggle"><input type="radio" name="bfwMuutto" value="pois" checked onchange="bfwCalc()"><span class="bfw-toggle-label">Poismuutto</span></label>
+        <label class="bfw-toggle"><input type="radio" name="bfwMuutto" value="sisaan" onchange="bfwCalc()"><span class="bfw-toggle-label">Sisäänmuutto</span></label>
         <label class="bfw-toggle"><input type="radio" name="bfwMuutto" value="remontti" onchange="bfwCalc()"><span class="bfw-toggle-label">Remonttisiivous ×2</span></label>
       </div>
       <div class="bfw-section-title">Lisäpalvelut</div>
@@ -1736,7 +1736,7 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
   function bfwGetSqm(){
     const t=gv('bfwSvcType_active')||getChecked('bfwSvcType')
     if(t==='perus') return parseInt(gel('bfw-perus-range')?.value)||75
-    if(t==='muutto') return parseInt(gel('bfw-muutto-range')?.value)||75
+    if(t==='muutto') return parseInt(gel('bfw-muutto-range')?.value)||60
     if(t==='yritys') return parseInt(gel('bfw-yritys-range')?.value)||100
     return 0
   }
@@ -1780,11 +1780,11 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
       const ct1=gel('ct1');if(ct1)ct1.value='kotisiivous'
 
     } else if(t==='muutto'){
-      const sqm=parseInt(mr?.value||60)
-      const muuttoVal=getChecked('bfwMuutto')||'sisaan'
-      const dm=muuttoVal==='pois'?1.0:muuttoVal==='remontti'?2.0:0.85
-      // Muuttosiivous ~2h per 35m²
-      dur=sqm/35*2.0*dm
+      const sqm=parseInt(mr?.value||75)
+      const muuttoVal=getChecked('bfwMuutto')||'pois'
+      const dm=muuttoVal==='pois'?1.5:muuttoVal==='remontti'?2.0:1.2
+      // Sama peruskesto kuin kotisiivous (siisti) × muuttokerroin
+      dur=sqm/35*1.4*dm
       if(winMuutto > 0) extras.push({l:'Ikkunanpesu '+winMuutto+' kpl', v: Math.round(winMuutto * WP.keski * 100)/100})
       if(gel('bfw-m-parveke')?.checked) extras.push({l:'Parveke',v:25})
       if(gel('bfw-m-kellari')?.checked) extras.push({l:'Kellari / varasto',v:30})
