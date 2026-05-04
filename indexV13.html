@@ -1736,7 +1736,7 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
   function bfwGetSqm(){
     const t=gv('bfwSvcType_active')||getChecked('bfwSvcType')
     if(t==='perus') return parseInt(gel('bfw-perus-range')?.value)||75
-    if(t==='muutto') return parseInt(gel('bfw-muutto-range')?.value)||60
+    if(t==='muutto') return parseInt(gel('bfw-muutto-range')?.value)||75
     if(t==='yritys') return parseInt(gel('bfw-yritys-range')?.value)||100
     return 0
   }
@@ -1744,7 +1744,7 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
 
   function bfwGetLabel(){
     const t=getChecked('bfwSvcType'),sqm=bfwGetSqm()
-    const tMap={perus:'kotisiivous',muutto:({pois:'poismuutto',sisaan:'sisäänmuutto',remontti:'remonttisiivous'}[getChecked('bfwMuutto')||'sisaan']),yritys:getChecked('bfwYTyyppi')||'toimisto',ikkuna:'ikkunanpesu'}
+    const tMap={perus:'kotisiivous',muutto:({pois:'poismuutto',sisaan:'sisäänmuutto',remontti:'remonttisiivous'}[getChecked('bfwMuutto')||'pois']),yritys:getChecked('bfwYTyyppi')||'toimisto',ikkuna:'ikkunanpesu'}
     if(t==='ikkuna'){const tot=wins.pieni+wins.keski+wins.iso;return tot+' ikkunaa, '+(getChecked('bfwITapa')==='molemmat'?'Vanhat ikkunat ×1.2':'Modernit ikkunat')}
     return sqm+' m² '+(tMap[t]||t)
   }
